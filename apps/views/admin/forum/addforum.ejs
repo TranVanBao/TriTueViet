@@ -1,0 +1,60 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">THÊM TÀI KHOẢN</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" action="/admin/themkhoahoc"  enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">TÊN KHÓA HOC:</label>
+						<input type="text" name="ten" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">LOẠI KHÓA HỌC:</label>
+						<input type="text" name="loai" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">PHÍ DỊCH VỤ:</label>
+						<input type="text" name="phidichvu" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">ĐIỀU KIỆN:</label>						
+						<textarea name="dieukien" class="form-control" id="recipient-name" rows="10" cols="30">The cat was playing in the garden.</textarea>
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
+						<select name="trangthai" class="form-control" >
+							<option value="0">ẨN</option>
+							<option value="1">HIỆN</option>							
+						  </select>
+					</div>
+					<div class="file-field">
+						<div class="z-depth-1-half mb-4">
+						  <!-- <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg" class="img-fluid"
+							alt="example placeholder"> -->
+							<img src="" id="profile-img-tag" width="100%" height="200px" />						
+						</div>
+						<div class="d-flex justify-content-center">
+						  <div  class="btn btn-mdb-color btn-rounded float-left">
+							<span>Choose file</span>
+							<input type="file" name="file" id="profile-img">
+						  </div>
+						</div>
+					  </div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>
+						
+						<input type="submit" class="btn btn-primary" value="TẠO KHÓA HỌC">
+					</div>			
+				</form>
+				
+			</div>
+			
+		</div>
+	</div>
+</div>

@@ -1,0 +1,52 @@
+{
+  "name": "trungtam_lan4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon --exec babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ckeditor/ckeditor5-ckfinder": "^16.0.0",
+    "@ckeditor/ckeditor5-easy-image": "^16.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "ckeditor": "^4.12.1",
+    "ckeditor5": "^16.0.0",
+    "ckeditor5-my-block-toolbar": "^1.0.2",
+    "ckeditor5-upload-adapter": "^1.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.0",
+    "express-validator": "^6.3.0",
+    "fs": "0.0.1-security",
+    "method-override": "^3.0.0",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "pg": "^7.14.0",
+    "pg-hstore": "^2.3.3",
+    "s-date": "^1.6.4",
+    "sequelize": "^5.21.3",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/register": "^7.7.4",
+    "@babel/runtime": "^7.7.6",
+    "@ckeditor/ckeditor5-alignment": "^16.0.0",
+    "babel-loader": "^8.0.6"
+  }
+}

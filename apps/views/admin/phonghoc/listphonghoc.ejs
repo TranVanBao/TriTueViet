@@ -1,0 +1,173 @@
+<%- include ('../header') -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Dashboard</a>
+        </li>
+        <li class="breadcrumb-item active">Tables</li>
+    </ol>
+
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <!-- <i class="fas fa-table"></i>
+            Data Table Example -->
+            <div><button data-toggle="modal" data-target="#exampleModal" style="color: #fff;float: right;
+              height: 30px;
+              font-weight: bold;
+              font-size: 12px;
+              text-shadow: none;
+              min-width: 100px;
+              border-radius: 50px;
+              line-height: 13px;
+              background-color: #269abc;
+              border-color: #1b6d85 ; float:right;"><i class="fas fa-plus"></i> Add </button>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên phòng</th>
+                            <th>Số lượng</th>
+                            <th>Hiện Trạng</th>
+                            <th>Trạng thái </th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% var stt = 0 %>
+                        <% data.forEach(dulieu => { %>
+                        <% stt++ %>
+                        <tr>
+                            <td><%= stt %></td>
+                            <td><%= dulieu.tenphonghoc %></td>
+                            <td><%= dulieu.soluongnguoi %></td>
+                            <td><%= dulieu.hientrang %></td>
+                            <td> <% if(dulieu.trangthai == 1) { %>
+                               Đang sử dụng
+                                <% } else {%>
+                                    Không sử dụng
+                                    <% } %>
+                            </td>
+
+                            <td>
+                                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit"
+                                    data-toggle="modal" data-target="#updatephong<%= dulieu.id %>">
+                                    <i class="fas fa-pen">&nbsp;</i></a>
+
+                                <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
+                                    data-toggle="modal" data-target="#delete<%= dulieu.id %>"><i
+                                        class="fas fa-trash">&nbsp;</i></a>
+
+                                <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa !!!</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a class="btn btn-primary" href="/admin/phonghoc/<%= dulieu.id %>">Yes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="modal fade" id="updatephong<%= dulieu.id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">SỬA PHÒNG HỌC</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" action="/admin/phonghoc/<%= dulieu.id %>">
+
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">TÊN
+                                                            PHÒNG:</label>
+                                                        <input value="<%= dulieu.tenphonghoc %>" type="text" name="tenphonghoc"
+                                                            class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="recipient-name" class="col-form-label">HIỆN TRẠNG:</label>
+                                                        <input value="<%= dulieu.hientrang %>" type="text" name="hientrang"
+                                                            class="form-control" id="recipient-name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">SỐ
+                                                            LƯỢNG NGƯỜI:</label>
+                                                        <input value="<%= dulieu.soluongnguoi %>" type="text" pattern="[0-9]{2,3}" name="soluongnguoi"
+                                                            class="form-control" id="recipient-name">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">TRẠNG
+                                                            THÁI:</label>
+                                                        <select value="<%= dulieu.trangthai %>" name="trangthai"
+                                                            class="form-control">
+                                                            <% if(dulieu.trangthai == 1 ) {%>
+                                                            <option value="1">SỬ DỤNG</option>
+                                                            <option value="0">KHÔNG SỬ DỤNG</option>
+                                                            <% } else {%>
+                                                            <option value="0">KHÔNG SỬ DỤNG</option>
+                                                            <option value="1">SỬ DỤNG</option>
+                                                            <% } %>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-dismiss="modal">THOÁT</button>
+
+                                                        <input type="submit" class="btn btn-primary" value="SỬA PHÒNG">
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+
+                        <%}); %>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+    <p class="small text-center text-muted my-5">
+        <em>More table examples coming soon...</em>
+    </p>
+
+</div>
+
+
+<%- include ('addphonghoc') -%>
+<%- include ('../footer') -%>
