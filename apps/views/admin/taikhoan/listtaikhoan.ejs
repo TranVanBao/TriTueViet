@@ -34,12 +34,12 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên tài khoản</th>
-              <th>Email</th>
-              <th>Trạng thái</th>
-              <th>Quyền</th>
-              <th>Action</th>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên tài khoản</th>
+              <th class="canhgiua">Email</th>
+              <th class="canhgiua">Quyền</th>
+              <th class="canhgiua">Trạng thái</th>
+              <th class="canhgiua">Tác vụ</th>
 
             </tr>
           </thead>
@@ -48,23 +48,23 @@
             <% data.forEach(dulieu => { %>
             <% stt++ %>
             <tr>
-              <td><%= stt %></td>
-              <td><%= dulieu.tentaikhoan %></td>
-              <td><%= dulieu.email  %></td>
-              <td><%= dulieu.quyenhang %></td>
-              <td> <% if(dulieu.trangthai == 1) { %>
+              <td class="canhgiua"><%= stt %></td>
+              <td class="canhgiua"><%= dulieu.tentaikhoan %></td>
+              <td class="canhgiua"><%= dulieu.email  %></td>
+              <td class="canhgiua"><%= dulieu.quyenhang %></td>
+              <td class="canhgiua"> <% if(dulieu.trangthai == 1) { %>
                 Đang sử dụng
                 <% } else {%>
                 Không sử dụng
                 <% } %>
               </td>
-              <td>
-                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit" data-toggle="modal"
+              <td class="canhgiua" style="text-align: center;">
+                <a href="#" style="color: greenyellow;" class="edit" title="Edit" data-toggle="modal"
                   data-target="#updatetk<%= dulieu.id %>">
-                  <i class="fas fa-pen">&nbsp;</i></a>
+                  <i class="fas fa-edit"></i>&nbsp;</i></a>
 
                 <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete" data-toggle="modal"
-                  data-target="#delete<%= dulieu.id %>"><i class="fas fa-trash">&nbsp;</i></a>
+                  data-target="#delete<%= dulieu.id %>">  <i class="far fa-trash-alt"></i></a>
 
                 <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -78,7 +78,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a class="btn btn-primary" href="/xoatk/<%= dulieu.id %>">Yes</a>
+                        <a class="btn btn-primary" href="/admin/taikhoan/<%= dulieu.quyenhang%>/<%= dulieu.id %>">Yes</a>
                       </div>
                     </div>
                   </div>
@@ -96,7 +96,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form method="POST" action="/admin/taikhoan/<%= dulieu.id %>">
+                        <form method="POST" action="/admin/taikhoan/<%= dulieu.quyenhang%>/<%= dulieu.id %>">
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">TÊN TÀI KHOẢN:</label>
                             <input type="text" minlength="6" name="tentaikhoan" class="form-control" id="recipient-name"

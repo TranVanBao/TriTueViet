@@ -11,69 +11,132 @@
 </section>
 <!--================End Banner Area =================-->
 <section class="contact_us_area">
-        <div class="container">          
-            <div class="contact_details_inner">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="contact_text">
+    <div class="container">
+        <div class="contact_details_inner">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact_text">
+                        <div class="main_title">
+                            <h2>LIÊN HỆ</h2>
+                            <p></p>
+                        </div>
+                        <div class="contact_d_list">
+                            <img src="../../../images/img/dangky.png" alt="">
+                        </div>
+                        <div class="static_social">
                             <div class="main_title">
-                                <h2>LIÊN HỆ</h2>
-                                <p></p>
+                                <h2>Follow Us:</h2>
                             </div>
-                            <div class="contact_d_list">
-                                <img src="../../../images/img/dangky.png" alt="">
-                            </div>
-                            <div class="static_social">
-                                <div class="main_title">
-                                    <h2>Follow Us:</h2>
-                                </div>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                </ul>
-                            </div>
+                            <ul>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <div class="contact_form">
-                            <div class="main_title">
-                                <h2>ĐĂNG KÝ</h2>
-                                <p>CHÚNG TÔI SẼ LIÊN HỆ VỚI BẠN SỚM NHẤT.</p>
-                            </div>
-                            <form class="contact_us_form row" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
-                                <div class="form-group col-lg-12">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="Họ và tên">
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="SDT">
-                                </div>
-    
-                                <div class="form-group col-lg-12">
-                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <input type="text" class="form-control" id="subject" name="subject" placeholder="Địa chỉ">
-                                </div>
-                                <div class="form-group col-lg-12">
-                                    <select style="height: 50px" id="message" class="form-control">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="mercedes">Mercedes</option>
-                                        <option value="audi">Audi</option>
-                                      </select>
-                                </div>
-                                <div class="form-group col-md-12">
-                                    <button type="submit" value="submit" class="btn submit_btn2 form-control">ĐĂNG KÝ</button>
-                                </div>
-                            </form>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact_form">
+                        <div class="main_title">
+                            <h2>ĐĂNG KÝ</h2>
+                            <p style="color:green;">CHÚNG TÔI SẼ LIÊN HỆ VỚI BẠN SỚM NHẤT.</p>
                         </div>
+                        <form name="dangkyhocoutsite" class="contact_us_form row"
+                            action="/register" method="post" id="subscribeForm" novalidate="novalidate">
+                            <div class="form-group col-lg-12">
+                                <input required type="text" class="form-control" id="name" name="tenkhachhang"
+                                    placeholder="Họ và tên">
+                                <p id="dk1" style="color: crimson;"></p>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input required type="text" class="form-control" id="sdt" name="sdt" placeholder="SDT">
+                                <p id="dk3" style="color: crimson;"></p>
+                            </div>
+
+                            <div class="form-group col-lg-12">
+                                <input required type="email" class="form-control" id="email" name="email"
+                                    placeholder="Email">
+                                <p id="dk4" style="color: crimson;"></p>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <input type="text" class="form-control" id="diachi" name="diachi" placeholder="Địa chỉ">
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <select required id="khoahoc" name="id_lophoc" style="height: 50px" id="message"
+                                    class="form-control">
+                                    <option>----Chọn khoá học bạn muốn đăng kí----</option>
+                                    <% lophoc.forEach(dulieu => { %>
+                                    <option value="<%= dulieu.id %>"><%= dulieu.tenlophoc %> ----
+                                        <%= dulieu.thoigianhoc %></option>
+                                    <% }) %>
+                                </select>
+                                <p id="dk2" style="color: crimson;"></p>
+                            </div>
+                            <div class="form-group col-lg-12">
+                                <div class="g-recaptcha" data-sitekey="6LfWmNgUAAAAALIFQ75sjMWzLu5XyZOtpdalpRro"></div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <input style="color: white;" class="btn submit_btn2 form-control" type="submit"
+                                    value="ĐĂNG KÝ">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--================End Contact Us Area =================-->
+    </div>
+</section>
+<script>
+    document.getElementById('subscribeForm').addEventListener('submit', e => {
+        e.preventDefault();
+        const tenkhachhang = document.querySelector('#name').value;
+        const sdt = document.querySelector('#sdt').value;
+        const email = document.querySelector('#email').value;
+        const diachi = document.querySelector('#diachi').value;
+        const khoahoc = document.querySelector('#khoahoc').value;
+        const captcha = document.querySelector('#g-recaptcha-response').value;  
+        
+        if (tenkhachhang == "" || tenkhachhang.length < 5) {
+            document.getElementById("dk1").innerHTML = " Không được để trống , dữ liệu phải trên 5 kí tự !!!";
+            return false;
+        } else {
+            document.getElementById("dk1").innerHTML = "";
+
+        }
+        if (sdt == "" || Number.isNaN(sdt) || sdt.length < 9 || sdt.length > 12) {
+            document.getElementById("dk3").innerHTML = " Xin điền số điện thoại hợp lệ của bạn !!!";
+            return false;
+        } else {
+            document.getElementById("dk3").innerHTML = "";
+        }
+
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            document.getElementById("dk4").innerHTML = "";
+        } else {
+            document.getElementById("dk4").innerHTML = " Xin điền nội dung email !!!";
+            return false;
+        }
+        if (khoahoc == "" || isNaN(khoahoc)) {
+            document.getElementById("dk2").innerHTML = " Xin chọn 1 khóa học !!!";
+            return false;
+        } else {
+            document.getElementById("dk2").innerHTML = "";
+        }
+
+        return fetch('/register', {
+            method: 'POST',
+            headers: { 'Content-type': 'application/json' },
+            body: JSON.stringify({ tenkhachhang, sdt, email, diachi, khoahoc, captcha })
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                alert(data.msg);
+                if (data.success) return location.reload();
+            });
+    });
+</script>
+<!--================End Contact Us Area =================-->
 
 <%- include ("footer") -%>

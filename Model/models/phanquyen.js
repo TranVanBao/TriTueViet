@@ -6,6 +6,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   phanquyen.associate = function(models) {
     // associations can be defined here
+    phanquyen.hasMany(models.taikhoan, {
+			foreignKey: 'quyenhang',
+			as: 'taikhoans',
+			onDelete: 'CASCADE',
+		});
+
   };
   return phanquyen;
 };

@@ -22,29 +22,56 @@
                             <option value="<%= dl.tenkhoahoc %>"> <%= dl.tenkhoahoc %></option>
                             <%}); %>
                         </select>
+					</div>
+					<div class="form-group">
+                        <label for="message-text" class="col-form-label">GIẢNG VIÊN ĐỨNG LỚP :</label>
+                        <select name="id_giangvien" class="form-control">
+                            <% giangvien.forEach(dl => { %>
+                            <option value="<%= dl.id %>"> <%= dl.hoten %></option>
+                            <%}); %>
+                        </select>
                     </div>
 					<div class="form-group">
 						<label for="recipient-name" class="col-form-label">SỐ LƯỢNG HỌC VIÊN:</label>
-						<input type="text" pattern="[0-9]{2,3}" required name="soluonghocvien" class="form-control" id="recipient-name">
+						<input placeholder="VD: 20 - 50" type="text" pattern="[0-9]{2,3}" required name="soluonghocvien" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">THỜI GIAN HỌC:</label>
+						<input placeholder="VD: Thứ 3 - 5 - 7, 18h-20h" type="text"  required name="thoigianhoc" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">THỜI LƯỢNG HỌC:</label>
+						<input placeholder="VD: 3 Tháng" type="text"  required name="thoiluonghoc" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="recipient-name" class="col-form-label">HỌC PHÍ:</label>
+						<input placeholder="VD: 3 000 000" type="text" pattern="[0-9]{4,9}" required name="phidichvu" class="form-control" id="recipient-name">
+					</div>
+					<div class="form-group">
+						<label for="message-text" class="col-form-label">ĐIỀU KIỆN:</label>						
+						<textarea name="dieukienhoc" required  class="form-control" id="recipient-name" rows="10" cols="30">Biết một ngôn ngữ lập trình bất kỳ.</textarea>
 					</div>
 					<div class="form-group">
 						<% let now = new Date() %> 
 						<% let d = date('{yyyy}-{mm}-{dd}', now)  %>
 						<label for="message-text" class="col-form-label">NGÀY BẮT ĐẦU:</label>
-						<input type="date"  min="<%= d %>" required name="thoigianbatdau" class="form-control" id="txtFrom">
-					</div>
+						<input value="<%= d %>" placeholder="<% d %> " type="date"  min="<%= d %>" required name="thoigianbatdau" class="form-control" id="txtFrom">
+					</div>	
 					<div class="form-group">
-						<label for="message-text" class="col-form-label">NGÀY NGÀY KẾT THÚC:</label>
-						<input type="date" min="<%= d %>" required name="thoigianketthuc" class="form-control" id="txtTo">
-					</div>
-					
-					<div class="form-group">
-						<label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
-						<select name="trangthai" class="form-control">
-							<option value="0">ẨN</option>
-							<option value="1">HIỆN</option>
+						<label for="message-text" class="col-form-label">PHÒNG HỌC:</label>
+						<select name="id_phonghoc" class="form-control">
+							<% phonghoc.forEach(dl => { %>
+							<option value="<%= dl.id %>"> <%= dl.tenphonghoc %> --  <%= dl.hientrang %></option>
+							<%}); %>
 						</select>
-					</div>
+					</div>				
+					<!-- <div class="form-group">
+						<label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
+						<select name="trangthai" class="form-control">							
+							<option  checked value="1">Sắp khai giảng</option>
+							<option value="0">ẨN</option>
+						</select>
+					</div> -->
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>

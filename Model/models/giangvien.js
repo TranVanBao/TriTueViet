@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   giangvien.associate = function(models) {
     // associations can be defined here
+    giangvien.hasMany(models.lophoc, {
+			foreignKey: 'id_giangvien',
+			as: 'lophocs',
+			onDelete: 'CASCADE',
+		});
+
   };
   return giangvien;
 };

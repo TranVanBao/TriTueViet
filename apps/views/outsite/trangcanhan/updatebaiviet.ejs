@@ -1,0 +1,69 @@
+<%- include ('./headerOut.ejs') -%>
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9" style="box-shadow: 0 0 5px #dedede;
+            left: 15%;">
+                <div class="page-content ask-question">
+                    <div class="contact_form boxedtitle page-title">
+                        <div class="main_title">
+                            <h2 style="color: mediumvioletred;">Sửa Bài Viết</h2>
+                            <div class="form-style form-style-3" id="question-submit">
+                                <form class="contact_us_form row" action="/taikhoan/diendan/update/<%= data.id %>"
+                                    method="post" id="contactForm" novalidate="novalidate">
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: mediumvioletred;">Tiêu đề</h5>
+                                        </p>
+                                        <input type="text" class="form-control" id="subject" name="tieude"
+                                            value="<%= data.tieude %> " placeholder="TIÊU ĐỀ">
+                                    </div>
+
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: mediumvioletred;">Khóa học</h5>
+                                        </p>
+                                        <select aria-readonly="true" name="id_khoahoc" style="height: 50px" id="message"
+                                            class="form-control">
+                                            <option value="<%= data.id_khoahoc%>"><%= data.tenkhoahoc%></option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: mediumvioletred;">Nội dung</h5>
+                                        </p>
+                                        <textarea required name="noidung" id="ckeditor2"><%= data.noidung %> </textarea>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
+                                        <select name="trangthai" class="form-control">
+                                            <% if(data.trangthai == 1) { %>
+                                            <option value="1">HIỆN</option>
+                                            <option value="0">ẨN</option>
+                                            <% } else {%>
+                                            <option value="0">ẨN</option>
+                                            <option value="1">HIỆN</option>
+                                            <% } %>
+
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <input style="color: white;text-align: center;
+                                            background: #41cac0;
+                                            box-shadow: 0 0 5px #dedede;                                        
+                                            font-size: 20px;                                      
+                                            margin-left: 0%;
+                                            width: 30%;" type="submit" value="SỬA BÀI VIẾT">
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div><!-- End page-content -->
+                    </div>
+                </div><!-- End main -->
+            </div>
+        </div>
+</section>
+<%- include ('./footerOut.ejs') -%>

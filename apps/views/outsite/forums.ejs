@@ -3,12 +3,8 @@
 <section class="banner_area">
     <div class="container">
         <div class="banner_text_inner">
-            <h4>The ultimate guide to creative agency roles</h4>
-            <ul>
-                <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
-                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>Archive</a></li>
-                <li><a href="static.html"><i class="fa fa-angle-right" aria-hidden="true"></i>Static Page</a></li>
-            </ul>
+            <h4>HỎI VÀ ĐÁP</h4>
+           
         </div>
     </div>
 </section>
@@ -17,56 +13,54 @@
 <!--================End Banner Area =================-->
 <section class="contact_us_area">
     <div class="container">
-        <div class="contact_details_inner">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="contact_text">
-                        <h1>Classic editor</h1>
-                        <form action="/forums" method="post">
-                            <textarea name="content" id="editor"></textarea>
-                            <input type="submit" value="Submit">
-                        </form>
-
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="contact_form">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="page-content ask-question">
+                    <div class="contact_form boxedtitle page-title">
                         <div class="main_title">
-                            <h2>ĐĂNG KÝ</h2>
-                            <p>CHÚNG TÔI SẼ LIÊN HỆ VỚI BẠN SỚM NHẤT.</p>
+                            <h2>Tạo Bài Viết</h2>
+                            <% if(!user.tentaikhoan) { %>
+                            <p style="color: red;">Bạn vui lòng đăng nhập trước khi tạo bài viết.</p>
+                            <% } %> 
                         </div>
-                        <form class="contact_us_form row" action="contact_process.php" method="post" id="contactForm"
-                            novalidate="novalidate">
-                            <div class="form-group col-lg-12">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Họ và tên">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="SDT">
-                            </div>
-
-                            <div class="form-group col-lg-12">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <input type="text" class="form-control" id="subject" name="subject"
-                                    placeholder="Địa chỉ">
-                            </div>
-                            <div class="form-group col-lg-12">
-                                <select style="height: 50px" id="message" class="form-control">
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="mercedes">Mercedes</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-12">
-                                <button type="submit" value="submit" class="btn submit_btn2 form-control">ĐĂNG
-                                    KÝ</button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-style form-style-3" id="question-submit">
+                            <form onsubmit="return validateTaoBV()" name="taobv" class="contact_us_form row" action="/forum/hoi-bai" method="post"
+                                id="contactForm" novalidate="novalidate">
+                                <div class="form-group col-lg-12">
+                                    <input required type="text" class="form-control" id="subject" name="tieude"
+                                        placeholder="TIÊU ĐỀ">
+                                        <p id="demo" style="color: crimson;"></p>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <select name="id_khoahoc" style="height: 50px" id="message" class="form-control">
+                                        <option  value="">Xin chọn khóa học</option>
+                                        <% data.forEach(dulieu => { %>
+                                            <% if(dulieu.trangthai == 1 ) {%>
+                                        <option value="<%= dulieu.id %>"><%= dulieu.tenkhoahoc %></option>
+                                        <% } %>
+                                        <% })%>
+                                       
+                                    </select>
+                                    <p id="demo1" style="color: crimson;"></p>
+                                </div>
+                                <div class="form-group col-lg-12">
+                                    <textarea required name="noidung" id="ckeditor"></textarea>
+                                    <p id="demo2" style="color: crimson;"></p>
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <button type="submit" value="submit" class="btn submit_btn2 form-control">GỬI BÀI
+                                        VIẾT</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- End page-content -->
                 </div>
-            </div>
+            </div><!-- End main -->
+
+            
+            <%- include ('./forums/taobv.ejs') -%>
+
+
         </div>
     </div>
 </section>

@@ -1,5 +1,5 @@
 
-// Disable form submissions if there are invalid fields
+// Vô hiệu hóa nếu có các trường không hợp lệ
 (function() {
   'use strict';
   window.addEventListener('load', function() {

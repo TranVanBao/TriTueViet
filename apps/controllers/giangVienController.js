@@ -1,5 +1,4 @@
 import fs from "fs";
-import multer from "multer";
 import giangvienService from "../services/giangVienService";
 
 let d = new Date();
@@ -9,16 +8,16 @@ d.getFullYear();
 let n = d.getDate() + d.getMonth() + d.getFullYear();
 
 class giangvienController {
-  static async getAll(req, res) {
-    console.log(req.session.user);
-    if (req.session.user) {
+  static async getAll(req, res) {  
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {
+        const user = req.session.user
         const data = await giangvienService.getAll();
         if (data.length > 0) {
-          res.render("../views/admin/nhanvien/listnv.ejs", { data: data });
+          res.render("../views/admin/nhanvien/listnv.ejs", { data ,user });
         } else {
           res.render("../views/admin/nhanvien/listnv.ejs", {
-            data: data,
+            data, user,
             message: "Khong co du lieu"
           });
         }
@@ -30,33 +29,29 @@ class giangvienController {
     }
   }
 
-  static async Delete(req, res) {
-    console.log(req.session.user);
-    if (req.session.user) { 
+  static async Delete(req, res) {   
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       let { id, hinhanh } = req.params;
       if (!Number(id)) {
-        res.status(404).redirect("/admin/giangvien");
+        res.redirect("/admin/giangvien");
       }
+
       try {
         if (hinhanh != "ImagesDefault.png") {
-          let xoahinh = await fs.unlink(
-            "../../public/uploadimg/" + hinhanh,
-            err => {
-              if (err) return err;
-            }
-          );
-          if (!xoahinh) {
-            console.log("Xoa hinh khong thanh cong !!!!");
+          // var url_del = "../../public/uploadimg/" + hinhanh;
+          var url_del = "public/uploadimg/" + hinhanh;
+          console.log(url_del);
+          if (fs.existsSync(url_del)) {
+            fs.unlinkSync(url_del);
           }
         }
-
         let Xoa = await giangvienService.delete(id);
         if (Xoa) {
-          res.status(204).redirect("/admin/giangvien");
+          res.redirect("/admin/giangvien");
         } else {
-          res.status(404).redirect("/admin/giangvien");
+          res.redirect("/admin/giangvien");
         }
-        res.status(404).redirect("/admin/giangvien");
+        res.redirect("/admin/giangvien");
       } catch (error) {
         return error;
       }
@@ -66,7 +61,7 @@ class giangvienController {
   }
 
   static async add(req, res) {
-    let hinhanh = n + "-" + "ImagesDefault.png";
+    let hinhanh = "ImagesDefault.png";
     if (req.file) {
       hinhanh = n + "-" + req.file.originalname;
     }
@@ -80,33 +75,26 @@ class giangvienController {
   }
 
   static async update(req, res) {
-    console.log(req.file);
-    let altered = { ...req.body };
-    // if (req.file) {
-    //   let hinhanh = req.file.originalname;
-    //   altered = { ...req.body, hinhanh };
-    // }
-    // let altered = { ...req.body };
-    const { id } = req.params;
-    if (!Number(id)) {
-      res.status(404).redirect("/admin/giangvien");
-      return res.status(404).redirect("/admin/giangvien");
+    let id = req.params.id
+    let hinhanh = req.body.hinhanh;    
+    if (req.file) {    
+      hinhanh = n + "-" + req.file.originalname;
     }
+      
+  let  altered = { ...req.body, hinhanh };
+    console.log(altered);    
     try {
       const update = await giangvienService.Update(id, altered);
       if (!update) {
-        res.status(404).redirect("/admin/giangvien");
+        res.redirect("/admin/giangvien?kq=0");
       } else {
-        res.status(404).redirect("/admin/giangvien");
+        res.redirect("/admin/giangvien?kq=1");
       }
-      return res.status(404).redirect("/admin/giangvien");
+      return res.redirect("/admin/giangvien");
     } catch (error) {
-      res.status(404).redirect("/admin/giangvien");
-      return util.send(res);
+      return res.redirect("/admin/giangvien");
     }
   }
-
-
 }
 
 export default giangvienController;

@@ -3,7 +3,12 @@ import sequelize from "sequelize";
 class khoahocService {
   static async getAll() {
     try {
-      return await database.khoahoc.findAll();
+      return await database.khoahoc.findAll({        
+        order: [         
+          ['id', 'DESC']
+        ]
+      }
+      );
     } catch (error) {
       throw error;
     }
@@ -11,16 +16,29 @@ class khoahocService {
   static async getByID(id) {
     try {
       let id_khoahoc = await database.khoahoc.sequelize.query(
-        `SELECT  tenkhoahoc FROM public.khoahocs  where id = ` + id + ` `
+        `SELECT  tenkhoahoc , dieukienhoc FROM public.khoahocs  where id = ` + id + ` `
       );
       return id_khoahoc;
     } catch (error) {
       throw error;
     }
   }
+// get moi nhta ko co id 
+static async getByIDMN() {
+  try {
+    let id_khoahoc = await database.khoahoc.sequelize.query(
+      `SELECT *
+      FROM khoahocs
+      WHERE id = (SELECT MAX(id) FROM khoahocs) `
+    );
+    return id_khoahoc;
+  } catch (error) {
+    throw error;
+  }
+}
 
   static async delete(id) {
-    try {
+    try {     
       return await database.khoahoc.destroy({
         where: { id }
       });
@@ -67,6 +85,21 @@ class khoahocService {
       throw error;
     }
   }
+  //  sử dụng cho lớp học
+  static async getKH() {
+    try {
+      return await database.khoahoc.findAll({  
+             where:{trangthai:1}, 
+        order: [         
+          ['id', 'DESC']
+        ]
+      }
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export default khoahocService;

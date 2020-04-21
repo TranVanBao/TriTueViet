@@ -8,11 +8,15 @@ class phanhoiService {
       throw error;
     }
   }
+  
   static async getByID(id) {
     try {
-      return await database.phanhoi.findAll({
-        where: { id }
-      });
+      let id_khoahoc = await database.khoahoc.sequelize.query(
+        `SELECT phanhois.*, taikhoans.tentaikhoan, diendans.id , taikhoans.hinhanh
+         FROM public.phanhois,public.diendans, public.taikhoans  
+         where phanhois.id_tktraloi = taikhoans.id and phanhois.id_diendan = diendans.id and phanhois.id_diendan = ` + id + ` `
+      );      
+      return id_khoahoc;
     } catch (error) {
       throw error;
     }
@@ -27,8 +31,8 @@ class phanhoiService {
       throw error;
     }
   }
-  static async Save(data) {
-    try {
+  static async add(data) {
+    try {        
       return await database.phanhoi.create(data);
     } catch (error) {
       throw error;
@@ -41,15 +45,18 @@ class phanhoiService {
         where: { id }
       });
       if (tk) {
-        return await database.phanhoi.update(data, {
-          where: { id: Number(id) }
+        await database.phanhoi.update(data, {
+          where: { id }
         });
+        return data;
       }
       return null;
     } catch (error) {
       throw error;
     }
   }
+
+ 
 }
 
 export default phanhoiService;

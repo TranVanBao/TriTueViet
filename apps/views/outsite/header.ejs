@@ -14,12 +14,12 @@
 
     <!-- Icon css link -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link href="../../../css/outsite/css/font-awesome.min.css" rel="stylesheet">
+    <link type="text/css" href="../../../css/outsite/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../../vendors/elegant-icon/style.css" rel="stylesheet">
     <link href="../../../vendors/themify-icon/themify-icons.css" rel="stylesheet">
     <!-- Bootstrap -->
 
-    <link href="../../../css/outsite/css/bootstrap.min.css" rel="stylesheet">
+    <link type="" href="../../../css/outsite/css/bootstrap.min.css" rel="stylesheet">
     <!-- Rev slider css -->
     <link href="../../../vendors/revolution/css/settings.css" rel="stylesheet">
     <link href="../../../vendors/revolution/css/layers.css" rel="stylesheet">
@@ -36,54 +36,66 @@
     <link href="../../../css/outsite/css/responsive.css" rel="stylesheet">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
-   
+    <link href="../../../css//outsite/css/outsite.css" rel="stylesheet">
+    <link href="../../..//css//outsite/css//outsiteLichkhaigiang.css" rel="stylesheet">
+    <link href="../../..//css//outsite/css/indexoutsite.css" rel="stylesheet">   
+    <link href="../../../Bao_css.css" rel="stylesheet">
+  <script type="text/javascript" src="../../../ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
-
-    <!--================Search Area =================-->
-    <section class="search_area">
-        <div class="search_inner">
-            <input type="text" placeholder="Enter Your Search...">
-            <i class="ti-close">
-            </i>
-
-        </div>
-    </section>
-    <!--================End Search Area =================-->
-
     <!--================Header Menu Area =================-->
-    <header class="main_menu_area">
+    <header class="main_menu_area" style="z-index: 999;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><img src="../../../images/img/logo.png" alt=""></a>
+            <a class="navbar-brand" href="#"><h5 style="color: whitesmoke;"> <strong>TRÍ TUỆ VIỆT</strong> </h2></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
+            <% let limit = 5 %>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active"><a class="nav-link" href="/">TRANG CHỦ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/khoahoc">LỊCH KHAI GIẢNG</a></li>
-                    <li class="nav-item"><a href="/blog">GIỚI THIỆU</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/khoahoc">KHÓA HỌC ONLINE</a></li>
+                    <li class="nav-item"><a href="/baiviet/<%=limit%>/<%= baiviet[0][0].id_chuyenmuc %>/<%= baiviet[0][0].id %> ">TIN TỨC</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/course">LỊCH KHAI GIẢNG</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/course/noidung">KHÓA HỌC</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">LIÊN HỆ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/dangky">ĐĂNG KÝ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/forum">FORUM</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/register">ĐĂNG KÝ</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="/forum/baiviet/<%=limit%>">FORUM</a></li>
 
                 </ul>
                 <ul class="navbar-nav justify-content-end">
-                    <li><a href="#"><i class="icon_search"></i></a></li>
-                    <li>
-                        <a  class="btn text-success" data-toggle="modal" data-target="#myModal">
-                           Login
+                    <% if(user.tentaikhoan) { %>
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-user-circle" aria-hidden="true"></i>
                         </a>
-                       
+                        <div style="background-color: transparent !important;" class="dropdown-menu dropdown-menu-right"
+                            aria-labelledby="userDropdown">
+                            <a style="line-height: 2;" class="dropdown-item" href="/taikhoan/canhan">Trang cá nhân</a>
+                            <% if(user.quyenhang == "Admin" || user.quyenhang == "Nhân Viên") { %>
+                                <a style="line-height: 2;" class="dropdown-item" href="/admin/index">Trang Quản Lý</a>
+                            <% } %> 
+                            <div class="dropdown-divider"></div>
+                            <a style="line-height: 2;" class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="#logoutModaloutsite">Logout</a>
+                        </div>
                     </li>
+                    <% } else {%>
+                    <li>
+
+                        <a style="color: white;" class="btn text-success" data-toggle="modal" data-target="#myModal">
+                            <i style="color: white;" class="fa fa-sign-in" aria-hidden="true"></i>
+
+                        </a>
+
+                    </li>
+                    <% } %>
                 </ul>
-              
+
             </div>
         </nav>
     </header>

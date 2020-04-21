@@ -9,39 +9,66 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="POST" action="/dangnhap/dangky">
+				<form id="dangkytaikhoan">
 					<div class="form-group">
 						<label for="recipient-name" class="col-form-label">HỌ VÀ TÊN:</label>
 						<input minlength="6" type="text" required name="tentaikhoan" class="form-control"
-							id="recipient-name">
+							id="tentaikhoan">
+						<p style="color: crimson;" id="dk11"></p>
 					</div>
 					<div class="form-group">
 						<label for="message-text" class="col-form-label">EMAIL ĐĂNG NHẬP:</label>
-						<input type="email" required name="email" class="form-control" id="recipient-name">
+						<input type="email" required name="email" class="form-control" id="email">
+						<p style="color: crimson;" id="dk22"></p>
 					</div>
 					<div class="form-group">
 						<label for="message-text" class="col-form-label">MẬT KHẨU:</label>
 						<input id="password1" type="password" minlength="6" onchange="check_pass()" required
 							name="matkhau" class="form-control" id="recipient-name">
+						<p style="color: crimson;" id="dk33"></p>
 					</div>
 					<div class="form-group">
 						<label for="message-text" class="col-form-label">XÁC NHẬN MẬT KHẨU:</label>
-						<input type="password" id="confirm1" required name="xacnhanmatkhau"
-						onchange="check_pass()"	class="form-control" id="recipient-name">
+						<input type="password" id="confirm1" required name="xacnhanmatkhau" onchange="check_pass()"
+							class="form-control" id="recipient-name">
+						<p style="color: crimson;" id="dk44"></p>
 					</div>
-
-
-					<div class="modal-footer">
-						<!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>
-						<input type="submit" id="submit" disabled class="btn btn-primary" value="ĐĂNG KÝ"> -->
+					
+					<div class="form-group col-lg-12">
+						<div class="g-recaptcha" data-sitekey="6LfWmNgUAAAAALIFQ75sjMWzLu5XyZOtpdalpRro"></div>
+					</div>
+					<div class="modal-footer">						
 						<div class="form-group col-md-12">
-							<button type="submit" id="submit" disabled  value="submit" class="btn submit_btn2 form-control">ĐĂNG
+							<button type="submit" id="submit" disabled value="submit"
+								class="btn submit_btn2 form-control">ĐĂNG
 								KÝ</button>
+							
 						</div>
 					</div>
+
 				</form>
 			</div>
 
 		</div>
 	</div>
+	<script>
+		document.getElementById('dangkytaikhoan').addEventListener('submit', e => {
+			e.preventDefault();		
+			const tentaikhoan = document.querySelector('#tentaikhoan').value; 	
+			const email = document.querySelector('#email').value;
+			const matkhau = document.querySelector('#password1').value;
+			const captcha = document.querySelector('#g-recaptcha-response').value;
+		
+			return fetch('/dangnhap/dangky', {
+				method: 'POST',
+				headers: { 'Content-type': 'application/json' },
+				body: JSON.stringify({ tentaikhoan, email, matkhau, captcha })
+			})
+				.then(res => res.json())
+				.then(data => {				
+					alert(data.msg);
+					if (data.success) return location.reload();
+				});
+		});
+	</script>
 </div>

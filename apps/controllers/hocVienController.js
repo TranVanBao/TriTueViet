@@ -1,83 +1,94 @@
-import { validationResult } from "express-validator";
+import date from "s-date";
+import mail from "../../helpers/nodemailer"
+import dangkyService from "../services/dangkyService";
+import lopHocService from "../services/lopHocService";
 
-import hocVienService from "../services/hocVienService";
-
-class hocVienController {
-  static async getAll(req, res) {   
-    if (req.session.user) {  
+class dangkyController {
+  static async getAll(req, res) {     
+    if(req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên"){
     try {
-      const data = await hocVienService.getAll();
+      const user = req.session.user
+      const data1 = await dangkyService.getAllHV();
+      var data = data1[0];      
+      const lophoc = await lopHocService.getsapmo();
       if (data.length > 0) {
-        res.render("../views/admin/hocvien/listhocvien.ejs", { data });
+        res.render("../views/admin/hocvien/listhocvien.ejs", {
+          data, user,
+          lophoc,
+          date,
+          message: 1
+        });
       } else {
         res.render("../views/admin/hocvien/listhocvien.ejs", {
-          data,
-          message: "Khong co hoc vien nao"
+          data, user,
+          lophoc,
+          date,
+          message: 0
         });
       }
-      return 0;
     } catch (error) {
       return error;
-    } } else {
-      return res.redirect("/");
     }
+  }else{ return res.redirect('/') }
   }
 
-  static async Delete(req, res) {
-    console.log(req.session.user);
-    if (req.session.user) { 
+  static async Delete(req, res) {    
+    if(req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên" ){
     let { id } = req.params;
     if (!Number(id)) {
-      console.log("ID not Number !!!");
-      res.redirect("/admin/hocvien");
+      res.redirect("/admin/hocvien?kq=0&mes=Lỗi xác nhận đối tượng !!!");
+      return; //util.send(res);
     }
     try {
-      let Xoa = await hocVienService.delete(id);
+      let Xoa = await dangkyService.delete(id);
       if (Xoa) {
-        res.status(204).redirect("/admin/hocvien");
+        res.redirect("/admin/hocvien?kq=1&mes=Xóa Thành Công !!!");
       } else {
-        res.status(404).redirect("/admin/hocvien");
+        res.redirect("/admin/hocvien?kq=0&mes=Có Lỗi Xảy Ra !!!");
       }
       return;
     } catch (error) {
       return error;
     }
-  } else {
-      return res.redirect("/");
-    }
+  }else{ return res.redirect('/') }
   }
 
   static async add(req, res) {
-    let validate = validationResult(req);
-    if (!validate.isEmpty()) {
-      console.log(validate.errors);     
+    let { thanhtoan, email , tenkhachhang} = req.body;
+    if (thanhtoan == "") {
+      thanhtoan = 0;
     }
-    let data = { ...req.body };
+    let trangthai = 1     
+    await mail(email,tenkhachhang);
+    let data = await { ...req.body, thanhtoan ,trangthai};
     try {
-      const created = await hocVienService.add(data);   
-      return  res.status(204,{ created }).redirect("/admin/hocvien");     
-      
+      const created = await dangkyService.add(data);
+
+      if (created == null) {
+        res.redirect("/admin/hocvien?kq=0&mes=Thêm Không Thành Công !!!");
+      } else {
+        res.redirect("/admin/hocvien?kq=1&mes=Thêm Thành Công !!!");
+      }
     } catch (error) {
       return error;
     }
   }
 
   static async update(req, res) {
-    const altered = req.body;
-    const { id } = req.params;
-    if (!Number(id)) {
-      console.log("Id not a Number !!!");
-
-      res.status(404).redirect("/admin/hocvien");
+    let thanhtoan = req.body.thanhtoan;
+    if (thanhtoan == "") {
+      thanhtoan = 0;
     }
+    let altered = await { ...req.body, thanhtoan };
+    const { id } = req.params;
     try {
-      const update = await hocVienService.Update(id, altered);
+      const update = await dangkyService.Update(id, altered);
       if (!update) {
-        res.status(404).redirect("/admin/hocvien");
+        res.redirect("/admin/hocvien?kq=0&mes=Sửa Không Thành Công !!!");
       } else {
-        res.status(204).redirect("/admin/hocvien");
+        res.redirect("/admin/hocvien?kq=1&mes=Sửa Thành Công !!!");
       }
-      return;
+      res.redirect("/admin/hocvien");
     } catch (error) {
       return error;
     }
@@ -86,4 +97,4 @@ class hocVienController {
   
 }
 
-export default hocVienController;
+export default dangkyController;

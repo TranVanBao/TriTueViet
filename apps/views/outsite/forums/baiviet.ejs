@@ -1,0 +1,61 @@
+<%- include ("../header") -%>
+<!--================Banner Area =================-->
+<section class="banner_area">
+    <div class="container">
+        <div class="banner_text_inner">
+            <h4>HỎI VÀ ĐÁP !!!</h4>
+
+        </div>
+    </div>
+</section>
+<!--================End Banner Area =================-->
+
+<!--================End Banner Area =================-->
+<section class="contact_us_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+
+                <div class="tabs-warp question-tab">
+                    <div class="tab-inner-warp">
+                        <div class="tab-inner">
+                            <% data.forEach(dulieu => { %>
+                            <article class="question question-type-normal">
+                               <h2>
+                                    <a href="/forum/chi-tiet/<%= dulieu.id %>"><%= dulieu.tieude %></a>
+                                </h2>
+
+                                <div class="question-author">
+                                    <a href="/forum/chi-tiet/<%= dulieu.id %>" original-title="ahmed"
+                                        class="question-author-img tooltip-n"><span></span><img
+                                            alt="<%= dulieu.hinhanh %>"
+                                            src="../../../../uploadimg/<%= dulieu.hinhanh %> "></a>
+                                </div>
+                                <div class="question-inner">
+                                    <div class="clearfix"></div>
+                                    <span class="question-category"><a href="/forum/chi-tiet/<%= dulieu.id %>"><i
+                                                class="fa fa-folder-open-o"></i><%= dulieu.tenkhoahoc %></a></span>
+                                    <span class="question-date"><i
+                                            class="fa fa-clock-o"></i><%=  date('{dd}-{mm}-{yyyy}', dulieu.createdAt)  %></span>
+                                
+                                    <div class="clearfix"></div>
+                                </div>
+                            </article>
+                            <% })%>
+
+                        </div>
+                        <a href="/forum/baiviet/<%= Number(limit) + 5 %>" style="background-color: #5FBDDF; color:white"
+                            class="btn btn-lg btn-success addbtn load-questions"><i class="fa fa-refresh"></i>Xem
+                            thêm</a>
+                        <!-- <button style="background-color: #5FBDDF; color:white" class="load-questions btn btn-lg btn-success addbtn"><i class="fa fa-refresh"></i>Xem thêm</button> -->
+                    </div>
+                </div><!-- End page-content -->
+
+            </div><!-- End main -->
+            <%- include ('../forums/taobv.ejs') -%>
+        </div>
+    </div>
+</section>
+<!--================End Contact Us Area =================-->
+<!--================End Static Area =================-->
+<%- include ('../footer') -%>

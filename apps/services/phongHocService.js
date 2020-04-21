@@ -9,6 +9,16 @@ class phonghocService {
       throw error;
     }
   }
+  // = sd cho thoi khoa bieu ========
+  static async getsudung() {
+    try {      
+      return await database.phonghoc.findAll({
+        where: {trangthai: 1}
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
   static async getByID(id){
       try {
           return await database.phonghoc.findAll({

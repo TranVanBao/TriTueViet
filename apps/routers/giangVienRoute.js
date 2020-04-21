@@ -14,9 +14,13 @@ router
 router
   .route("/:id")
   .post(single, giangvienController.update)
+  .get( giangvienController.Delete)
+
   router
-  .route("/:id/:hinhanh")
-  .get(giangvienController.Delete);
+  .route("/xoa/:id/:hinhanh")
+  .post(single, giangvienController.update)
+  .get( giangvienController.Delete)
+
 //export default router;
 
 module.exports = router;

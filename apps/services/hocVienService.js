@@ -1,17 +1,22 @@
 
 import database from '../../Model/models';
 
-class hocvienService {
+class dangkyService {
   static async getAll() {
     try {      
-      return await database.hocvien.findAll();
+      return await database.dangky.sequelize.query(
+        `select lophocs.tenlophoc,lophocs.thoigianbatdau,lophocs.phidichvu , dangkies.* 
+        from public.lophocs, public.dangkies 
+        where dangkies.id_lophoc = lophocs.id and (dangkies.thanhtoan > lophocs.phidichvu/2) 
+        ORDER BY id DESC  `
+      );
     } catch (error) {
       throw error;
     }
   }
   static async getByID(id){
       try {
-          return await database.hocvien.findAll({
+          return await database.dangky.findAll({
               where: { id }
           })
       } catch (error) {
@@ -21,7 +26,7 @@ class hocvienService {
 
   static async delete(id){
       try {
-          return await database.hocvien.destroy({
+          return await database.dangky.destroy({
               where:{ id }
           })
       } catch (error) {
@@ -30,7 +35,7 @@ class hocvienService {
   }
   static async Save(data){
       try {
-          return await database.hocvien.create(data);
+          return await database.dangky.create(data);
       } catch (error) {
           throw error
       }
@@ -38,11 +43,11 @@ class hocvienService {
 
   static async Update(id, data){
       try {
-       let tk =     await database.hocvien.findOne({
+       let tk =     await database.dangky.findOne({
               where: { id }
           })
           if(tk){
-              await database.hocvien.update(data,{
+              await database.dangky.update(data,{
                  where : { id : id }
              })
              return data
@@ -60,13 +65,13 @@ class hocvienService {
     try {
       let sdt = data.sdt
       let email = data.email
-      let tk = await database.hocvien.findOne({
+      let tk = await database.dangky.findOne({
         where: { sdt , email}
     })      
     if (tk) {
       return null
     } else{
-        await database.hocvien.create(data);
+        await database.dangky.create(data);
         return data
     }
     
@@ -78,4 +83,4 @@ class hocvienService {
  
 }
 
-export default hocvienService;
+export default dangkyService;

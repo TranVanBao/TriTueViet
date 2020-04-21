@@ -6,7 +6,20 @@
     <li class="breadcrumb-item">
       <a href="#">Dashboard</a>
     </li>
-    <li class="breadcrumb-item active">Tables</li>
+    <li class="breadcrumb-item active">
+      <% if(trangthai == 1) { %>
+      Sắp khai giảng
+      <% }  %>
+      <%  if(trangthai == 0) { %>
+      Đã hoàn thành
+      <% } %>
+      <%  if(trangthai == 2) { %>
+      Đang học
+      <% } %>
+      <%  if(trangthai == 3) { %>
+      Đang chờ
+      <% } %>
+    </li>
   </ol>
 
 
@@ -15,7 +28,9 @@
     <div class="card-header">
       <!-- <i class="fas fa-table"></i>
             Data Table Example -->
-      <div><button data-toggle="modal" data-target="#exampleModal" style="color: #fff;float: right;
+      <div>
+        <%  if(trangthai == 3 || trangthai == 1) { %>
+        <button data-toggle="modal" data-target="#exampleModal" style="color: #fff;float: right;
               height: 30px;
               font-weight: bold;
               font-size: 12px;
@@ -25,6 +40,9 @@
               line-height: 13px;
               background-color: #269abc;
               border-color: #1b6d85 ; float:right;"><i class="fas fa-plus"></i> Add </button>
+        <% } %>
+
+
       </div>
 
     </div>
@@ -34,14 +52,24 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên lớp học</th>
-              <th>Số lượng học viên</th>
-              <th>Thời gian bắt đầu</th>
-              <th>Thời gian kết thúc</th>
-              <th>Trạng thái</th>
-              <th>Danh sách học viên</th>
-              <th>Action</th>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên lớp học</th>
+              <th class="canhgiua">Giảng viên</th>
+              <th class="canhgiua">Số lượng học viên</th>
+              <th class="canhgiua">Thời gian bắt đầu</th>
+              <th class="canhgiua">Thời gian học</th>
+              <th class="canhgiua">Thời lượng học</th>
+              <th class="canhgiua">Phí dịch vụ</th>
+              <th class="canhgiua">Điều kiện học</th>
+              <th class="canhgiua">Trạng thái</th>
+              <%  if(trangthai != 3) { %>
+              <th class="canhgiua">Danh sách học viên</th>
+              <% } %>
+
+              <%  if(trangthai != 0) { %>
+              <th class="canhgiua">Tác vụ</th>
+              <% } %>
+
 
             </tr>
           </thead>
@@ -50,27 +78,42 @@
             <% data.forEach(dulieu => { %>
             <% stt++ %>
             <tr>
-              <td><%= stt %></td>
-              <td><%= dulieu.tenlophoc %></td>
-              <td><%= dulieu.soluonghocvien %></td>
-              <td><%=  date('{mm}/{dd}/{yyyy}', dulieu.thoigianbatdau)  %></td>
-              <td><%=  date('{mm}/{dd}/{yyyy}', dulieu.thoigianketthuc)  %></td>
+              <td class="canhgiua"><%= stt %></td>
+              <td class="canhgiua"><%= dulieu.tenlophoc %></td>
+              <td class="canhgiua"><%= dulieu.hoten %></td>
+              <td class="canhgiua"><%= dulieu.soluonghocvien %></td>
+              <td class="canhgiua"><%=  date('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %></td>
+              <td class="canhgiua"><%=  dulieu.thoigianhoc  %></td>
+              <td class="canhgiua"><%=  dulieu.thoiluonghoc  %></td>
+              <td class="canhgiua"> <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
+              <td class="canhgiua"><%= dulieu.dieukienhoc %></td>
               <% if(dulieu.trangthai == 1) { %>
-              <td> Được mở </td>
+              <td class="canhgiua"> Sắp khai giảng </td>
               <% }  %>
               <%  if(dulieu.trangthai == 0) { %>
-              <td> Đang đóng </td>
+              <td class="canhgiua"> Đã hoàn thành </td>
               <% } %>
-              <td>  <a class="nav-link" href="/admin/lophoc/hocvien/<%= dulieu.id %>"> 
-                  <span>Xem học viên</span></a>  </td>
-              <td>
-                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit" data-toggle="modal"
+              <%  if(dulieu.trangthai == 2) { %>
+              <td class="canhgiua"> Đang học </td>
+              <% } %>
+              <%  if(dulieu.trangthai == 3) { %>
+              <td class="canhgiua"> Đang chờ </td>
+              <% } %>
+              <%  if(trangthai != 3) { %>
+              <td class="canhgiua"> <a class="nav-link" href="/admin/lophoc/hocvien/<%= dulieu.id %>">
+                  <i class="far fa-eye"></i> </a>
+              </td>
+              <% } %>
+              <%  if(trangthai != 0) { %>
+
+              <td class="canhgiua" style="text-align: center;">
+                <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit" data-toggle="modal"
                   data-target="#updatekh<%= dulieu.id %>">
-                  <i class="fas fa-pen">&nbsp;</i></a>
-
+                  <i class="fas fa-edit"></i>&nbsp;</i></a>
+                <%  if(trangthai == 3 ) { %>
                 <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete" data-toggle="modal"
-                  data-target="#delete<%= dulieu.id %>"><i class="fas fa-trash">&nbsp;</i></a>
-
+                  data-target="#delete<%= dulieu.id %>"> <i class="far fa-trash-alt"></i></a>
+                <% } %>
                 <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -111,35 +154,80 @@
                               class="form-control" id="recipient-name">
                           </div>
                           <div class="form-group">
+                            <label for="message-text" class="col-form-label">GIẢNG VIÊN ĐỨNG LỚP :</label>
+                            <select name="id_giangvien" class="form-control">
+                              <% giangvien.forEach(dl => { %>
+                              <option value="<%= dl.id %>"> <%= dl.hoten %></option>
+                              <%}); %>
+                            </select>
+                          </div>
+                          <div class="form-group">
                             <label for="recipient-name" class="col-form-label">SỐ LƯỢNG HỌC VIÊN:</label>
-                            <input type="text" pattern="[0-9]{2,3}" value="<%= dulieu.soluonghocvien %>" required name="soluonghocvien"
-                              class="form-control" id="recipient-name">
+                            <input type="text" pattern="[0-9]{2,3}" value="<%= dulieu.soluonghocvien %>" required
+                              name="soluonghocvien" class="form-control" id="recipient-name">
                           </div>
                           <div class="form-group">
-                            <% let now = new Date() %>
-                            <% let d = date('{yyyy}-{mm}-{dd}', now)  %>
-                            <label for="message-text" class="col-form-label">NGÀY BẮT ĐẦU:</label>
-                            <input type="date" min="<%= d %>" required
-                              value="<%=  date('{mm}/{dd}/{yyyy}', dulieu.thoigianbatdau)  %>" name="thoigianbatdau"
-                              class="form-control" id="txtFrom">
-                          </div>
-                          <div class="form-group">
-                            <label for="message-text" class="col-form-label">NGÀY NGÀY KẾT THÚC:</label>
-                            <input type="date" min="<%= d %>" required
-                              value="<%=  date('{mm}/{dd}/{yyyy}', dulieu.thoigianketthuc)  %>" name="thoigianketthuc"
+                            <label for="message-text" class="col-form-label">THỜI GIAN HỌC:</label>
+                            <input type="text" required value="<%=  dulieu.thoigianhoc  %>" name="thoigianhoc"
                               class="form-control" id="txtTo">
                           </div>
-
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">THỜI LƯỢNG HỌC:</label>
+                            <input type="text" required value="<%=  dulieu.thoiluonghoc  %>" name="thoiluonghoc"
+                              class="form-control" id="txtTo">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">HỌC PHÍ:</label>
+                            <input type="text" required
+                              value="<%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1') %>" name="phidichvu"
+                              class="form-control" id="txtTo">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">ĐIỀU KIỆN:</label>
+                            <textarea name="dieukienhoc" class="form-control" id="recipient-name" rows="10"
+                              cols="30"><%= dulieu.dieukienhoc %></textarea>
+                          </div>
+                          <div class="form-group">
+                            <% let d = date('{dd}-{mm}-{yyyy}', dulieu.thoigianbatdau)  %>
+                            <label for="message-text" class="col-form-label">NGÀY BẮT ĐẦU:</label>
+                            <input required type="text" value="<%=  d  %>" name="thoigianbatdau" class="form-control"
+                              id="txtFrom">
+                          </div>
+                          <div class="form-group">
+                            <label for="message-text" class="col-form-label">PHÒNG HỌC:</label>
+                            <select name="id_phonghoc" class="form-control">
+                              <option value="<%= dulieu.id_phonghoc %>"> <%= dulieu.tenphonghoc %> </option>
+                              <% phonghoc.forEach(dl => { %>
+                              <option value="<%= dl.id %>"> <%= dl.tenphonghoc %> -- <%= dl.hientrang %></option>
+                              <%}); %>
+                            </select>
+                          </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
                             <select name="trangthai" class="form-control">
                               <% if(dulieu.trangthai == 0) { %>
-                              <option value="0">ẨN</option>
-                              <option value="1">HIỆN</option>
+                              <option value="0">Đã hoàn thành</option>
+                              <option value="1">Sắp khai giảng</option>
+                              <option value="2">Đang học</option>
+                              <option value="3">Đang chờ</option>
                               <% }  %>
                               <%  if(dulieu.trangthai == 1) { %>
-                              <option value="1">HIỆN</option>
-                              <option value="0">ẨN</option>
+                              <option value="1">Sắp khai giảng</option>
+                              <option value="0">Đã hoàn thành</option>
+                              <option value="2">Đang học</option>
+                              <option value="3">Đang chờ</option>
+                              <% } %>
+                              <%  if(dulieu.trangthai == 2) { %>
+                              <option value="2">Đang học</option>
+                              <option value="0">Đã hoàn thành</option>
+                              <option value="1">Sắp khai giảng</option>
+                              <option value="3">Đang chờ</option>
+                              <% } %>
+                              <%  if(dulieu.trangthai == 3) { %>
+                              <option value="3">Đang chờ</option>
+                              <option value="2">Đang học</option>
+                              <option value="0">Đã hoàn thành</option>
+                              <option value="1">Sắp khai giảng</option>
                               <% } %>
                             </select>
                           </div>
@@ -147,7 +235,7 @@
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>
 
-                            <input type="submit" class="btn btn-primary" value="TẠO LỚP HỌC">
+                            <input type="submit" class="btn btn-primary" value="SỬA LỚP HỌC">
                           </div>
                         </form>
                       </div>
@@ -157,6 +245,7 @@
                 </div>
               </td>
 
+              <% } %>
             </tr>
 
 

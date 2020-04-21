@@ -1,0 +1,110 @@
+<%- include ('../header') -%>
+
+
+<div class="container-fluid">
+
+  <!-- Breadcrumbs-->
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Trang cá nhân</a>
+    </li>
+  </ol>
+  <!-- DataTables Example -->
+  <div class="card mb-3">
+    <div class="card-header">
+      <i class="fas fa-table"></i>
+      <%= data.tentaikhoan%></div>
+    <div class="card-body ">
+      <form class="form-horizontal" role="form" method="POST" action="/admin/canhan/thongtin/<%= data.id %>"
+        enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="tvmcFp9Wo1vAr3s3vlPFmKdSK4Jxxx2WRLwhKuiL">
+        <input type="hidden" name="user_id" value="3438">
+        <div class="form-group row">
+          <label class="col-md-3 control-label" for="basic-url">
+            <div class="file-field">
+              <div class="z-depth-1-half mb-4">
+                <img class="img-thumbnail" style="width: 100%;height: 300px;" id="blah"
+                  src="../../../../uploadimg/<%= data.hinhanh%>" alt="" />                
+                <div class="input-group">
+                  <input type="file" name="hinhanh" id="imgInp" style="margin:5px 20px"
+                    value="<%= data.hinhanh%>">
+                </div>
+              </div>
+            </div>
+          </label>
+          <div class="col-md-8">
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">TÊN TÀI KHOẢN</label>
+              <input minlength="6" type="text" required name="tentaikhoan" class="form-control" id="recipient-name"
+                value="<%= data.tentaikhoan%>">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">Email</label>
+              <input type="email" required name="email" class="form-control" id="recipient-name"
+                value=" <%= data.email%>">
+            </div>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top: -9%;">
+          <div class="col-md-6 col-md-offset-3">
+            <button style="float:right" type="submit" class="btn btn-primary">Lưu</button>
+          </div>
+
+        </div>
+        <div class="form-group">
+          <div class="col-md-8 col-md-offset-3">
+            <a href="#" type="submit" data-toggle="modal" data-target="#doimk"
+              style="right: -37%;  position: absolute;background-color: #41cac0;  border-color: #41cac0; color: #FFFFFF;"
+              type="submit" class="btn btn-primary">Đổi mật khẩu</a>
+          </div>
+
+
+        </div>
+      </form>
+    </div>
+
+    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+  </div>
+
+  <div class="modal  fade" id="doimk" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form style="width: 100%;" method="POST" action="/admin/canhan/doimatkhau/<%= data.id %>">
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">MẬT KHẨU CŨ</label>
+              <input type="text" required name="matkhaucu" class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">MẬT KHẨU MỚ<Img:s></Img:s></label>
+              <input id="password" type="text" minlength="6" onchange='check_pass();' required name="matkhau"
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="col-form-label">XÁC NHẬN MẬT KHẨU MỚI</label>
+              <input type="text" id="confirm" required name="xacnhanmatkhau" onchange='check_pass();'
+                class="form-control" id="recipient-name">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <input style="background-color: #41cac0;  border-color: #41cac0; color: #FFFFFF;" type="submit"
+                id="submit" disabled class="btn btn-primary" value="Thay đổi mật khẩu">
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+<!-- /.container-fluid -->
+
+<%- include ('../footer') -%>

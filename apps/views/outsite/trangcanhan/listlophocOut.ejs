@@ -1,0 +1,76 @@
+<%- include ('./headerOut.ejs') -%>
+<div class="container-fluid">
+
+  <!-- Breadcrumbs-->
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="#">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item active">LỚP HỌC</li>
+  </ol>
+
+
+  <!-- DataTables Example -->
+  <div class="card mb-3">
+    <div class="card-header">
+      <!-- <i class="fas fa-table"></i>
+            Data Table Example -->
+
+
+    </div>
+
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+          <thead>
+            <tr>
+              <th>STT</th>
+              <th>Tên lớp học</th>
+              <th>Giảng viên</th>
+              <th>Số lượng học viên</th>
+              <th>Thời gian bắt đầu</th>
+              <th>Thời gian học</th>
+              <th>Thời lượng học</th>
+              <th>Phí dịch vụ</th>
+              <th>Điều kiện học</th>
+              <th>Trạng thái</th>
+              <th>Danh sách học viên</th>             
+            </tr>
+          </thead>
+          <tbody>
+            <% var stt = 0 %>
+            <% data.forEach(dulieu => { %>
+            <% stt++ %>
+            <tr>
+              <td><%= stt %></td>
+              <td><%= dulieu.tenlophoc %></td>
+              <td><%= dulieu.hoten %></td>
+              <td><%= dulieu.soluonghocvien %></td>
+              <td><%=  date('{mm}/{dd}/{yyyy}', dulieu.thoigianbatdau)  %></td>
+              <td><%=  dulieu.thoigianhoc  %></td>
+              <td><%=  dulieu.thoiluonghoc  %></td>
+              <td><%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
+              <td><%= dulieu.dieukienhoc %></td>
+              <% if(dulieu.trangthai == 1) { %>
+              <td> Sắp khai giảng </td>
+              <% }  %>
+              <%  if(dulieu.trangthai == 0) { %>
+              <td> Đã hoàn thành </td>
+              <% } %>
+              <%  if(dulieu.trangthai == 2) { %>
+              <td> Đang học </td>
+              <% } %>
+              <td> <a class="nav-link" href="/taikhoan/hocvien/<%= dulieu.id %>">
+                  <span>Xem học viên</span></a> </td>
+
+            </tr>
+
+            <%}); %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include ('./footerOut.ejs') -%>

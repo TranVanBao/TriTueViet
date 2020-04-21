@@ -1,35 +1,66 @@
 import { Router } from "express";
+import multer from "multer"
+import crypto from "crypto"
+import path from "path"
+import baivietService from "../services/baivietService"
+const Promise = require('bluebird');
+
+const fs = Promise.promisifyAll(require('fs'));
+
 var router = Router();
 
 //====================== router =================================//
-router.get("/", function(req, res) {
-  res.render("../views/outsite/index.ejs");
+
+router.get("/contact", async function(req, res) {
+  let user = []
+  if(req.session.user){
+    user = req.session.user
+  }    
+  const baiviet = await baivietService.getNew();
+  res.render("../views/outsite/contact.ejs", {user ,baiviet});
 });
 
-router.get("/khoahoc", function(req, res) {
-  res.render("../views/outsite/khoahoc.ejs");
-});
-router.get("/contact", function(req, res) {
-  res.render("../views/outsite/contact.ejs");
-});
-router.get("/blog", function(req, res) {
-  res.render("../views/outsite/blog.ejs");
-});
 
-router.get("/dangky", function(req, res) {
-  res.render("../views/outsite/dangky.ejs");
-});
+// =========================forums============================
 
-router.get("/forum", function(req, res) {
-  res.render("../views/outsite/forums.ejs");
-});
-router.post("/forums", function(req, res) {
-  let data = req.body.content
+//  add hinh ckeditor
+var storage = multer.diskStorage({
+  //folder upload -> public/upload
+  destination: 'public/uploadimg/ck/',
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, function (err, raw) {
+      if (err) return cb(err)
+      cb(null, Math.floor(Math.random()*9000000000) + 1000000000 + path.extname(file.originalname))
+    })
+  }
+})
+var upload = multer({ storage: storage });
+
+
+//show all image in folder upload to json
+router.get('/files', function (req, res) {
+  const images = fs.readdirSync('public/uploadimg/ck/')
   
-  console.log(data);
-  
-  res.render("../views/outsite/forums.ejs");
+  var sorted = []
+  for (let item of images){
+      if(item.split('.').pop() === 'png'
+      || item.split('.').pop() === 'jpg'
+      || item.split('.').pop() === 'jpeg'
+      || item.split('.').pop() === 'svg'){
+          var abc = {
+                "image" : "/uploadimg/ck/"+item,
+                "folder" : '/'
+          }
+          sorted.push(abc)
+      }
+  }
+  res.send(sorted);
+})
+//upload image to folder upload
+router.post('/upload', upload.array('flFileUpload', 12), function (req, res, next) {
+    res.redirect('back')
 });
+
 // when a random route is inputed
 //router.get('*', (req, res) => res.render("../views/outsite/index.ejs"));
 //===================================== end =================================//

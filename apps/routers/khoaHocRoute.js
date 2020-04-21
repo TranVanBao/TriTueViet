@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { check  } from 'express-validator';
 import khoaHocController from '../controllers/khoaHocController';
 
 import upload from '../../helpers/uploadfile'

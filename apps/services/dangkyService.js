@@ -4,7 +4,10 @@ class dangkyService {
   static async getAll() {
     try {
       return await database.dangky.sequelize.query(
-        `SELECT  lophocs.tenlophoc, dangkies.* FROM public.lophocs,public.dangkies where lophocs.id = dangkies.id_lophoc  `
+        `SELECT  lophocs.tenlophoc,lophocs.thoigianhoc, lophocs.phidichvu , dangkies.* 
+        FROM public.lophocs,public.dangkies 
+        where lophocs.id = dangkies.id_lophoc 
+        ORDER BY id DESC  `
       );
     } catch (error) {
       throw error;
@@ -28,7 +31,6 @@ class dangkyService {
       throw error;
     }
   }
-
 
   static async delete(id) {
     try {
@@ -67,8 +69,70 @@ class dangkyService {
 
   static async add(data) {
     try {
-      console.log("========service ");      
       return await database.dangky.create(data);
+    } catch (error) {
+      throw error;
+    }
+  }
+  // Sử dụng học viên 
+  static async getAllHV() {
+    try {
+      return await database.dangky.sequelize.query(
+        `select lophocs.tenlophoc,lophocs.thoigianbatdau,lophocs.phidichvu , dangkies.* 
+        from public.lophocs, public.dangkies 
+        where dangkies.id_lophoc = lophocs.id and (dangkies.thanhtoan > lophocs.phidichvu/2) 
+        ORDER BY id DESC  `
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // Thống kê
+  static async thongke() {
+    try {
+      return await database.dangky.sequelize.query(
+        `SELECT dangkies.id_lophoc , lophocs.tenlophoc , count(id_lophoc) AS dem FROM public.dangkies, public.lophocs
+        Where lophocs.id = dangkies.id_lophoc
+        GROUP BY dangkies.id_lophoc, lophocs.tenlophoc ORDER BY dem DESC; `
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async Tongthongke() {
+    try {
+      return await database.dangky.sequelize.query(
+        `SELECT  SUM(dem) as tong 
+        FROM (SELECT COUNT(id_lophoc) AS dem
+        FROM public.dangkies, public.lophocs 
+             Where lophocs.id = dangkies.id_lophoc
+        GROUP BY id_lophoc
+        ) as A `
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async TongthongkeThu() {
+    try {
+      return await database.dangky.sequelize.query(
+        `select sum(thanhtoan) as tong from dangkies`
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async ThongkeThu() {
+    try {
+      return await database.dangky.sequelize.query(
+        ` SELECT lophocs.tenlophoc , SUM(thanhtoan) AS dem
+        FROM public.dangkies, public.lophocs 
+             Where lophocs.id = dangkies.id_lophoc
+        GROUP BY id_lophoc , lophocs.tenlophoc
+        `
+      );
     } catch (error) {
       throw error;
     }

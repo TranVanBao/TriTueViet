@@ -2,13 +2,14 @@ import phonghocService from "../services/phongHocService";
 
 class phonghocController {
   static async getAll(req, res) {
-    if (req.session.user) { 
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") { 
     try {
+      const user = req.session.user
       const data = await phonghocService.getAll();
       if (data.length > 0) {
-        res.render("../views/admin/phonghoc/listphonghoc.ejs", { data , message : 1});
+        res.render("../views/admin/phonghoc/listphonghoc.ejs", { data ,user, message : 1});
       } else {
-        res.render("../views/admin/phonghoc/listphonghoc.ejs", { data, message : 0});
+        res.render("../views/admin/phonghoc/listphonghoc.ejs", { data,user, message : 0});
       }
     } catch (error) {
       return error;
@@ -18,7 +19,7 @@ class phonghocController {
   }
 
   static async Delete(req, res) {
-    if (req.session.user) { 
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") { 
     let { id } = req.params;
     if (!Number(id)) {
       console.log("id not a number!!!");

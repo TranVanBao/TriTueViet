@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   phonghoc.associate = function(models) {
     // associations can be defined here
+    phonghoc.hasMany(models.lophoc, {
+			foreignKey: 'id_phonghoc',
+			as: 'lophocs',
+			onDelete: 'CASCADE',
+		});
   };
   return phonghoc;
 };

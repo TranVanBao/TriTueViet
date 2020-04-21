@@ -1,0 +1,79 @@
+<%- include ('../header') -%>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9" style="box-shadow: 0 0 5px #dedede;
+                left: 15%;">
+                <div class="page-content ask-question">
+                    <div class="contact_form boxedtitle page-title">
+                        <div class="main_title">
+                            <h2 style="color: #1B1464;">Thêm Bài Viết</h2>
+                            <div class="form-style form-style-3" id="question-submit">
+                                <form method="POST" action="/admin/baiviet" enctype="multipart/form-data">
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: #1B1464;">Tiêu đề</h5>
+                                        </p>
+                                        <textarea class="form-control" id="subject" name="tieude" rows="4"
+                                            cols="50"> </textarea>
+                                        <p id="demo" style="color: crimson;"></p>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: #1B1464;">Chuyên mục</h5>
+                                        </p>
+                                        <select name="id_chuyenmuc" style="height: 50px" id="message"
+                                            class="form-control">
+                                            <option value="">---Xin chọn tag---</option>
+                                            <% chuyenmuc.forEach(data => { %>
+                                            <% if(data.trangthai == 1 ) {%>
+                                            <option value="<%= data.id %>"><%= data.tenchuyenmuc %></option>
+                                            <% } %>
+                                            <% })%>
+                                        </select>
+                                        <p id="demo1" style="color: crimson;"></p>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: #1B1464;">Trạng thái</h5>
+                                        </p>
+                                        <select name="trangthai" class="form-control">
+                                            <option value="1">HIỆN</option>
+                                            <option value="0">ẨN</option>
+                                        </select>
+                                    </div>
+                                    <div class="file-field form-group col-lg-12" style="width: 60%;
+                                    margin-left: 20%;">
+                                        <div class="z-depth-1-half mb-4">
+                                            <img src="https://mdbootstrap.com/img/Photos/Others/placeholder.jpg"
+                                                id="profile-img-tag" width="100%" height="200px" />
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <div class="btn btn-mdb-color btn-rounded float-left">
+                                                <span style="color: #1B1464;">Chọn hình ảnh</span>
+                                                <input value="" type="file" name="hinhanh" id="profile-img">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-lg-12">
+                                        <p>
+                                            <h5 style="color: #1B1464;">Nội dung</h5>
+                                        </p>
+                                        <textarea required name="noidung" id="ckeditor3"></textarea>
+                                        <p id="demo2" style="color: crimson;"></p>
+
+                                    </div>
+                                    <div class="form-group col-md-12">
+                                        <input type="submit" value="THÊM BÀI VIẾT">
+                                    </div>
+                                </form>
+                            </div>
+                        </div><!-- End page-content -->
+                    </div>
+                </div><!-- End main -->
+            </div>
+        </div>
+</section>
+
+
+<%- include ('../footer') -%>

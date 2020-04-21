@@ -9,38 +9,50 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/admin/dangky">
+                <form onsubmit="return validatedkhocvien();"  name="dkhocvien" method="POST" action="/admin/dangky">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">TÊN HỌC VIÊN:</label>
-                        <input type="text" autofocus required name="tenkhachhang" class="form-control"
-                            id="recipient-name">
+                        <input id="dkhv" type="text" autofocus required name="tenkhachhang" class="form-control nameall"
+                            id="recipient-name">  
+                            <p style="color: red;" id="dkhv1"></p>                         
                     </div>
 
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">SỐ ĐIỆN THOẠI:</label>
-                        <input type="text" pattern="[0-9]{9,11}" required name="sdt" class="form-control"
+                        <input  type="text" pattern="[0-9]{9,11}" required name="sdt" class="form-control"
                             id="recipient-name">
+                            <p style="color: red;" id="dkhv5"></p> 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">EMAIL:</label>
                         <input type="email" required name="email" class="form-control" id="recipient-name">
+                        <p style="color: red;" id="dkhv2"></p> 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">ĐIẠ CHỈ:</label>
                         <input type="text" required name="diachi" class="form-control" id="recipient-name">
                     </div>
                     <div class="form-group">
+						<label for="message-text" class="col-form-label">GIỚI TÍNH:</label>					
+						<input  type="radio" name="gioitinh" value="Nam" checked> Nam
+						<input  type="radio" name="gioitinh" value="Nữ"> Nữ
+						<input  type="radio" name="gioitinh" value="Khác"> Khác
+					</div>
+                    <div class="form-group">
                         <label for="message-text" class="col-form-label">KHÓA HỌC :</label>
                         <select name="id_lophoc" class="form-control">
+                            <option  >Xin chọn khóa học</option>
                             <% lophoc.forEach(dl => { %>
-                            <option value="<%= dl.id %>"> <%= dl.tenlophoc %></option>
+                            <option value="<%= dl.id %>"> <%= dl.tenlophoc %> -- <%= dl.thoigianhoc %></option>
                             <%}); %>
                         </select>
+                        <p style="color: red;" id="dkhv3"></p> 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">THANH TOÁN:</label>
                         <input pattern="[0-9]{6,11}" value="" type="text" name="thanhtoan"
-                            class="form-control" id="recipient-name">
+                            class="form-control" id="recipient-name" placeholder="0 VND">
+                           
                     </div>
 
                     <div class="modal-footer">

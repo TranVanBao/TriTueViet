@@ -1,9 +1,54 @@
 import database from "../../Model/models";
 
 class lophocService {
-  static async getAll() {
+  static async getAll(trangthai) {
     try {
-      return await database.lophoc.findAll();
+      let lophoc = await database.khoahoc.sequelize.query(
+        `Select giangviens.hoten , lophocs.* , phonghocs.tenphonghoc ,phonghocs.id as id_phong
+        from public.lophocs,public.phonghocs, public.giangviens
+        where giangviens.id = lophocs.id_giangvien and lophocs.trangthai=` +
+          trangthai +
+          ` and phonghocs.id = lophocs.id_phonghoc
+        ORDER BY id DESC`
+      );
+      return lophoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async getsapmo() {
+    try {
+      return await database.lophoc.findAll({
+        where: { trangthai: 1 }
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+  // === sd thoi khoa bieu ====
+  static async getdanghoc() {
+    try {
+      let lophoc = await database.khoahoc.sequelize.query(
+        `Select giangviens.hoten , lophocs.* ,phonghocs.tenphonghoc
+        from public.lophocs, public.giangviens , public.phonghocs
+        where giangviens.id = lophocs.id_giangvien and lophocs.trangthai=2 and phonghocs.id = lophocs.id_phonghoc
+         ORDER BY id DESC`
+      );
+      return lophoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async get1lop(trangthai) {
+    try {
+      let lophoc = await database.khoahoc.sequelize.query(
+        `Select giangviens.hoten , lophocs.* 
+        from public.lophocs, public.giangviens 
+        where giangviens.id = lophocs.id_giangvien and lophocs.trangthai=` +
+          trangthai +
+          ` ORDER BY id DESC`
+      );
+      return lophoc;
     } catch (error) {
       throw error;
     }
@@ -29,7 +74,6 @@ class lophocService {
   }
   static async Save(data) {
     try {
-      console.log(1);
       return await database.lophoc.create(data);
     } catch (error) {
       throw error;
@@ -42,9 +86,10 @@ class lophocService {
         where: { id }
       });
       if (tk) {
-        return await database.lophoc.update(data, {
-          where: { id: Number(id) }
+        await database.lophoc.update(data, {
+          where: { id }
         });
+        return data;
       }
       return null;
     } catch (error) {
@@ -54,13 +99,72 @@ class lophocService {
 
   static async add(data) {
     try {
-      return await database.lophoc.create(data);
+      let thoigianbatdau = data.thoigianbatdau   
+      let tenlophoc  = data.tenlophoc 
+      let trangthai  = data.trangthai 
+      let tk = await database.lophoc.findOne({
+        where: { thoigianbatdau , tenlophoc, trangthai }
+      });
+      console.log(tk);      
+      if (tk == null) {
+         return 0;
+      }else{
+        let up = await database.lophoc.create(data);
+        if(up){
+          return 2
+        }else return 1
+       
+      }     
     } catch (error) {
       throw error;
     }
   }
 
-  
+  // ====================out site=========
+  static async getAllOusite() {
+    try {
+      let id_khoahoc = await database.khoahoc.sequelize.query(
+        `SELECT  khoahocs.hinhanh ,lophocs.*
+        FROM public.khoahocs,public.lophocs 
+        where lophocs.tenlophoc = khoahocs.tenkhoahoc  and lophocs.trangthai =1 
+        ORDER BY id DESC`
+      );
+      return id_khoahoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  //  === noi dung khoa hoc /course/noidung
+  static async getAllOusiteND() {
+    try {
+      let id_khoahoc = await database.khoahoc.sequelize.query(
+        `SELECT  khoahocs.* 
+        FROM public.khoahocs,public.lophocs 
+        where lophocs.tenlophoc = khoahocs.tenkhoahoc  and lophocs.trangthai =1 
+        ORDER BY id DESC`
+      );
+      return id_khoahoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // =================trang ca nhan giang vien==========
+  // static async getAllGV(trangthai ,id_giangvien) {
+  //   try {
+  //      let lophoc = await database.khoahoc.sequelize.query(
+  //       `Select giangviens.hoten , lophocs.*
+  //       from public.lophocs, public.giangviens
+  //       where giangviens.id = lophocs.id_giangvien and lophocs.trangthai=`+trangthai+` and lophocs.id_giangvien = `+id_giangvien+`
+  //       ORDER BY id DESC`
+  //     );
+  //     return lophoc;
+
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 }
 
 export default lophocService;

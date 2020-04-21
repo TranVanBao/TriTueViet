@@ -4,9 +4,9 @@
   <!-- Breadcrumbs-->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a href="#">Dashboard</a>
+      <a href="#">TRANG</a>
     </li>
-    <li class="breadcrumb-item active">Tables</li>
+    <li class="breadcrumb-item active">GIẢNG VIÊN</li>
   </ol>
 
 
@@ -34,15 +34,16 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên nhân viên</th>
-              <th>Số điện thoại</th>
-              <th>Email</th>
-              <th>Địa chỉ</th>
-              <th>Giới tính</th>
-              <th>Lĩnh vực</th>
-              <th>Hình ảnh</th>
-              <th>Hành động</th>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên nhân viên</th>
+              <th class="canhgiua">Số điện thoại</th>
+              <th class="canhgiua">Email</th>
+              <th class="canhgiua">Địa chỉ</th>
+              <th class="canhgiua">Giới tính</th>
+              <th class="canhgiua">Lĩnh vực</th>
+              <th class="canhgiua">Trạng thái</th>
+              <th class="canhgiua">Hình ảnh</th>
+              <th class="canhgiua">Tác vụ</th>
             </tr>
           </thead>
           <tbody>
@@ -50,22 +51,28 @@
             <% data.forEach(dulieu => { %>
             <% stt++ %>
             <tr>
-              <td><%= stt %></td>
-              <td><%= dulieu.hoten %></td>
-              <td><%= String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ')  %></td>
-              <td><%= dulieu.email %></td>
-              <td><%= dulieu.diachi %></td>
-              <td><%= dulieu.gioitinh %></td>
-              <td><%= dulieu.linhvuc %></td>
-              <td><img style="width: 140px; height: 140px" src="../../../../uploadimg/<%= dulieu.hinhanh %>" alt="">
+              <td class="canhgiua"><%= stt %></td>
+              <td class="canhgiua"><%= dulieu.hoten %></td>
+              <td class="canhgiua"><%= String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ')  %></td>
+              <td class="canhgiua"><%= dulieu.email %></td>
+              <td class="canhgiua"><%= dulieu.diachi %></td>
+              <td class="canhgiua"><%= dulieu.gioitinh %></td>
+              <td class="canhgiua"><%= dulieu.linhvuc %></td>
+              <% if(dulieu.trangthai ===0){ %>
+              <td class="canhgiua">Tạm nghĩ</td>
+              <% } %>
+              <% if(dulieu.trangthai ===1){ %>
+              <td class="canhgiua">Có làm</td>
+              <% } %>
+              <td class="canhgiua"><img style="width: 140px; height: 140px" src="../../../../uploadimg/<%= dulieu.hinhanh %>" alt="">
               </td>
-              <td>
-                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit" data-toggle="modal"
+              <td class="canhgiua" style="text-align: center;">
+                <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit" data-toggle="modal"
                   data-target="#updatenv<%= dulieu.id %>">
-                  <i class="fas fa-pen">&nbsp;</i></a>
+                  <i class="fas fa-edit"></i>&nbsp;</i></a>
 
                 <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete" data-toggle="modal"
-                  data-target="#delete<%= dulieu.id %>"><i class="fas fa-trash">&nbsp;</i></a>
+                  data-target="#delete<%= dulieu.id %>"> <i class="far fa-trash-alt"></i></a>
 
                 <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
                   aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -79,7 +86,8 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a class="btn btn-primary" href="/admin/giangvien/<%= dulieu.id %>/<%= dulieu.hinhanh %>">Yes</a>
+                        <a class="btn btn-primary"
+                          href="/admin/giangvien/xoa/<%= dulieu.id %>/<%= dulieu.hinhanh %>">Yes</a>
                       </div>
                     </div>
                   </div>
@@ -122,6 +130,7 @@
                             <label for="message-text" class="col-form-label">GIỚI TÍNH:</label>
                             <input value="<%= dulieu.gioitinh %>" type="text" name="gioitinh" class="form-control"
                               id="recipient-name">
+
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">LĨNH VỰC:</label>
@@ -131,19 +140,26 @@
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
                             <select name="trangthai" class="form-control">
-                              <option value="0">CÓ LÀM</option>
-                              <option value="1">NGHĨ</option>
+
+                              <% if(dulieu.trangthai == 0) { %>
+                              <option value="0">NGHĨ</option>
+                              <option value="1">CÓ LÀM</option>
+                              <% }  %>
+                              <%  if(dulieu.trangthai == 1) { %>
+                              <option value="1">CÓ LÀM</option>
+                              <option value="0">NGHĨ</option>
+                              <% } %>
                             </select>
                           </div>
                           <div class="file-field">
                             <div class="z-depth-1-half mb-4">
                               <img src="../../../../uploadimg/<%= dulieu.hinhanh %>" id="profile-img-tag" width="100%"
                                 height="200px" />
-                             </div>
+                            </div>
                             <div class="d-flex justify-content-center">
                               <div class="btn btn-mdb-color btn-rounded float-left">
                                 <span>Choose file</span>
-                                <input value="" type="file" name="hinhanhupdate" id="profile-img">
+                                <input value="" type="file" name="hinhanh" id="profile-img">
                                 <input value="<%= dulieu.hinhanh %>" type="text" hidden name="hinhanh" id="profile-img">
                               </div>
                             </div>
@@ -151,7 +167,7 @@
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>
 
-                            <input type="submit" class="btn btn-primary" value="SỬA Gianhg vien">
+                            <input type="submit" class="btn btn-primary" value="SỬA GIẢNG VIÊN">
                           </div>
                         </form>
                       </div>

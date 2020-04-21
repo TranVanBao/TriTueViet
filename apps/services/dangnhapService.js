@@ -44,6 +44,33 @@ class dangnhapService {
       throw error;
     }
   }
+  static async kiemtraemail(email) {
+    try {
+      return await await database.taikhoan.findOne({
+        where: { email }
+      });
+     
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async quenmatkhau(email, matkhau) {
+    try {
+      let tk = await database.taikhoan.findOne({
+        where: { email , kichhoat : true }
+      });  
+      if (tk) {       
+        return await database.taikhoan.sequelize.query(
+          `UPDATE public.taikhoans
+          SET  email='`+email+`', matkhau='`+matkhau+`'         
+          WHERE  email='`+email+`' `
+        );
+      }
+      return error;
+    } catch (error) {
+      throw error;
+    }
+  }
 
   static async add(data) {
     try {
@@ -60,9 +87,48 @@ class dangnhapService {
   }
   static async getBylogin(email) {
     try {
-      return await database.taikhoan.findAll({
-        where: { email }
+      let tk = await database.taikhoan.findAll({
+        where: { email , kichhoat : true}
       });
+
+      if (!tk) {
+        return 0;
+      } else return tk;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // xác nhận email
+  static async xacNhanEmail(token) {
+    try {
+      let tk = await database.taikhoan.findOne({
+        where: { token }
+      });
+      if (tk) {
+        return await database.taikhoan.update(
+          { kichhoat: true, token: "" },
+          {
+            where: { token }
+          }
+        );
+      }
+      return null;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async getxacnhan(email) {
+    try {
+      let tk = await database.taikhoan.findAll({
+        where: { email, kichhoat: true }
+      });
+      if (!tk) {
+        return 0;
+      } else {
+        return error;
+      }
     } catch (error) {
       throw error;
     }

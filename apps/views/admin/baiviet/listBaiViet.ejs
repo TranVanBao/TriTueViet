@@ -1,0 +1,96 @@
+<%- include ('../header') -%>
+<div class="container-fluid">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Trang chủ</a>
+        </li>
+        <li class="breadcrumb-item active">Bài viết</li>
+    </ol>
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            <!-- Data Table Example -->
+            <div><a href="/admin/baiviet/them" style="color: #fff;float: right;
+                height: 30px;
+                font-weight: bold;
+                font-size: 12px;
+                text-shadow: none;
+                min-width: 100px;
+                border-radius: 50px;
+                line-height: 13px;
+                background-color: #269abc;
+                border-color: #1b6d85 ; float:right;padding-left: 3%;padding-top: 7px;"><i class="fas fa-plus"></i> Add </a>
+
+            </div>
+            
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="canhgiua">STT</th>
+                            <th class="canhgiua">Tiêu đề</th>
+                            <th class="canhgiua">Chuyên mục</th>
+                            <th class="canhgiua">Trạng thái </th>
+                            <th class="canhgiua">Xem nội dung</th>
+                            <th class="canhgiua">Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% let stt = 0  %>
+                        <% data.forEach(dulieu => { %>
+                        <% stt++ %>
+                        <tr>
+                            <td class="canhgiua"><%= stt %></td>
+                            <td class="canhgiua"><%= dulieu.tieude %></td>
+                            <td class="canhgiua"><%= dulieu.tenchuyenmuc %></td>
+                            <td class="canhgiua"> <% if(dulieu.trangthai == 1) { %>
+                                Hiện
+                                <% } else {%>
+                                Ẩn
+                                <% } %>
+                            </td>
+                            <td class="canhgiua"> <a href="/baiviet/5/<%= dulieu.id_chuyenmuc %>/<%= dulieu.id %>" style="color: blueviolet;"
+                                    class="edit" title="Edit">
+                                    <i class="fas fa-eye">&nbsp;</i></a></td>
+                            <td class="canhgiua" style="text-align: center;">
+                                <a href="/admin/baiviet/update/<%= dulieu.id %>"
+                                    style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit">
+                                    <i class="fas fa-edit"></i>&nbsp;</i></a>
+                                <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
+                                    data-toggle="modal" data-target="#delete<%= dulieu.id %>">
+                                    <i class="far fa-trash-alt"></i></a>
+                                <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa !!!</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <a class="btn btn-primary"
+                                                    href="/admin/baiviet/<%= dulieu.id %>">Yes</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <%}); %>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include ('../footer') -%>

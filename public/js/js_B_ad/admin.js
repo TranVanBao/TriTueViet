@@ -31,12 +31,26 @@ $("#imgInp").change(function() {
 
 // confimr password
 function check_pass() {
-  console.log(document.getElementById("password1"));
+  console.log(document.getElementById("password"));
   if (
-    document.getElementById("password1").value ==  document.getElementById("confirm1").value
+    document.getElementById("password").value ==  document.getElementById("confirm").value
   ) {
     document.getElementById("submit").disabled = false;
   } else {
     document.getElementById("submit").disabled = true;
   }
 }
+
+
+// Thong ke 
+
+document.getElementById("lophoc").onclick = function () {
+  document.getElementById("tklh").style.display = 'block';
+  document.getElementById("tkthu").style.display = 'none'; 
+};
+
+document.getElementById("thuchi").onclick = function () {    
+  document.getElementById("tklh").style.display = 'none';
+  document.getElementById("tkthu").style.display = 'block';
+};
+

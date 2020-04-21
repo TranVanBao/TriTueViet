@@ -3,94 +3,80 @@
 
 <!--================Banner Area =================-->
 <section class="banner_area">
-        <div class="container">
-            <div class="banner_text_inner">
-                <h4>HÃY LIÊN HỆ VỚI CHÚNG TÔI</h4>
-                <h5>KHI BẠN ĐÃ SĂN SÀNG</h5>
+    <!-- <img src="../../../../../upload/course.jpg" style="background-size: cover;position: absolute; height: 100%; width: 100%;" alt="Italian Trulli"> -->
+          
+    <div class="container">
+        <div class="banner_text_inner">
+            <h4>TRUNG TÂM ĐÀO TẠO TIN HỌC FANCY</h4>
+            <ul>
+                <li><a href="index.html"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+                <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>38 Nguyễn Lâm, Phường 6, Quận 10, TP.HCM</a></li>
+               
+        </div>
+    </div>
+</section>
+<!--================End Banner Area =================-->
+
+
+<!--================Latest News Area =================-->
+<section class="latest_news_area p_100">
+    <div class="container">
+        <div class="sec-title">
+            <h2>LỊCH KHAI GIẢNG</h2>
+            <h3>38 Nguyễn Lâm, Phường 6, Quận 10, TP.HCM</h3>
+            <div class="line"></div>
+          </div>
+        <div class="l_news_inner">
+            <div class="row">
+                <% data.forEach(dulieu => { %>
+                <div class="col-md-4 mt-100">
+                    <div class="pricing-table" style="height:680px">
+                        <div class="pricing-header">
+                            <div class="thumb">
+                                
+                                <img class="img-responsive img-fullwidth"
+                                    src="../../../uploadimg/<%= dulieu.hinhanh  %>" alt="">
+                               
+
+                            </div>
+                        </div>
+                        <div class="pricing-title" style="text-transform: none;height:70px"><a
+                                href="https://khoapham.vn/lap-trinh-mql.html" target="_blank">KHÓA HỌC LẬP TRÌNH
+                                <%= dulieu.tenlophoc  %></a></div>
+                        <div class="pricing-feature">
+                            <ul>
+                                <li><strong>Khai giảng:</strong>
+                                    <%=  date('{dd}-{mm}-{yyyy}',  dulieu.thoigianbatdau )  %> </li>
+                                <li><strong>Thời gian:</strong> <%= dulieu.thoigianhoc  %></li>
+                                <li><strong>Thời lượng:</strong> <%= dulieu.thoiluonghoc  %></li>
+                                <li><strong>Học phí:</strong>
+                                    <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1, ') %></li>
+                                <li><strong>Địa điểm học:</strong> <a href="http://khoapham.vn/lienhe.html"
+                                        target="_blank">Khoa Phạm TPHCM</a></li>
+                                <li><strong>Học online từ xa:</strong> <span>Không</span></li>
+                                <li>
+                                    <p>- <%= dulieu.dieukienhoc  %></p>
+                                </li>
+                                <li class="text-center">
+                                    <a href="dang-ki-hoc.html">
+                                        <button class="btn btn-link"
+                                            style="text-transform:uppercase; font-weight:bold; width:100%">
+                                            Đăng kí học
+                                        </button>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <% }) %>
+
             </div>
         </div>
-    </section>
-    <!--================End Banner Area =================-->
-    
 
-    <!--================Latest News Area =================-->
-    <section class="latest_news_area p_100">
-            <div class="container">
-                <div class="b_center_title">
-                    <h2>CÁC KHÓA HỌC SẮP KHAI GIẢNG</h2>
-                    <p>HỌC, HỌC NỮA, HỌC MÃI</p>
-                </div>
-                <div class="l_news_inner">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="l_news_item">
-                                <div class="l_news_img"><a href="#"><img class="img-fluid"  src="../../../images/khoahoc/forex.jpg" alt=""></a></div>
-                                <div class="l_news_content">
-                                    <a href="#"><h4>KHOÁ HỌC FOREX CƠ BẢN & BINARY OPTIONS</h4></a>
-                                    <p>Giúp các bạn cách kiếm tiền từ thị trường này, cũng như hiểu rõ những rủi ro, cạm bẫy, kinh nghiệm của những người đi trước, giúp bạn thành công trong thị trường này một cách ngọt ngào nhất.</p>
-                                    <a class="more_btn" href="#">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="l_news_item">
-                                <div class="l_news_img"><a href="#"><img class="img-fluid" src="../../../images/khoahoc/forex-nangcao.jpg" alt=""></a></div>
-                                <div class="l_news_content">
-                                    <a href="#"><h4>KHOÁ HỌC KIẾM TIỀN VỚI FOREX NÂNG CAO</h4></a>
-                                    <p>Giúp các bạn cách kiếm tiền từ thị trường này, cũng như hiểu rõ những rủi ro, cạm bẫy, kinh nghiệm của những người đi trước, giúp bạn thành công trong thị trường này một cách ngọt ngào nhấ</p>
-                                    <a class="more_btn" href="#">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="l_news_item">
-                                <div class="l_news_img"><a href="#"><img class="img-fluid" src="../../../images/khoahoc/front-end.jpg" alt=""></a></div>
-                                <div class="l_news_content">
-                                    <a href="#"><h4>LẬP TRÌNH FRONT-END</h4></a>
-                                    <p>Thiết kế web luôn là một nghề hấp dẫn bất kì thời điểm nào, bạn thử Google từ khoá "Tuyển dụng Lập trình Front End" sẽ thấy ngay các nhà tuyển dụng đang săn đón với mức lương cực hấp dẫn...</p>
-                                    <a class="more_btn" href="#">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="l_news_inner">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-6">
-                                <div class="l_news_item">
-                                    <div class="l_news_img"><a href="#"><img class="img-fluid"  src="../../../images/khoahoc/forex.jpg" alt=""></a></div>
-                                    <div class="l_news_content">
-                                        <a href="#"><h4>KHOÁ HỌC FOREX CƠ BẢN & BINARY OPTIONS</h4></a>
-                                        <p>Giúp các bạn cách kiếm tiền từ thị trường này, cũng như hiểu rõ những rủi ro, cạm bẫy, kinh nghiệm của những người đi trước, giúp bạn thành công trong thị trường này một cách ngọt ngào nhất.</p>
-                                        <a class="more_btn" href="#">Learn More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="l_news_item">
-                                    <div class="l_news_img"><a href="#"><img class="img-fluid" src="../../../images/khoahoc/forex-nangcao.jpg" alt=""></a></div>
-                                    <div class="l_news_content">
-                                        <a href="#"><h4>KHOÁ HỌC KIẾM TIỀN VỚI FOREX NÂNG CAO</h4></a>
-                                        <p>Giúp các bạn cách kiếm tiền từ thị trường này, cũng như hiểu rõ những rủi ro, cạm bẫy, kinh nghiệm của những người đi trước, giúp bạn thành công trong thị trường này một cách ngọt ngào nhấ</p>
-                                        <a class="more_btn" href="#">Learn More</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4 col-md-6">
-                                <div class="l_news_item">
-                                    <div class="l_news_img"><a href="#"><img class="img-fluid" src="../../../images/khoahoc/front-end.jpg" alt=""></a></div>
-                                    <div class="l_news_content">
-                                        <a href="#"><h4>LẬP TRÌNH FRONT-END</h4></a>
-                                        <p>Thiết kế web luôn là một nghề hấp dẫn bất kì thời điểm nào, bạn thử Google từ khoá "Tuyển dụng Lập trình Front End" sẽ thấy ngay các nhà tuyển dụng đang săn đón với mức lương cực hấp dẫn...</p>
-                                        <a class="more_btn" href="#">Learn More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </section>
-        <!--================End Latest News Area =================-->
-    
+    </div>
+</section>
+<!--================End Latest News Area =================-->
+
 
 <%- include ("footer") -%>

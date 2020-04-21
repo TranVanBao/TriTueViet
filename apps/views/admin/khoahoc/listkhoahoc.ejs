@@ -35,14 +35,13 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên khóa học</th>
-              <th>Loại khóa học</th>
-              <th>Điều kiện</th>              
-              <th>Thời gian</th>
-              <th>Trạng thái</th>
-              <th>Hình ảnh</th>
-              <th>Action</th>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên khóa học</th>
+              <th class="canhgiua">Loại khóa học</th>
+              <!-- <th>Thời gian</th> -->
+              <th class="canhgiua">Trạng thái</th>
+              <th class="canhgiua">Hình ảnh</th>
+              <th class="canhgiua">Tác vụ</th>
 
             </tr>
           </thead>
@@ -51,49 +50,22 @@
             <% data.forEach(dulieu => { %>
             <% stt++ %>
             <tr>
-              <td><%= stt %></td>
-              <td><%= dulieu.tenkhoahoc  %></td>
-              <td><%= dulieu.loaikhoahoc %></td>
-              <td><%= dulieu.dieukienhoc %></td>             
-              <td><%=  date('{mm}/{dd}/{yyyy}', dulieu.createAt)  %></td>
+              <td class="canhgiua"><%= stt %></td>
+              <td class="canhgiua"><%= dulieu.tenkhoahoc  %></td>
+              <td class="canhgiua"><%= dulieu.loaikhoahoc %></td>
               <% if(dulieu.trangthai == 1) { %>
-              <td> Được mở </td>
+              <td class="canhgiua"> Được mở </td>
               <% }  %>
               <%  if(dulieu.trangthai == 0) { %>
-              <td> Đang đóng </td>
+              <td class="canhgiua">  Đang đóng </td>
               <% } %>
 
-              <td><img style="width: 140px; height: 140px" src="../../../../uploadimg/<%= dulieu.hinhanh %>" alt="">
+              <td class="canhgiua"><img style="width: 140px; height: 140px" src="../../../../uploadimg/<%= dulieu.hinhanh %>" alt="">
               </td>
-              <td>
-                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit" data-toggle="modal"
+              <td class="canhgiua" style="text-align: center;">
+                <a href="#" style="color:greenyellow;" class="edit" title="Edit" data-toggle="modal"
                   data-target="#updatekh<%= dulieu.id %>">
-                  <i class="fas fa-pen">&nbsp;</i></a>
-
-                <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete" data-toggle="modal"
-                  data-target="#delete<%= dulieu.id %>"><i class="fas fa-trash">&nbsp;</i></a>
-
-                <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
-                  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa !!!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <%= dulieu.tenkhoahoc %>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <a class="btn btn-primary"
-                          href="/admin/khoahoc/delete/<%= dulieu.id %>/<%= dulieu.hinhanh %>">Yes</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  <i class="fas fa-edit"></i>&nbsp;</i></a>         
 
 
                 <div class="modal fade" id="updatekh<%= dulieu.id %>" tabindex="-1" role="dialog"
@@ -107,7 +79,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form method="POST" action="/admin/khoahoc/<%= dulieu.id %>">
+                        <form method="POST" action="/admin/khoahoc/<%= dulieu.id %>" enctype="multipart/form-data">
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">TÊN KHÓA HOC:</label>
                             <input value="<%= dulieu.tenkhoahoc %>" type="text" name="tenkhoahoc" class="form-control"
@@ -117,12 +89,8 @@
                             <label for="message-text" class="col-form-label">LOẠI KHÓA HỌC:</label>
                             <input value="<%= dulieu.loaikhoahoc %>" type="text" name="loaikhoahoc" class="form-control"
                               id="recipient-name">
-                          </div>                         
-                          <div class="form-group">
-                            <label for="message-text" class="col-form-label">ĐIỀU KIỆN:</label>
-                            <textarea name="dieukienhoc" class="form-control" id="recipient-name" rows="10"
-                              cols="30"><%= dulieu.dieukienhoc %></textarea>
                           </div>
+
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
                             <select name="trangthai" class="form-control">
@@ -145,7 +113,8 @@
                             <div class="d-flex justify-content-center">
                               <div class="btn btn-mdb-color btn-rounded float-left">
                                 <span>Chọn hình ảnh</span>
-                                <input type="file" name="file" id="profile-img">
+                                <input value="" type="file" name="hinhanh" id="profile-img">
+                                <input value="<%= dulieu.hinhanh %>" type="text" hidden name="hinhanh" id="profile-img">
                               </div>
                             </div>
                           </div>

@@ -9,18 +9,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/admin/hocvien">
+                <form method="POST" action="/admin/dangky">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">TÊN HỌC VIÊN:</label>
-                        <input type="text" required name="hoten" class="form-control" id="recipient-name">
+                        <input type="text" autofocus required name="tenkhachhang" class="form-control"
+                            id="recipient-name">                           
                     </div>
-                    <div class="form-group">
-                        <label for="message-text" class="col-form-label">NGÀY SINH:</label>
-                        <input type="date" required name="ngaysinh" class="form-control" id="recipient-name">
-                    </div>
+
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">SỐ ĐIỆN THOẠI:</label>
-                        <input type="number" minlength="10" required name="sdt" class="form-control" id="recipient-name">
+                        <input type="text" pattern="[0-9]{9,11}" required name="sdt" class="form-control"
+                            id="recipient-name">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">EMAIL:</label>
@@ -30,17 +29,26 @@
                         <label for="message-text" class="col-form-label">ĐIẠ CHỈ:</label>
                         <input type="text" required name="diachi" class="form-control" id="recipient-name">
                     </div>
-
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">GIỚI TÍNH:</label>
-                        <input type="text" required name="gioitinh" class="form-control" id="recipient-name">
+						<label for="message-text" class="col-form-label">GIỚI TÍNH:</label>					
+						<input  type="radio" name="gioitinh" value="Nam" checked> Nam
+						<input  type="radio" name="gioitinh" value="Nữ"> Nữ
+						<input  type="radio" name="gioitinh" value="Khác"> Khác
+					</div>
+                    <div class="form-group">
+                        <label for="message-text" class="col-form-label">KHÓA HỌC :</label>
+                        <select name="id_lophoc" class="form-control">
+                            <% lophoc.forEach(dl => { %>
+                            <option value="<%= dl.id %>"> <%= dl.tenlophoc %> -- <%= dl.thoigianhoc %> --   <%= String(dl.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>VND</option>
+                            <%}); %>
+                          
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
-                        <select name="trangthai" class="form-control">
-                            <option value="0">ĐANG HỌC</option>
-                            <option value="1">KHÔNG</option>
-                        </select>
+                        <label for="message-text" class="col-form-label">THANH TOÁN:</label>
+                        
+                        <input pattern="[0-9]{6,11}" value="" type="text" name="thanhtoan"
+                            class="form-control" id="recipient-name" placeholder="0 VND">
                     </div>
 
                     <div class="modal-footer">
@@ -54,5 +62,4 @@
 
         </div>
     </div>
-</div>
 </div>

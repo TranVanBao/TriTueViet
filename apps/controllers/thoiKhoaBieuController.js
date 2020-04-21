@@ -1,118 +1,95 @@
-import { validationResult } from "express-validator";
-import thoiKhoaBieuService from "../services/thoiKhoaBieuService";
-
-
-class thoiKhoaBieuController {
+import date from "s-date";
+import lopHocService from "../services/lopHocService";
+import khoaHocService from "../services/khoaHocService";
+import giangVienService from "../services/giangVienService";
+import dangkyService from "../services/dangkyService";
+import phongHocService from "../services/phongHocService";
+class lophocController {
   static async getAll(req, res) {
-    if (req.session.user) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {
-        const all = await thoiKhoaBieuService.getAll();
-        if (all.length > 0) {
-          util.setSuccess(200, "KH ton tai", all);
+        const user = req.session.user
+        let trangthai = req.params.id    
+        const data1 = await lopHocService.getAll(trangthai);      
+        const phonghoc = await phongHocService.getsudung(); 
+        const data = data1[0];
+        if (data.length > 0) {
+          res.render("../views/admin/thoikhoabieu/listthiukhoabieu.ejs", {
+            data, user,
+            trangthai,
+            date,
+            phonghoc         
+          });
         } else {
-          util.setSuccess(200, "Khach hang found");
+          res.render("../views/admin//thoikhoabieu/listthiukhoabieu.ejs", {
+            data, user,
+            date,
+            trangthai,        
+            phonghoc,
+            message: "Khong co hoc vien nao"
+          });
         }
-        return util.send(res);
+        return 0;
       } catch (error) {
-        util.setError(400, error);
-        return util.send(res);
+        return error;
       }
     } else {
       return res.redirect("/");
     }
   }
 
-  static async Delete(req, res) {
-    if (req.session.user) {
-      let { id } = req.params;
-      if (!Number(id)) {
-        util.setError(400, "Please provide a numeric value");
-        return util.send(res);
-      }
+  static async getDanghoc(req, res) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {
-        let Xoa = await thoiKhoaBieuService.delete(id);
-        if (Xoa) {
-          util.setSuccess(200, "TK xoa thanh cong");
+        const user = req.session.user
+        let trangthai = req.params.id    
+        const data1 = await lopHocService.get1lop(trangthai);      
+        const phonghoc = await phongHocService.getsudung(); 
+        const data = data1[0];
+        if (data.length > 0) {
+          res.render("../views/admin/thoikhoabieu/listthiukhoabieu.ejs", {
+            data, user,
+            trangthai,
+            date,
+            phonghoc         
+          });
         } else {
-          util.setError(400, "Xoa khong thanh cong");
+          res.render("../views/admin//thoikhoabieu/listthiukhoabieu.ejs", {
+            data, user,
+            date,
+            trangthai,        
+            phonghoc,
+            message: "Khong co hoc vien nao"
+          });
         }
-        return util.send(res);
+        return 0;
       } catch (error) {
-        util.setError(400, error);
-        return util.send(res);
+        return error;
       }
     } else {
       return res.redirect("/");
     }
   }
 
-  static async add(req, res) {
-    let validate = validationResult(req);
-    if (!validate.isEmpty()) {
-      util.setError(400, validate.array);
-      return util.send(res);
-    }
-    let data = {
-      ...req.body,
-      matkhau: bcrypt.hashSync(req.body.matkhau, bcrypt.genSaltSync(10))
-    };
-    try {
-      const created = await thoiKhoaBieuService.add(data);
-      util.setSuccess(201, "Book Added!", created);
-      return util.send(res);
-    } catch (error) {
-      util.setError(400, error.message);
-      return util.send(res);
-    }
-  }
-
-  static async updated(req, res) {
+  static async update(req, res) {
     const altered = req.body;
     const { id } = req.params;
-    if (!Number(id)) {
-      util.setError(400, "Please input a valid numeric value");
-      return util.send(res);
+    if (!Number(id)) {    
+      res.redirect("/admin/thoikhoabieu/1?kq=1&mes=Lỗi lấy dữ liệu!!!");
     }
     try {
-      const update = await thoiKhoaBieuService.Update(id, altered);
-      if (!update) {
-        util.setError(404, `Cannot find tai khoan with the id: ${id}`);
-      } else {
-        util.setSuccess(200, "khach hang updated", updateBook);
+      const update = await lopHocService.Update(id, altered);     
+      if (!update) {       
+        res.redirect("/admin/thoikhoabieu/1?kq=0&mes=Lỗi cập nhật!!!");
+      } else {        
+        res.redirect("/admin/thoikhoabieu/1?kq=1&mes=Thành Công !!!");
       }
-      return util.send(res);
+      return;
     } catch (error) {
-      util.setError(404, error);
-      return util.send(res);
+      return error;
     }
   }
-
-  static async get1(req, res) {
-    if (req.session.user) {
-      const { id } = req.params;
-
-      if (!Number(id)) {
-        util.setError(400, "Please input a valid numeric value");
-        return util.send(res);
-      }
-
-      try {
-        const thetk = await thoiKhoaBieuService.getByID(id);
-
-        if (!thetk) {
-          util.setError(404, `Cannot find tai khoan with the id ${id}`);
-        } else {
-          util.setSuccess(200, "Found tai khoan", thetk);
-        }
-        return util.send(res);
-      } catch (error) {
-        util.setError(404, error);
-        return util.send(res);
-      }
-    } else {
-      return res.redirect("/");
-    }
-  }
+ 
 }
 
-export default thoiKhoaBieuController;
+export default lophocController;

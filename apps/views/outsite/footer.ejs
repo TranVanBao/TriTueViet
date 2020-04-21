@@ -1,3 +1,23 @@
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModaloutsite" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Logout</h5>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">Thoát khỏi chế độ đăng nhập !!!.</div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        <a class="btn btn-primary" href="/dangnhap/logout">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!--================Footer Area =================-->
 <footer class="footer_area">
     <div class="footer_widgets_area">
@@ -111,46 +131,14 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js">      </script>
-
-<script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
-<script src="https://ckeditor.com/apps/ckfinder/3.4.5/ckfinder.js"></script>
-<script>
-    ClassicEditor
-        .create(document.querySelector('#editor'), {
-            toolbar: [
-                'ckfinder',
-                'heading',
-                '|',
-                'alignment',                                                 // <--- ADDED
-                'bold',
-                'italic',
-                'link',
-                'imageUpload',
-                'undo',
-                'redo'],
-            ckfinder: {
-                uploadUrl: 'https://example.com/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images&responseType=json',
-                options: {
-                    resourceType: 'Images'
-                },
-              
-            },
-
-        })
-        .catch(error => {
-            console.error(error);
-        });
-</script>
-
-
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <!-- Rev slider js -->
 <script src="../../..//js//js_B_ad/outsite.js"></script>
-<script src="../../..//js/outsite//ckfinder/ckfinder.js"></script>
 <script src="../../../vendors/revolution/js/jquery.themepunch.tools.min.js"></script>
 <script src="../../../vendors/revolution/js/jquery.themepunch.revolution.min.js"></script>
 <script src="../../../vendors/revolution/js/extensions/revolution.extension.actions.min.js"></script>
@@ -172,6 +160,42 @@
 
 <script src="../../../js/outsite/js/theme.js"></script>
 <script src="../../../js/js_login/loginModal.js"></script>
+<!-- <script src="../../../ckeditor/ckeditor.js"></script> -->
+
+<script>
+    config = {}
+    //config.uiColor = '#AADC6E';
+    config.language = 'vi';
+    config.toolbarGroups = [
+        { name: 'clipboard', groups: ['clipboard', 'undo'] },
+        { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
+        { name: 'links', groups: ['links'] },
+        { name: 'insert', groups: ['insert'] },
+        { name: 'forms', groups: ['forms'] },
+        { name: 'tools', groups: ['tools'] },
+        { name: 'document', groups: ['mode', 'document', 'doctools'] },
+        { name: 'others', groups: ['others'] },
+        '/',
+        { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+        { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
+        { name: 'styles', groups: ['styles'] },
+        { name: 'colors', groups: ['colors'] },
+        { name: 'about', groups: ['about'] }
+    ];
+    config.removeButtons = 'Underline,Subscript,Superscript,Source,Strike,RemoveFormat,Outdent,Indent,SpecialChar,HorizontalRule,Anchor,Paste,PasteText,PasteFromWord,Cut,About';
+    config.entities_latin = false;
+
+</script>
+<script type="text/javascript">
+    CKEDITOR.replace('ckeditor', {
+      "extraPlugins" : 'imagebrowser',
+          "imageBrowser_listUrl" : "/files"
+    });
+    CKEDITOR.replace('ckeditor1', {
+      "extraPlugins" : 'imagebrowser',
+          "imageBrowser_listUrl" : "/files"
+    });
+  </script>
 </body>
 
 </html>

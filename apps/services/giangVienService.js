@@ -10,6 +10,16 @@ class giangvienService {
       throw error;
     }
   }
+  // ==========cho lop hoc
+  static async getcolam() {
+    try {      
+      return await database.giangvien.findAll({
+        where: {trangthai:1}
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
   static async getByID(id){
       try {
           return await database.giangvien.findAll({

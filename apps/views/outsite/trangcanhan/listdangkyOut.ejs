@@ -1,0 +1,64 @@
+<%- include ('./headerOut.ejs') -%>
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="#">Trang</a>
+        </li>
+        <li class="breadcrumb-item active">ĐĂNG KÝ LỚP</li>
+    </ol>
+
+
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+        
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Tên học viên</th>
+                            <th>Ngày đăng ký</th>
+                            <th>Số điện thoại</th>
+                            <th>Email</th>
+                            <th>Địa chỉ</th>
+                            <th>Lớp học đăng ký</th>
+                            <th>Thanh toán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% var stt = 0 %>
+
+                        <% data.forEach(dulieu => { %>
+                        <% stt++ %>
+                        <tr>
+                            <td><%= stt %></td>
+                            <td><%= dulieu.tenkhachhang %></td>
+                            <td><%=  date('{mm}/{dd}/{yyyy}', dulieu.createdAt)  %></td>
+                            <td><%=  String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ')  %></td>
+                            <td><%= dulieu.email %></td>
+                            <td><%= dulieu.diachi %></td>
+                            <td><%= lophoc[0].tenlophoc %></td>
+                            <td><%= String(dulieu.thanhtoan).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
+
+                        </tr>
+
+
+                        <%}); %>
+
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include ('./footerOut.ejs') -%>
+</div>

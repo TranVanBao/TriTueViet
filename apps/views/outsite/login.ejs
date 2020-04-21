@@ -9,29 +9,68 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         <!-- Modal body -->
-        <div class="modal-body">
+        <div class="modal-body ronglogin">
           <form action="/dangnhap" method="POST" class="needs-validation">
             <div class="form-group">
               <label>Email:</label>
               <input type="email" class="form-control" id="uname" placeholder="Enter username" name="email" required>
+              <p style="color: crimson;" id="login1"></p>
               <div class="valid-feedback">Valid.</div>
               <div class="invalid-feedback">Please fill out this field.</div>
             </div>
             <div class="form-group">
               <label for="pwd">Mật Khẩu:</label>
               <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="matkhau" required>
+              <p style="color: crimson;" id="login2"></p>
               <div class="valid-feedback">Valid.</div>
               <div class="invalid-feedback">Please fill out this field.</div>
             </div>
-            <button type="submit" class="btn btn-primary">Đăng Nhập</button>
-            <a data-toggle="modal" data-target="#exampleModal"> Đăng Ký </a>
+            <button type="submit" class="btn btn-primary loginbtn">Đăng Nhập</button>
+            <a data-toggle="modal" data-target="#exampleModal"> Đăng Ký /</a> 
+            <a data-toggle="modal" data-target="#quenmatkhau"> Quên mật khẩu </a>
+
           </form>
         </div>
         <!-- Modal footer -->
-        <!-- <div class="modal-footer">
+        <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
-           -->
+          
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- html quen mat khau -->
+<div class="container">
+  <!-- The Modal -->
+  <div class="modal fade" id="quenmatkhau">
+    <div class="modal-dialog modal-sm quenmk">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Quên mật khẩu</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <!-- Modal body -->
+        <div class="modal-body ronglogin">
+          <form action="/dangnhap/laymatkhau" method="POST" class="needs-validation">
+            <div class="form-group">
+              <label>Email:</label>
+              <input type="email" class="form-control" id="uname" placeholder="Enter username" name="email" required>
+              <p style="color: crimson;" id="login1"></p>
+              <div class="valid-feedback">Valid.</div>
+              <div class="invalid-feedback">Please fill out this field.</div>
+            </div>            
+            <button type="submit" class="btn btn-primary loginbtn">Lấy mật khẩu</button>          
+          </form>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+          
       </div>
     </div>
   </div>

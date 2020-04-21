@@ -34,12 +34,12 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Tên phòng</th>
-                            <th>Số lượng</th>
-                            <th>Hiện Trạng</th>
-                            <th>Trạng thái </th>
-                            <th>Action</th>
+                            <th class="canhgiua">STT</th>
+                            <th class="canhgiua">Tên phòng</th>
+                            <th class="canhgiua">Số lượng</th>
+                            <th class="canhgiua">Hiện Trạng</th>
+                            <th class="canhgiua">Trạng thái </th>
+                            <th class="canhgiua">Tác vụ</th>
 
                         </tr>
                     </thead>
@@ -48,25 +48,24 @@
                         <% data.forEach(dulieu => { %>
                         <% stt++ %>
                         <tr>
-                            <td><%= stt %></td>
-                            <td><%= dulieu.tenphonghoc %></td>
-                            <td><%= dulieu.soluongnguoi %></td>
-                            <td><%= dulieu.hientrang %></td>
-                            <td> <% if(dulieu.trangthai == 1) { %>
+                            <td class="canhgiua"><%= stt %></td>
+                            <td class="canhgiua"><%= dulieu.tenphonghoc %></td>
+                            <td class="canhgiua"><%= dulieu.soluongnguoi %></td>
+                            <td class="canhgiua"><%= dulieu.hientrang %></td>
+                            <td class="canhgiua"> <% if(dulieu.trangthai == 1) { %>
                                Đang sử dụng
                                 <% } else {%>
                                     Không sử dụng
                                     <% } %>
                             </td>
 
-                            <td>
-                                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit"
+                            <td class="canhgiua" style="text-align: center;">
+                                <a href="#" style="color: greenyellow;" class="edit" title="Edit"
                                     data-toggle="modal" data-target="#updatephong<%= dulieu.id %>">
-                                    <i class="fas fa-pen">&nbsp;</i></a>
+                                    <i class="fas fa-edit"></i>&nbsp;</i></a>
 
                                 <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
-                                    data-toggle="modal" data-target="#delete<%= dulieu.id %>"><i
-                                        class="fas fa-trash">&nbsp;</i></a>
+                                    data-toggle="modal" data-target="#delete<%= dulieu.id %>"> <i class="far fa-trash-alt"></i></a>
 
                                 <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">

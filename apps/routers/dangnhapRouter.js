@@ -14,5 +14,9 @@ router.get('/logout', (req, res) => {
     })
 })
 router.post("/dangky", dangnhapController.addTK)
+router.post("/laymatkhau", dangnhapController.laymatkhau)
+router
+.get("/dangky/xacnhan", dangnhapController.getxacnhan)
+.post("/dangky/xacnhan", dangnhapController.xacnhan)
 
 module.exports = router;

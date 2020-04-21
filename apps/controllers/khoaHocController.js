@@ -1,5 +1,4 @@
-import { validationResult } from "express-validator";
-import multer from "multer";
+import fs from "fs";
 import date from "s-date";
 import khoaHocService from "../services/khoaHocService";
 
@@ -11,13 +10,14 @@ let n = d.getDate() + d.getMonth() + d.getFullYear();
 
 class khoaHocController {
   static async getAll(req, res) {
-    if (req.session.user) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {
+        const user = req.session.user
         const data = await khoaHocService.getAll();
         if (data.length > 0) {
-          res.render("../views/admin/khoahoc/listkhoahoc.ejs", { data, date });
+          res.render("../views/admin/khoahoc/listkhoahoc.ejs", { data, date , user });
         } else {
-          res.render("../views/admin/khoahoc/listkhoahoc.ejs", { data });
+          res.render("../views/admin/khoahoc/listkhoahoc.ejs", { data, date , user});
         }
         return 0;
       } catch (error) {
@@ -29,23 +29,26 @@ class khoaHocController {
   }
 
   static async Delete(req, res) {
-    if (req.session.user) {
-      let { id } = req.params;
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
+      let { id, hinhanh } = req.params;
       if (!Number(id)) {
         res.redirect("/admin/khoahoc");
-      }
+      }  
       try {
-        let Xoa = await khoaHocService.delete(id);
-        if (Xoa) {
-          //util.setSuccess(200, 'TK xoa thanh cong')
-          res.status(204).redirect("/admin/khoahoc");
-        } else {
-          res.render("../views/admin/khoahoc/listkhoahoc.ejs", { error });
+        if (hinhanh != "images.png") {         
+          var url_del = "public/uploadimg/" + hinhanh;         
+          if (fs.existsSync(url_del)) {                    
+            fs.unlinkSync(url_del);
+          }
         }
-        return; //util.send(res)
+        let Xoa = await khoaHocService.delete(id);  
+        if (Xoa) {          
+          res.redirect("/admin/khoahoc?kq=1&mes=Xóa Thành Công!!!");
+        } else {
+          res.redirect("/admin/khoahoc?kq=0&mes=Xóa Không Thành Công!!!");
+        }       
       } catch (error) {
-        // util.setError(400,error)
-        return; //util.send(res)
+        return error;
       }
     } else {
       return res.redirect("/");
@@ -53,32 +56,35 @@ class khoaHocController {
   }
 
   static async add(req, res) {
-    let hinhanh = n + "-" + "ImagesDefault.png";
+    let hinhanh = "images.png";
     if (req.file) {
       hinhanh = n + "-" + req.file.originalname;
     }
     let data = { ...req.body, hinhanh };
     try {
       const created = await khoaHocService.add(data);
-      res.status(201, { created }).redirect("/admin/khoahoc");
+      res.redirect("/admin/khoahoc");
     } catch (error) {
       return error;
     }
   }
   static async update(req, res) {
-    const altered = req.body;
-    const { id } = req.params;
-    if (!Number(id)) {
-      return console.log("Id not number !!!");
+    let id = req.params.id;
+    let hinhanh = req.body.hinhanh;
+    console.log(hinhanh);
+    if (req.file) {
+      console.log(req.file);
+      hinhanh = n + "-" + req.file.originalname;
     }
+    let altered = { ...req.body, hinhanh };
+    console.log(altered);
     try {
       const update = await khoaHocService.Update(id, altered);
       if (!update) {
-        res.status(401, { update }).redirect("/admin/khoahoc");
+        res.redirect("/admin/khoahoc?kq=0&mes=Lỗi!!!");
       } else {
-        res.status(204, { update }).redirect("/admin/khoahoc");
+        res.redirect("/admin/khoahoc?kq=1&mes=Thành Công!!!");
       }
-      res.status(404, { update }).redirect("/admin/khoahoc");
     } catch (error) {
       return error;
     }

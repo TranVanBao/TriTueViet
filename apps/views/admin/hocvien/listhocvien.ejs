@@ -6,7 +6,7 @@
         <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
         </li>
-        <li class="breadcrumb-item active">Tables</li>
+        <li class="breadcrumb-item active">Học viên</li>
     </ol>
 
 
@@ -34,40 +34,39 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>STT</th>
-                            <th>Tên học viên</th>
-                            <th>Ngày sinh</th>
-                            <th>Số điện thoại</th>
-                            <th>Email</th>
-                            <th>Địa chỉ</th>
-                            <th>Giới tính</th>
-                            <th>Hành động</th>
+                            <th class="canhgiua">STT</th>
+                            <th class="canhgiua">Tên học viên</th>
+                            <th class="canhgiua">Giới tính</th>
+                            <th class="canhgiua">Số điện thoại</th>
+                            <th class="canhgiua">Email</th>
+                            <th class="canhgiua">Địa chỉ</th>
+                            <th class="canhgiua">Giới tính</th>
+                            <th class="canhgiua">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% var stt = 0 %>
-                          <% console.log(data);    %>    
-                        <% data.forEach(dulieu => { %>
-                        <% stt++ %>  
-                                         
+                     
+                       <% data.forEach(dulieu => { %>
+                        <% stt++ %>
                         <tr>
-                            <td><%= stt %></td>
-                            <td><%= dulieu.hoten %></td>
-                            <td> <%= dulieu.ngaysinh  %></td>
-                            <td><%= dulieu.SDT %></td>
-                            <td><%= dulieu.email %></td>
-                            <td><%= dulieu.diachi %></td>
-                            <td><%= dulieu.gioitinh %></td>
-                            <td>
-                                <a href="#" style="color: gold;margin-left: 20%;" class="edit" title="Edit"
-                                    data-toggle="modal" data-target="#updatehv<%= dulieu._id %>">
-                                    <i class="fas fa-pen">&nbsp;</i></a>
+                            <td class="canhgiua"><%= stt %></td>
+                            <td class="canhgiua"><%= dulieu.tenkhachhang %></td>
+                            <td class="canhgiua"><%= dulieu.gioitinh %></td>
+                            <td class="canhgiua"><%= String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ') %></td>
+                            <td class="canhgiua"><%= dulieu.email %></td>
+                            <td class="canhgiua"><%= dulieu.diachi %></td>
+                            <td class="canhgiua"><%= dulieu.gioitinh %></td>
+                            <td class="canhgiua" style="text-align: center;">
+                                <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
+                                    data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">
+                                    <i class="fas fa-edit"></i>&nbsp;</i></a>
 
                                 <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
-                                    data-toggle="modal" data-target="#delete<%= dulieu._id %>"><i
-                                        class="fas fa-trash">&nbsp;</i></a>
+                                    data-toggle="modal" data-target="#delete<%= dulieu.id %>">
+                                    <i class="far fa-trash-alt"></i></a>
 
-                                <div class="modal  fade" id="delete<%= dulieu._id %>" tabindex="-1" role="dialog"
+                                <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -81,14 +80,14 @@
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary"
                                                     data-dismiss="modal">Close</button>
-                                                <a class="btn btn-primary" href="/xoahv/<%= dulieu._id %>">Yes</a>
+                                                <a class="btn btn-primary"
+                                                    href="/admin/dangky/xoadangky/<%= dulieu.id %>">Yes</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
-                                <div class="modal fade" id="updatehv<%= dulieu._id %>" tabindex="-1" role="dialog"
+                                 
+                                <div class="modal fade" id="updatedangky<%= dulieu.id %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -100,24 +99,22 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="/admin/suahv/<%= dulieu._id %>">
+                                                <form method="POST" action="/admin/dangky/<%= dulieu.id %>">
+
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">TÊN HỌC
                                                             VIÊN:</label>
-                                                        <input value="<%= dulieu.hoten %>" type="text" name="ten"
-                                                            class="form-control" id="recipient-name">
+                                                        <input value="<%= dulieu.tenkhachhang %>" type="text"
+                                                            name="tenkhachhang" class="form-control"
+                                                            id="recipient-name">
                                                     </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">NGÀY
-                                                            SINH:</label>
-                                                        <input value="<%= dulieu.ngaysinh %>" type="date"
-                                                            name="ngaysinh" class="form-control" id="recipient-name">
-                                                    </div>
+
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">SỐ ĐIỆN
                                                             THOẠI:</label>
-                                                        <input minlength="10" value="<%= dulieu.SDT %>" type="number"
-                                                            name="sdt" class="form-control" id="recipient-name">
+                                                        <input value="<%= dulieu.sdt %>" type="text"
+                                                            pattern="[0-9]{9,11}" name="sdt" class="form-control"
+                                                            id="recipient-name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">EMAIL:</label>
@@ -136,22 +133,38 @@
                                                         <input value="<%= dulieu.gioitinh %>" type="text"
                                                             name="gioitinh" class="form-control" id="recipient-name">
                                                     </div>
-
                                                     <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">KHÓA HỌC
+                                                            :</label>
+                                                        <select name="id_lophoc" class="form-control">
+                                                            <option value="<%= dulieu.id_lophoc %>">
+                                                                <%= dulieu.tenlophoc %> -- <%=  date('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %>
+                                                            </option>
+                                                          
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">THANH
+                                                            TOÁN:</label>
+                                                        <input pattern="[0-9]{0,8}" value="<%= dulieu.thanhtoan %>"
+                                                            type="text" name="thanhtoan" class="form-control"
+                                                            id="recipient-name">
+                                                    </div>
+                                                    <!-- <div class="form-group">
                                                         <label for="message-text" class="col-form-label">TRẠNG
                                                             THÁI:</label>
                                                         <select name="trangthai" class="form-control">
-                                                            <option value="0">ĐANG HỌC</option>
-                                                            <option value="1">KHÔNG</option>
+                                                            <option value="1">ĐANG HỌC</option>
+                                                            <option value="0">KHÔNG</option>
                                                         </select>
-                                                    </div>
+                                                    </div> -->
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">THOÁT</button>
 
                                                         <input type="submit" class="btn btn-primary"
-                                                            value="SỬA THÔNG TIN HỌC VIÊN">
+                                                            value="Sửa Học Viên">
                                                     </div>
                                                 </form>
                                             </div>
@@ -160,6 +173,7 @@
                                     </div>
                                 </div>
                             </td>
+
 
                         </tr>
 

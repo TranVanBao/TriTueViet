@@ -8,10 +8,9 @@ router.route("/:quyenhang").get(taiKhoanController.getAllTK);
 
 router.route("/").post(taiKhoanController.addTK);
 router
-  .route("/:id")
+  .route("/:quyenhang/:id")
   .post(taiKhoanController.updatedtk)
   .get(taiKhoanController.DeleteTK);
 
-//router.route("/login").post(taiKhoanController.getlogin);
 //router.get("/log", middleware.checkToken);
 module.exports = router;

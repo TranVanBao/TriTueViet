@@ -2,18 +2,18 @@ import phanquyenService from "../services/phanquyenService";
 
 class phanquyenController {
   static async getAll(req, res) {
-    if (req.session.user) { 
+    if (req.session.user.quyenhang =="Admin") { 
     try {
+      const user = req.session.user
       const data = await phanquyenService.getAll();
-
       if (data.length > 0) {
         res.render("../views/admin/phanquyen/listphanquyen.ejs", {
-          data,
+          data,user,
           message: 1
         });
       } else {
         res.render("../views/admin/phanquyen/listphanquyen.ejs", {
-          data,
+          data, user,
           message: 0
         });
       }
@@ -25,7 +25,7 @@ class phanquyenController {
   }
 
   static async Delete(req, res) {
-    if (req.session.user) { 
+    if (req.session.user.quyenhang == "Admin") { 
     let { id } = req.params;
     if (!Number(id)) {
       console.log("id not a number!!!");

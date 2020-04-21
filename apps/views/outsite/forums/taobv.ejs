@@ -1,0 +1,33 @@
+<aside class="col-md-3 sidebar" style="margin-bottom: 30px">
+    <a href="/forum/hoi-bai"><button class="btn btn-danger" style="width: 100%"><i
+                class="fa fa-plus"></i><strong> Tạo bài viết</strong></button></a>
+    <br><br>
+    <div class="widget widget_stats">
+        <h3 class="widget_title">Chuyên mục</h3>
+        <ul>
+                
+        <% khoahoc.forEach(dulieu => { %>
+            <li><a href="/forum/khoahoc/<%= dulieu.id %>/<%= dulieu.tenkhoahoc %>/10"><i  class="fa fa-folder-open-o"></i> <%= dulieu.tenkhoahoc %></a>
+            </li>
+        <% }) %>
+
+          
+        </ul>
+    </div><!-- End widget_menu -->
+    <div class="widget">
+        <h3 class="widget_title">Bài viết mới nhất</h3>
+        <ul class="related-posts">
+            <li class="related-item">
+                <h3><a href="http://online.khoapham.vn/forum/nodejs/456-san-sot-ve-ca-cuoc-bong-da-ko-thua">san
+                        sớt về cá cược bóng đá ko thua</a></h3>
+                <div class="clear"></div><span>08-02-2020</span>
+            </li>
+            <li class="related-item">
+                <h3><a
+                        href="http://online.khoapham.vn/forum/Unity/455-chi-dan-mo-tai-khoan-khi-choi-casino">Chỉ
+                        dẫn mở tài khoản khi chơi casino</a></h3>
+                <div class="clear"></div><span>08-02-2020</span>
+            </li>
+        </ul>
+    </div>
+</aside><!-- End sidebar -->
