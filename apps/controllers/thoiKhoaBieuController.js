@@ -1,9 +1,9 @@
-import date from "s-date";
-import lopHocService from "../services/lopHocService";
-import khoaHocService from "../services/khoaHocService";
-import giangVienService from "../services/giangVienService";
-import dangkyService from "../services/dangkyService";
-import phongHocService from "../services/phongHocService";
+var date = require("s-date")
+var lopHocService = require("../services/lopHocService")
+var khoaHocService = require("../services/khoaHocService")
+var giangVienService = require("../services/giangVienService")
+var dangkyService = require("../services/dangkyService")
+var phongHocService = require("../services/phongHocService")
 class lophocController {
   static async getAll(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
@@ -92,4 +92,4 @@ class lophocController {
  
 }
 
-export default lophocController;
+module.exports = lophocController;

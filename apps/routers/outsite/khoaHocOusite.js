@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import khoaHocController from '../../controllers/outsite/khoaHocOutsiteC';
+var { Router } = require("express")
+var khoaHocController = require("../../controllers/outsite/khoaHocOutsiteC")
 
 
 const router = Router();
@@ -17,6 +17,6 @@ router.route('/noidung')
 
 
 
-//export default router;
+//module.exports = router;
 
 module.exports = router;

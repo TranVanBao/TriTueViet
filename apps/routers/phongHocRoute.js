@@ -1,6 +1,6 @@
-import { Router } from "express";
+var { Router } = require("express")
 const { check } = require("express-validator");
-import phongHocController from "../controllers/phongHocController";
+var phongHocController = require("../controllers/phongHocController")
 
 const router = Router();
 

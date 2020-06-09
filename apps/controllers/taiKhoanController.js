@@ -1,6 +1,6 @@
-import bcrypt from "bcryptjs";
+var bcrypt = require("bcryptjs")
 
-import taiKhoanService from "../services/taiKhoanService";
+var taiKhoanService = require("../services/taiKhoanService")
 
 class taiKhoanController {
   static async getAllTK(req, res) {
@@ -117,4 +117,4 @@ class taiKhoanController {
 
 }
 
-export default taiKhoanController;
+module.exports = taiKhoanController;

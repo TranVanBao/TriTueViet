@@ -1,6 +1,6 @@
-import date from "s-date";
-import lopHocService from "../../services/lopHocService";
-import baivietService from "../../services/baivietService";
+var date = require("s-date")
+var lopHocService = require("../../services/lopHocService")
+var baivietService = require("../../services/baivietService")
 class indexController {
   static async getAll(req, res) {  
       try {          
@@ -24,4 +24,4 @@ class indexController {
   }
 }
 
-export default indexController;
+module.exports = indexController;

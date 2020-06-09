@@ -9,7 +9,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="/admin/dangky">
+                <form onsubmit="return addhocvien();" name="themhocvien" method="POST" action="/admin/dangky">
+                    <div class="form-group col-lg-12" style="color: red;" id="errorhva"></div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">TÊN HỌC VIÊN:</label>
                         <input type="text" autofocus required name="tenkhachhang" class="form-control"
@@ -63,3 +64,34 @@
         </div>
     </div>
 </div>
+<script>
+    function addhocvien() {
+        let tenkhachhang = document.forms["themhocvien"]["tenkhachhang"].value;
+        if (tenkhachhang === '' || tenkhachhang == null || tenkhachhang.length < 2) {
+            document.getElementById("errorhva").innerHTML = " Xin điền tên hợp lệ !!!";
+            return false;
+        }
+        let sdt = document.forms["themhocvien"]["sdt"].value;
+        if (sdt === '' || sdt == null || sdt.length < 9 || sdt.length > 12) {
+            document.getElementById("errorhva").innerHTML = " Xin điền số điện thoại hợp lệ !!!";
+            return false;
+        }
+        let email = document.forms["themhocvien"]["email"].value;
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(email)) {
+            document.getElementById("errorhva").innerHTML = " Xin điền email hợp lệ !!!";
+            return false;
+        }     
+        let diachi = document.forms["themhocvien"]["diachi"].value;
+        if (diachi === '' || diachi == null) {
+            document.getElementById("errorhva").innerHTML = " Xin điền địa chỉ !!!";
+            return false;
+        }
+        let lophoc = document.forms["themhocvien"]["id_lophoc"].value;
+        if (lophoc === '' || lophoc == null) {
+            document.getElementById("errorhva").innerHTML = " Xin khóa học !!!";
+            return false;
+        }
+
+    }
+</script>

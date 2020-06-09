@@ -1,21 +1,19 @@
-import { Router } from 'express';
-import khoaHocController from '../controllers/khoaHocController';
+var { Router } = require("express");
+var khoaHocController = require("../controllers/khoaHocController");
 
-import upload from '../../helpers/uploadfile'
+var upload = require("../../helpers/uploadfile");
 
 const router = Router();
 var single = upload.single("hinhanh");
 
-router.route('/')
-.get(khoaHocController.getAll)
+router.route("/update/:id").get(khoaHocController.getupdate);
+router.route("/").get(khoaHocController.getAll);
+router.route("/add").get(khoaHocController.getadd);
 
-router.route('/')
-.post( single,khoaHocController.add)
-router.route('/:id')
-.post(single,khoaHocController.update)
-router.route('/delete/:id/:hinhanh')
-.get(khoaHocController.Delete) 
+router.route("/").post(single, khoaHocController.add);
+router.route("/:id").post(single, khoaHocController.update);
+router.route("/delete/:id/:hinhanh").get(khoaHocController.Delete);
 
-//export default router;
+//module.exports = router;
 
 module.exports = router;

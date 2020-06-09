@@ -1,8 +1,8 @@
-import { Router } from "express";
-import multer from "multer"
-import crypto from "crypto"
-import path from "path"
-import baivietService from "../services/baivietService"
+var { Router } = require("express");
+var multer = require("multer")
+var crypto = require("crypto")
+var path = require("path")
+var baivietService = require("../services/baivietService")
 const Promise = require('bluebird');
 
 const fs = Promise.promisifyAll(require('fs'));

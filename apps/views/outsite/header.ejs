@@ -13,41 +13,44 @@
     <title>Fancy</title>
 
     <!-- Icon css link -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link type="text/css" href="../../../css/outsite/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../../vendors/elegant-icon/style.css" rel="stylesheet">
-    <link href="../../../vendors/themify-icon/themify-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/outsite/css/font-awesome.min.css" >
+    <link type="text/css" href="../../../vendors/elegant-icon/style.css" rel="stylesheet">
+    <link type="text/css" href="../../../vendors/themify-icon/themify-icons.css" rel="stylesheet">
+    
     <!-- Bootstrap -->
 
-    <link type="" href="../../../css/outsite/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css"  href="../../../css/outsite/css/bootstrap.min.css" rel="stylesheet">
     <!-- Rev slider css -->
-    <link href="../../../vendors/revolution/css/settings.css" rel="stylesheet">
-    <link href="../../../vendors/revolution/css/layers.css" rel="stylesheet">
-    <link href="../../../vendors/revolution/css/navigation.css" rel="stylesheet">
-    <link href="../../../vendors/animate-css/animate.css" rel="stylesheet">
+    <link type="text/css" href="../../../vendors/revolution/css/settings.css" rel="stylesheet">
+    <link type="text/css" href="../../../vendors/revolution/css/layers.css" rel="stylesheet">
+    <link type="text/css" href="../../../vendors/revolution/css/navigation.css" rel="stylesheet">
+    <link  type="text/css" href="../../../vendors/animate-css/animate.css" rel="stylesheet">
 
     <!-- Extra plugin css -->
-    <link href="../../../vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
+    <link type="text/css" href="../../../vendors/owl-carousel/owl.carousel.min.css" rel="stylesheet">
 
 
-    <link href="../../../css/outsite/khoahoc/khoahoc.css" rel="stylesheet">
-    <link href="../../../css/outsite/khoahoc/khoahoc1.css" rel="stylesheet">
-    <link href="../../../css/outsite/css/style.css" rel="stylesheet">
-    <link href="../../../css/outsite/css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link type="text/css" href="../../../css/outsite/khoahoc/khoahoc.css" rel="stylesheet">
+    <link type="text/css" href="../../../css/outsite/khoahoc/khoahoc1.css" rel="stylesheet">
+    <link type="text/css" href="../../../css/outsite/css/style.css" rel="stylesheet">
+    <link type="text/css" href="../../../css/outsite/css/responsive.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
-    <link href="../../../css//outsite/css/outsite.css" rel="stylesheet">
-    <link href="../../..//css//outsite/css//outsiteLichkhaigiang.css" rel="stylesheet">
-    <link href="../../..//css//outsite/css/indexoutsite.css" rel="stylesheet">   
-    <link href="../../../Bao_css.css" rel="stylesheet">
-  <script type="text/javascript" src="../../../ckeditor/ckeditor.js"></script>
+    <link type="text/css" href="../../../css//outsite/css/outsite.css" rel="stylesheet">
+    <link type="text/css" href="../../..//css//outsite/css//outsiteLichkhaigiang.css" rel="stylesheet">
+    <link type="text/css" href="../../..//css//outsite/css/indexoutsite.css" rel="stylesheet">
+    <link type="text/css" href="../../../Bao_css.css" rel="stylesheet">
+    <script type="text/javascript" src="../../../ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
     <!--================Header Menu Area =================-->
     <header class="main_menu_area" style="z-index: 999;">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="#"><h5 style="color: whitesmoke;"> <strong>TRÍ TUỆ VIỆT</strong> </h2></a>
+            <a class="navbar-brand" href="#">
+                <h5 style="color: whitesmoke;"> <strong>TRÍ TUỆ VIỆT</strong> </h2>
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span></span>
@@ -57,12 +60,20 @@
             <% let limit = 5 %>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"><a class="nav-link" href="/">TRANG CHỦ</a></li>
-                    <li class="nav-item"><a href="/baiviet/<%=limit%>/<%= baiviet[0][0].id_chuyenmuc %>/<%= baiviet[0][0].id %> ">TIN TỨC</a></li>
+                    <li class="nav-item active"><a class="nav-link" href="/">TRANG CHỦ</a></li>                  
+                    <% if(baiviet[0].length == 0 || baiviet[0].length == [] || baiviet[0].length == undefined) {%>
+                    <li class="nav-item hidden"><a
+                            href="/?kq=2&mes=Hiện tại chưa có bài viết nào !">TIN
+                            TỨC</a></li>
+                    <% }else { %>
+                    <li class="nav-item"><a
+                            href="/baiviet/<%=limit%>/<%= baiviet[0][0].id_chuyenmuc %>/<%= baiviet[0][0].id %> ">TIN
+                            TỨC</a></li>
+                    <% } %>
                     <li class="nav-item"><a class="nav-link" href="/course">LỊCH KHAI GIẢNG</a></li>
                     <li class="nav-item"><a class="nav-link" href="/course/noidung">KHÓA HỌC</a></li>
                     <li class="nav-item"><a class="nav-link" href="/contact">LIÊN HỆ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/register">ĐĂNG KÝ</a></li>                     
+                    <li class="nav-item"><a class="nav-link" href="/register">ĐĂNG KÝ</a></li>
                     <li class="nav-item"><a class="nav-link" href="/forum/baiviet/<%=limit%>">FORUM</a></li>
 
                 </ul>
@@ -77,8 +88,8 @@
                             aria-labelledby="userDropdown">
                             <a style="line-height: 2;" class="dropdown-item" href="/taikhoan/canhan">Trang cá nhân</a>
                             <% if(user.quyenhang == "Admin" || user.quyenhang == "Nhân Viên") { %>
-                                <a style="line-height: 2;" class="dropdown-item" href="/admin/index">Trang Quản Lý</a>
-                            <% } %> 
+                            <a style="line-height: 2;" class="dropdown-item" href="/admin/index">Trang Quản Lý</a>
+                            <% } %>
                             <div class="dropdown-divider"></div>
                             <a style="line-height: 2;" class="dropdown-item" href="#" data-toggle="modal"
                                 data-target="#logoutModaloutsite">Logout</a>

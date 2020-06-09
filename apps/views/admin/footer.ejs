@@ -72,9 +72,11 @@
 
 <!-- tu viet -->
 <script src="../../../js/js_B_ad/admin.js"></script>
-<!-- <script src="../../../js/js_B_ad/outsite.js"></script> -->
-<script src="../../../js/js_B_ad/jsFormadd.js"></script>
 
+
+<!-- <script src="../../../js/js_B_ad/outsite.js"></script> -->
+
+<script src="../../../validateAdmin/baiviet.js"></script>
 
 
 <script>
@@ -110,6 +112,10 @@
     "extraPlugins": 'imagebrowser',
     "imageBrowser_listUrl": "/files"
   });
+  CKEDITOR.replace('ckeditoraddkh', {
+    "extraPlugins": 'imagebrowser',
+    "imageBrowser_listUrl": "/files"
+  });
 
 </script>
 <script type="text/javascript">
@@ -119,6 +125,10 @@
           "imageBrowser_listUrl" : "/files"
     });
     CKEDITOR.replace('ckeditor2', {
+      "extraPlugins" : 'imagebrowser',
+          "imageBrowser_listUrl" : "/files"
+    });
+    CKEDITOR.replace('ckeditorkh', {
       "extraPlugins" : 'imagebrowser',
           "imageBrowser_listUrl" : "/files"
     });

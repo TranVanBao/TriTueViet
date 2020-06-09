@@ -1,6 +1,6 @@
-import { Router } from 'express';
+var { Router } = require("express")
 
-import hocVienController from '../controllers/hocVienController';
+var hocVienController = require("../controllers/hocVienController")
 
 const router = Router();
 
@@ -11,6 +11,6 @@ router.route('/')
 router.route('/:id')
 .post(hocVienController.update)
 .get(hocVienController.Delete)
-//export default router;
+//module.exports = router;
 
 module.exports = router;

@@ -1,5 +1,5 @@
-import { Router } from "express";
-import forumController from "../../controllers/outsite/forumController";
+var { Router } = require("express")
+var forumController = require("../../controllers/outsite/forumController");
 const router = Router();
 
 

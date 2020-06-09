@@ -1,5 +1,5 @@
 
-import database from '../../Model/models';
+var database = require("../../Model/models")
 
 class phonghocService {
   static async getAll() {
@@ -87,4 +87,4 @@ class phonghocService {
  
 }
 
-export default phonghocService;
+module.exports = phonghocService;

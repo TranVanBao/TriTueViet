@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer"
+var nodemailer = require("nodemailer")
 
  function mail(email,tenkhachhang, noidung){  
   var transporter = nodemailer.createTransport({

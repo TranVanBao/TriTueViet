@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import indexC from '../controllers/AdminC';
+var { Router } = require("express")
+var indexC = require("../controllers/AdminC")
 
 
 const router = Router();
@@ -14,6 +14,6 @@ router.route('/thongkeThu')
 
 //router.get('*', (req, res) => res.redirect("/"));
 
-//export default router;
+//module.exports = router;
 
 module.exports = router;

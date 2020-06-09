@@ -1,5 +1,5 @@
-import diendanService from "../../services/dienDanService";
-import baivietService from "../../services/baivietService";
+var diendanService = require("../../services/dienDanService")
+var baivietService = require("../../services/baivietService")
 class diendanController {
   static async getAll(req, res) {
     if (req.session.user) {
@@ -59,15 +59,14 @@ class diendanController {
   static async update(req, res) {
     if (req.session.user) {
     const altered = req.body;
-    const { id } = req.params;
-    try {
-         
-      const update = await diendanService.Update(id, altered);
-      
+    const id = req.params.id
+    const  id_tk  = req.session.user.id; console.log(altered);
+    try {         
+      const update = await diendanService.Update(id, altered);      
       if (!update) {
-        res.redirect(`/taikhoan/diendan/`+ id +`?kq=0&mes=Không thành công !!!`);
+        res.redirect(`/taikhoan/diendan/`+ id_tk +`?kq=0&mes=Không thành công !!!`);
       } else {
-        res.redirect(`/taikhoan/diendan/`+ id +`?kq=1&mes=Cập nhật thành công.`);
+        res.redirect(`/taikhoan/diendan/`+ id_tk +`?kq=1&mes=Cập nhật thành công.`);
       }
       return;
     } catch (error) {
@@ -110,4 +109,4 @@ class diendanController {
   }
 }
 
-export default diendanController;
+module.exports = diendanController;

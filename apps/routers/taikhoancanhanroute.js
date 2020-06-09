@@ -1,7 +1,7 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import taiKhoanController from "../controllers/taiKhoancanhanController";
-import upload from "../../helpers/uploadfile";
+var taiKhoanController = require("../controllers/taiKhoancanhanController")
+var upload = require("../../helpers/uploadfile")
 
 const router = Router();
 var single = upload.single("hinhanh");

@@ -105,36 +105,37 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form method="POST" action="/admin/giangvien/<%= dulieu.id %>" enctype="multipart/form-data">
+                        <form  method="POST" action="/admin/giangvien/<%= dulieu.id %>" enctype="multipart/form-data">
+                          <div class="form-group col-lg-12" style="color: red;" id="errornv1"></div>
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">TÊN GIẢNG VIÊN:</label>
-                            <input value="<%= dulieu.hoten %>" type="text" name="hoten" class="form-control"
+                            <input required value="<%= dulieu.hoten %>" type="text" name="hoten" class="form-control"
                               id="recipient-name">
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">SỐ ĐIỆN THOẠI:</label>
-                            <input value="<%= dulieu.sdt %>" type="text" pattern="[0-9]{9,11}" name="sdt"
+                            <input required value="<%= dulieu.sdt %>" type="text" pattern="[0-9]{9,11}" name="sdt"
                               class="form-control" id="recipient-name">
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">EMAIL:</label>
-                            <input value="<%= dulieu.email %>" type="email" name="email" class="form-control"
+                            <input required value="<%= dulieu.email %>" type="email" name="email" class="form-control"
                               id="recipient-name">
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">ĐIẠ CHỈ:</label>
-                            <input value="<%= dulieu.diachi %>" type="text" name="diachi" class="form-control"
+                            <input required value="<%= dulieu.diachi %>" type="text" name="diachi" class="form-control"
                               id="recipient-name">
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">GIỚI TÍNH:</label>
-                            <input value="<%= dulieu.gioitinh %>" type="text" name="gioitinh" class="form-control"
+                            <input required value="<%= dulieu.gioitinh %>" type="text" name="gioitinh" class="form-control"
                               id="recipient-name">
 
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">LĨNH VỰC:</label>
-                            <input value="<%= dulieu.linhvuc %>" type="text" name="linhvuc" class="form-control"
+                            <input required value="<%= dulieu.linhvuc %>" type="text" name="linhvuc" class="form-control"
                               id="recipient-name">
                           </div>
                           <div class="form-group">
@@ -182,17 +183,14 @@
 
             <%}); %>
 
-
+           
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>   
   </div>
 
-  <p class="small text-center text-muted my-5">
-    <em>More table examples coming soon...</em>
-  </p>
+  
 
 </div>
 

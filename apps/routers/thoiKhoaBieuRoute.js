@@ -1,5 +1,5 @@
-import { Router } from "express";
-import thoiKhoaBieuController from "../controllers/thoiKhoaBieuController";
+var { Router } = require("express")
+var thoiKhoaBieuController = require("../controllers/thoiKhoaBieuController")
 
 const router = Router();
 

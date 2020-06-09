@@ -1,10 +1,10 @@
-import date from "s-date";
-import fetch from "node-fetch"
-import stringify from "node-fetch"
+var date = require("s-date")
+var fetch = require("node-fetch")
+var stringify = require("node-fetch")
 
-import dangkyService from "../../services/dangkyService";
-import lopHocService from "../../services/lopHocService";
-import baivietService from "../../services/baivietService";
+var dangkyService = require("../../services/dangkyService")
+var lopHocService = require("../../services/lopHocService")
+var baivietService = require("../../services/baivietService")
 
 class dangkyController {
   static async getAll(req, res) {   
@@ -110,4 +110,4 @@ class dangkyController {
   
 }
 
-export default dangkyController;
+module.exports = dangkyController;

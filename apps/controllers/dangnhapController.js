@@ -1,9 +1,9 @@
-import bcrypt from "bcryptjs";
-import fetch from "node-fetch";
-import randomstring from "randomstring"
+var bcrypt = require("bcryptjs")
+var fetch = require("node-fetch")
+var randomstring = require("randomstring")
 
-import dangnhapService from "../services/dangnhapService";
-import mail from "../../helpers/nodemailer"
+var dangnhapService = require("../services/dangnhapService")
+var mail = require("../../helpers/nodemailer")
 
 class dangnhapController {
   static async addTK(req, res) {      
@@ -215,4 +215,4 @@ class dangnhapController {
 
 }
 
-export default dangnhapController;
+module.exports = dangnhapController;

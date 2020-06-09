@@ -1,8 +1,8 @@
-import date from "s-date";
-import diendanService from "../../services/dienDanService";
-import khoaHocService from "../../services/khoaHocService";
-import phanHoiService from "../../services/phanHoiService";
-import baivietService from "../../services/baivietService";
+var date = require("s-date")
+var diendanService = require("../../services/dienDanService")
+var khoaHocService = require("../../services/khoaHocService")
+var phanHoiService = require("../../services/phanHoiService")
+var baivietService = require("../../services/baivietService")
 
 class diendanController {
   static async getAll(req, res) {
@@ -141,7 +141,7 @@ class diendanController {
   static async addcoment(req, res) {
     let id_diendan = req.params.id;
     if (req.session.user) {
-     
+     console.log();
       let id_tktraloi = req.session.user.id;
       let data = await { ...req.body, id_tktraloi, id_diendan };
       try {
@@ -212,4 +212,4 @@ class diendanController {
   }
 }
 
-export default diendanController;
+module.exports = diendanController;

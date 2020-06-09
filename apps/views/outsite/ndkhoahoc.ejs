@@ -34,21 +34,26 @@
                                 <li><a href="#"><i class="fa fa-thumb-tack" aria-hidden="true"></i></a></li>
                             </ul>
                         </div>
-
-
                         <div class="static_text2">
-                            
-                            <h3><%= moiNhat[0][0].tenkhoahoc %></h3>
+                            <h3>KHÓA HỌC LẬP TRÌNH <%= moiNhat[0][0].tenkhoahoc %></h3>
                         </div>
                         <div class="media">
-
+                            <% if(moiNhat[0][0].hinhanh == null || moiNhat[0][0].hinhanh == ''){ %> 
+                                <div class="media-body">
+                                    <img class="img-fluid" src="../../../images/khoahoc/macdinh.jpg" alt="">
+                                </div>
+                            <% } else{ %> 
                             <div class="media-body">
                                 <img class="img-fluid" src="../../../uploadimg/<%= moiNhat[0][0].hinhanh %> " alt="">
-
                             </div>
+                        <% } %> 
                         </div>
                         <div class="static_text2">
+                            <h4>Điều Kiện Học</h4>
                             <%- moiNhat[0][0].dieukienhoc %>
+                        </div>
+                        <div class="static_text2">
+                            <%- moiNhat[0][0].lotrinhhoc %>
                         </div>
                     </div>
                 </div>
@@ -61,7 +66,7 @@
                             <div class="news_inner">
                                 <% data.forEach(dulieu => { %>
                                 <div class="news_item">
-                                    <a href="/course/noidung/<%- dulieu.id %>">
+                                    <a href="/course/noidung/<%- dulieu.tenkhoahoc %>">
                                         <h4><%= dulieu.tenkhoahoc %> </h4>
                                     </a>
                                     <a href="/course/noidung/<%- dulieu.id %>">
@@ -69,10 +74,10 @@
                                     </a>
                                 </div>
                                 <% }) %>
-                             
+
                             </div>
                         </aside>
-                  
+
                     </div>
                 </div>
             </div>

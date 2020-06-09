@@ -73,9 +73,10 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form method="POST" action="/admin/chuyenmuc/<%= dulieu.id %>">
+                        <form  method="POST" action="/admin/chuyenmuc/<%= dulieu.id %>">
+                        	<div class="form-group col-lg-12" style="color: red;" id="errorcmu"></div>                                 
+				
                           <div class="form-group">
-
                             <label for="recipient-name" class="col-form-label">TÊN CHUYÊN MỤC:</label>
                             <input type="text" required name="tenchuyenmuc" class="form-control" id="recipient-name" value="<%= dulieu.tenchuyenmuc %>">
                           </div>
@@ -106,8 +107,6 @@
               </td>
 
             </tr>
-
-
             <%}); %>
 
 
@@ -123,7 +122,5 @@
   </p>
 
 </div>
-
-
 <%- include ('addchuyenmuc') -%>
 <%- include ('../footer') -%>

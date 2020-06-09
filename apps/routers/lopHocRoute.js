@@ -1,6 +1,6 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import lopHocController from "../controllers/lopHocController";
+var lopHocController = require("../controllers/lopHocController")
 
 const router = Router();
 
@@ -14,7 +14,9 @@ router
   .get(lopHocController.get1lop)
  
 
-  
+  router
+  .route("/hocvien/export/:id")
+  .get(lopHocController.getExportExl)
 
 router
   .route("/:id")
@@ -25,4 +27,5 @@ router
   router
   .route("/hocvien/:id")
   .get(lopHocController.getAllhocvien)
+
 module.exports = router;

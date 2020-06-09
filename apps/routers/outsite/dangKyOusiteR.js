@@ -1,5 +1,5 @@
-import { Router } from "express";
-import dangKyController from "../../controllers/outsite/dangKyOutsiteC";
+var { Router } = require("express")
+var dangKyController = require("../../controllers/outsite/dangKyOutsiteC");
 
 const router = Router();
 

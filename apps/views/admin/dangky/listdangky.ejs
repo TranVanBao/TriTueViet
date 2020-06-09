@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="#">TRANG CHỦ</a>
         </li>
         <li class="breadcrumb-item active">ĐĂNG KÝ</li>
     </ol>
@@ -15,40 +15,98 @@
         <div class="card-header">
             <!-- <!-- <i class="fas fa-table"></i> 
             Data Table Example -->
-            <div><button data-toggle="modal" data-target="#exampleModal" style="color: #fff;float: right;
-              height: 30px;
-              font-weight: bold;
-              font-size: 12px;
-              text-shadow: none;
-              min-width: 100px;
-              border-radius: 50px;
-              line-height: 13px;
-              background-color: #269abc;
-              border-color: #1b6d85 ; float:right;"><i class="fas fa-plus"></i> Add </button>
+            <div><a data-toggle="modal" data-target="#exampleModal" style="    color: #fff;
+                float: right;
+                height: 30px;
+                font-weight: bold;
+                font-size: 12px;
+                text-shadow: none;
+                min-width: 110px;
+                border-radius: 0;
+                line-height: 29px;
+                background-color: #269abc;
+                border-color: #c1c1c1;
+                float: right;
+                padding-left: 3%;"><i class="fas fa-plus"></i> Add </a>
+              
+                <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>                    
+                <a href="/admin/lophoc/hocvien/export/<%- data[0].id_lophoc %> " style="color: #fff;
+        float: right;
+        height: 30px;
+        font-weight: bold;
+        font-size: 12px;
+        text-shadow: none;
+        min-width: 110px;
+        border-radius: 0;
+        line-height: 29px;
+        background-color: #269abc;
+        border-color: #c1c1c1;
+        float: right;
+        margin-right: 1%;
+        padding-left: 1%;" id="show-btn"><i class="fas fa-cloud-download-alt"></i> Export
+                    excel </a>
+                <% } %>
             </div>
 
         </div>
+        <style>
+            table,
+            tr td {
+                border: 1px solid red
+            }
+
+            tbody {
+                display: block;
+                height: 450px;
+                overflow: auto;
+            }
+
+            thead,
+            tbody tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed;
+                /* even columns width , fix width of table too*/
+            }
+
+            thead {
+                width: calc(100% - 1em)
+                    /* scrollbar is average 1em/16px width, remove it from thead width */
+            }
+
+            .btn-toolbar {
+                margin-left: 0px;
+            }
+        </style>
 
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-striped table table-hover" id="dataTable" width="100%"
+                    cellspacing="0">
+                    <colgroup>
+                        <col width="20%">
+                        <col width="35%">
+                        <col width="40%">
+                    </colgroup>
                     <thead>
                         <tr>
-                            <th class="canhgiua" >STT</th>
+                            <th class="canhgiua">STT</th>
                             <th class="canhgiua">Tên học viên</th>
                             <th class="canhgiua">Ngày đăng ký</th>
                             <th class="canhgiua">Số điện thoại</th>
                             <th class="canhgiua">Email</th>
                             <th class="canhgiua">Địa chỉ</th>
+                            <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
+                            <% }else{ %>
                             <th class="canhgiua">Lớp học đăng ký</th>
                             <th class="canhgiua">Phí dịch vụ</th>
-                            <th class="canhgiua">Thanh toán</th>                           
+                            <% } %>
+                            <th class="canhgiua">Thanh toán</th>
                             <th class="canhgiua">Tác vụ</th>
                         </tr>
                     </thead>
                     <tbody>
                         <% var stt = 0 %>
-
                         <% data.forEach(dulieu => { %>
                         <% stt++ %>
                         <tr>
@@ -58,13 +116,16 @@
                             <td class="canhgiua">0<%=  String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ')  %></td>
                             <td class="canhgiua"><%= dulieu.email %></td>
                             <td class="canhgiua"><%= dulieu.diachi %></td>
+                            <% if(dulieu.phidichvu == undefined || dulieu.phidichvu == '' || dulieu.phidichvu == null){ %>
+                            <% }else{ %>
                             <td class="canhgiua"><%= dulieu.tenlophoc %> <br> <%= dulieu.thoigianhoc %></td>
                             <td class="canhgiua">
                                 <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
                             </td>
+                            <% } %>
                             <td class="canhgiua">
                                 <%= String(dulieu.thanhtoan).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> <br>
-                            </td>                           
+                            </td>
                             <td class="canhgiua" style="text-align: center;">
                                 <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
                                     data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">
@@ -109,11 +170,12 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form method="POST" action="/admin/dangky/<%= dulieu.id %>">
-
+                                                    <div class="form-group col-lg-12" style="color: red;" id="errordku">
+                                                    </div>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">TÊN HỌC
                                                             VIÊN:</label>
-                                                        <input value="<%= dulieu.tenkhachhang %>" type="text"
+                                                        <input required value="<%= dulieu.tenkhachhang %>" type="text"
                                                             name="tenkhachhang" class="form-control"
                                                             id="recipient-name">
                                                     </div>
@@ -121,20 +183,20 @@
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">SỐ ĐIỆN
                                                             THOẠI:</label>
-                                                        <input value="0<%= dulieu.sdt %>" type="text"
+                                                        <input required value="0<%= dulieu.sdt %>" type="text"
                                                             pattern="[0-9]{9,11}" name="sdt" class="form-control"
                                                             id="recipient-name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">EMAIL:</label>
-                                                        <input value="<%= dulieu.email %>" type="email" name="email"
-                                                            class="form-control" id="recipient-name">
+                                                        <input required value="<%= dulieu.email %>" type="email"
+                                                            name="email" class="form-control" id="recipient-name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">ĐIẠ
                                                             CHỈ:</label>
-                                                        <input value="<%= dulieu.diachi %>" type="text" name="diachi"
-                                                            class="form-control" id="recipient-name">
+                                                        <input required value="<%= dulieu.diachi %>" type="text"
+                                                            name="diachi" class="form-control" id="recipient-name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">GIỚI
@@ -145,7 +207,7 @@
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">KHÓA HỌC
                                                             :</label>
-                                                        <select name="id_lophoc" class="form-control">
+                                                        <select required name="id_lophoc" class="form-control">
                                                             <option value="<%= dulieu.id_lophoc %>">
                                                                 <%= dulieu.tenlophoc %> -- <%= dulieu.thoigianhoc %>
                                                             </option>
@@ -196,12 +258,9 @@
                 </table>
             </div>
         </div>
-        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+
     </div>
 
-    <p class="small text-center text-muted my-5">
-        <em>More table examples coming soon...</em>
-    </p>
     <%- include ('adddangky') -%>
     <%- include ('../footer') -%>
 </div>

@@ -1,4 +1,4 @@
-import database from "../../Model/models";
+var database = require("../../Model/models")
 
 class diendanService {
   static async getAll(limit) {
@@ -93,7 +93,7 @@ class diendanService {
       let id_khoahoc = await database.khoahoc.sequelize.query(
         `SELECT  khoahocs.tenkhoahoc,diendans.* FROM public.khoahocs, public.diendans  where diendans.id_khoahoc = khoahocs.id and diendans.id_taikhoan = ` +
           id +
-          ` `
+          ` ORDER BY id DESC `
       );
       return id_khoahoc;
     } catch (error) {
@@ -102,4 +102,4 @@ class diendanService {
   }
 }
 
-export default diendanService;
+module.exports = diendanService;

@@ -1,10 +1,10 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import taiKhoanController from "../../controllers/outsite/taiKhoancanhanOutC";
-import diendanC from "../../controllers/outsite/dienDanOutsiteC"
-import thoikhoabieu from "../../controllers/outsite/thoiKhoaBieuOutsiteC"
-import lopHocOutC from "../../controllers/outsite/lopHocOutC"
-import upload from "../../../helpers/uploadfile";
+var taiKhoanController = require("../../controllers/outsite/taiKhoancanhanOutC")
+var diendanC = require("../../controllers/outsite/dienDanOutsiteC")
+var thoikhoabieu = require("../../controllers/outsite/thoiKhoaBieuOutsiteC")
+var lopHocOutC = require("../../controllers/outsite/lopHocOutC")
+var upload = require("../../../helpers/uploadfile")
 
 const router = Router();
 var single = upload.single("hinhanh");

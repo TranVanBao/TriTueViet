@@ -27,6 +27,7 @@ class baivietService {
       return await database.baiviet.findAll({
         where: { trangthai: 1 , id_chuyenmuc:chuyenmuc },
         order: [["id", "DESC"]],
+        offset : 1,
         limit: limit
       });
     } catch (error) {

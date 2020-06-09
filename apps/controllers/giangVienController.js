@@ -1,5 +1,5 @@
-import fs from "fs";
-import giangvienService from "../services/giangVienService";
+var fs = require("fs")
+var giangvienService = require("../services/giangVienService")
 
 let d = new Date();
 d.getDate();
@@ -97,4 +97,4 @@ class giangvienController {
   }
 }
 
-export default giangvienController;
+module.exports = giangvienController;

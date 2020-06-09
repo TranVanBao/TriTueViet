@@ -1,4 +1,4 @@
-import database from "../../Model/models";
+var database = require("../../Model/models")
 
 class TaiKhoanService {
   static async getAllTaiKhoan(quyenhang) {
@@ -86,4 +86,4 @@ class TaiKhoanService {
   }
 }
 
-export default TaiKhoanService;
+module.exports = TaiKhoanService;

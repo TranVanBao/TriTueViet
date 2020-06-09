@@ -1,4 +1,4 @@
-import phanquyenService from "../services/phanquyenService";
+var phanquyenService = require("../services/phanquyenService")
 
 class phanquyenController {
   static async getAll(req, res) {
@@ -77,4 +77,4 @@ class phanquyenController {
   }
 }
 
-export default phanquyenController;
+module.exports = phanquyenController;

@@ -1,4 +1,4 @@
-import database from "../../Model/models";
+var database = require("../../Model/models")
 
 class lophocService {
   static async getAll(trangthai) {
@@ -167,4 +167,4 @@ class lophocService {
   // }
 }
 
-export default lophocService;
+module.exports = lophocService;

@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     tenkhoahoc: DataTypes.STRING,   
     hinhanh: DataTypes.STRING,
     loaikhoahoc: DataTypes.STRING,   
+    lotrinhhoc: DataTypes.TEXT,  
+    dieukienhoc: DataTypes.TEXT, 
     trangthai: DataTypes.INTEGER
   }, {});
   khoahoc.associate = function(models) {

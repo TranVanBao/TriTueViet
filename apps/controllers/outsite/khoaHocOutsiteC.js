@@ -1,8 +1,8 @@
-import fs from "fs";
-import date from "s-date";
-import lopHocService from "../../services/lopHocService";
-import khoaHocService from "../../services/khoaHocService";
-import baivietService from "../../services/baivietService";
+var fs = require("fs")
+var date = require("s-date")
+var lopHocService = require("../../services/lopHocService")
+var khoaHocService = require("../../services/khoaHocService")
+var baivietService = require("../../services/baivietService")
 let d = new Date();
 d.getDate();
 d.getMonth();
@@ -75,4 +75,4 @@ class khoaHocController {
 
 }
 
-export default khoaHocController;
+module.exports = khoaHocController;

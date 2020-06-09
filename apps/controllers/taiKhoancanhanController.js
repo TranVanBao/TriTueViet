@@ -1,6 +1,6 @@
-import bcrypt from "bcryptjs";
+var bcrypt = require("bcryptjs")
 
-import taiKhoanService from "../services/taiKhoanService";
+var taiKhoanService = require("../services/taiKhoanService")
 
 let d = new Date();
 d.getDate();
@@ -95,4 +95,4 @@ class taiKhoanController {
   }
 }
 
-export default taiKhoanController;
+module.exports = taiKhoanController;

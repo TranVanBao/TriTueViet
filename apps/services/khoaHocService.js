@@ -1,5 +1,5 @@
-import database from "../../Model/models";
-import sequelize from "sequelize";
+var database = require("../../Model/models")
+var sequelize = require("sequelize")
 class khoahocService {
   static async getAll() {
     try {
@@ -16,7 +16,17 @@ class khoahocService {
   static async getByID(id) {
     try {
       let id_khoahoc = await database.khoahoc.sequelize.query(
-        `SELECT  tenkhoahoc , dieukienhoc FROM public.khoahocs  where id = ` + id + ` `
+        `SELECT  tenkhoahoc , dieukienhoc,lotrinhhoc FROM public.khoahocs  where tenkhoahoc = '` + id + `' `
+      );
+      return id_khoahoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async getByUpdate(id) {
+    try {
+      let id_khoahoc = await database.khoahoc.sequelize.query(
+        `SELECT  * FROM public.khoahocs  where id = ` + id + ` `
       );
       return id_khoahoc;
     } catch (error) {
@@ -102,4 +112,4 @@ static async getByIDMN() {
 
 }
 
-export default khoahocService;
+module.exports = khoahocService;

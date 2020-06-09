@@ -1,4 +1,4 @@
-import database from "../../Model/models";
+var database = require("../../Model/models")
 
 class phanquyenService {
   static async getAll() {
@@ -70,4 +70,4 @@ class phanquyenService {
   }
 }
 
-export default phanquyenService;
+module.exports = phanquyenService;

@@ -1,7 +1,7 @@
-import bcrypt from "bcryptjs";
+var bcrypt = require("bcryptjs")
 
-import taiKhoanService from "../../services/taiKhoanService";
-import baivietService from "../../services/baivietService";
+var taiKhoanService = require("../../services/taiKhoanService")
+var baivietService = require("../../services/baivietService")
 let d = new Date();
 d.getDate();
 d.getMonth();
@@ -100,4 +100,4 @@ class taiKhoanController {
   
 }
 
-export default taiKhoanController;
+module.exports = taiKhoanController;

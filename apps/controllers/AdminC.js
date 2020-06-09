@@ -1,5 +1,5 @@
-import lopHocService from "../services/lopHocService";
-import dangkyService from "../services/dangkyService";
+var lopHocService = require("../services/lopHocService")
+var dangkyService = require("../services/dangkyService")
 class AdminController {
   static async get(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên" ) {
@@ -64,4 +64,4 @@ class AdminController {
     }
   }
 }
-export default AdminController;
+module.exports = AdminController;

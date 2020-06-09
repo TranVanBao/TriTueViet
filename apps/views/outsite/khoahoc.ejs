@@ -33,15 +33,19 @@
                     <div class="pricing-table" style="height:680px">
                         <div class="pricing-header">
                             <div class="thumb">
-                                
+                                <a href="/course/noidung/<%= dulieu.tenlophoc %>">
+                                <% if(dulieu.hinhanh == null || dulieu.hinhanh == '' || dulieu.hinhanh == undefined) { %> 
                                 <img class="img-responsive img-fullwidth"
-                                    src="../../../uploadimg/<%= dulieu.hinhanh  %>" alt="">
-                               
-
+                                    src="../../../images/khoahoc/macdinh.jpg" alt=""> 
+                                <% } else { %> 
+                                    <img class="img-responsive img-fullwidth"
+                                    src="../../../uploadimg/<%= dulieu.hinhanh  %>" alt="">                              
+                                <% } %> 
+                            </a>
                             </div>
                         </div>
                         <div class="pricing-title" style="text-transform: none;height:70px"><a
-                                href="https://khoapham.vn/lap-trinh-mql.html" target="_blank">KHÓA HỌC LẬP TRÌNH
+                                href="/course/noidung/<%= dulieu.tenlophoc %>" target="_blank">KHÓA HỌC LẬP TRÌNH
                                 <%= dulieu.tenlophoc  %></a></div>
                         <div class="pricing-feature">
                             <ul>
@@ -51,14 +55,14 @@
                                 <li><strong>Thời lượng:</strong> <%= dulieu.thoiluonghoc  %></li>
                                 <li><strong>Học phí:</strong>
                                     <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1, ') %></li>
-                                <li><strong>Địa điểm học:</strong> <a href="http://khoapham.vn/lienhe.html"
-                                        target="_blank">Khoa Phạm TPHCM</a></li>
-                                <li><strong>Học online từ xa:</strong> <span>Không</span></li>
+                                <li><strong>Địa điểm học:</strong> <a href="/contact"
+                                        target="_blank">  TRÍ TUỆ VIỆT</a></li>
+                                <li><strong>Hình thức học:</strong><span>  offline</span></li>
                                 <li>
                                     <p>- <%= dulieu.dieukienhoc  %></p>
                                 </li>
                                 <li class="text-center">
-                                    <a href="dang-ki-hoc.html">
+                                    <a href="/register">
                                         <button class="btn btn-link"
                                             style="text-transform:uppercase; font-weight:bold; width:100%">
                                             Đăng kí học

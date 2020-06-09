@@ -1,3 +1,30 @@
+
+window.onload = function () {
+  try {    
+toastr.options = {  
+  "positionClass": "toast-bottom-right"
+}
+    var url_string = (window.location.href);
+    var url = new URL(url_string);
+    var kq = url.searchParams.get("kq");
+    var mes = url.searchParams.get("mes");
+    console.log(kq + " kq " + mes);
+    if (kq == 0) {
+      toastr.error(mes, 'ERROR')
+    }
+     if (kq == 1) {
+      toastr.success(mes, 'SUCCESS')
+    } 
+    if (kq == 2) {
+      toastr.warning(mes, 'WARNING')
+    } 
+    
+  } catch (err) {
+    toastr.warning('Cảnh báo lỗi!!!' + err)
+  }
+}
+
+
 //  hien hinh anh khoa hoc
 function readURL1(input) {
   if (input.files && input.files[0]) {

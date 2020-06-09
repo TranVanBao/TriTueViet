@@ -1,4 +1,4 @@
-import database from "../../Model/models";
+var database = require("../../Model/models")
 
 class phanhoiService {
   static async getAll() {
@@ -14,7 +14,9 @@ class phanhoiService {
       let id_khoahoc = await database.khoahoc.sequelize.query(
         `SELECT phanhois.*, taikhoans.tentaikhoan, diendans.id , taikhoans.hinhanh
          FROM public.phanhois,public.diendans, public.taikhoans  
-         where phanhois.id_tktraloi = taikhoans.id and phanhois.id_diendan = diendans.id and phanhois.id_diendan = ` + id + ` `
+         where phanhois.id_tktraloi = taikhoans.id and phanhois.id_diendan = diendans.id and phanhois.id_diendan = ` + id + `
+         ORDER BY phanhois.id DESC
+         `
       );      
       return id_khoahoc;
     } catch (error) {
@@ -59,4 +61,4 @@ class phanhoiService {
  
 }
 
-export default phanhoiService;
+module.exports = phanhoiService;

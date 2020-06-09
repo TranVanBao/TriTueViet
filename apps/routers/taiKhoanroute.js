@@ -1,6 +1,6 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import taiKhoanController from "../controllers/taiKhoanController";
+var taiKhoanController = require("../controllers/taiKhoanController")
 
 const router = Router();
 

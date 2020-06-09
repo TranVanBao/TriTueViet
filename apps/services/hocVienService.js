@@ -1,5 +1,5 @@
 
-import database from '../../Model/models';
+var database = require("../../Model/models")
 
 class dangkyService {
   static async getAll() {
@@ -83,4 +83,4 @@ class dangkyService {
  
 }
 
-export default dangkyService;
+module.exports = dangkyService;

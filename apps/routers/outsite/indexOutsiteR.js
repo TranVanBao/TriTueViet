@@ -1,5 +1,5 @@
-import { Router } from 'express';
-import indexC from '../../controllers/outsite/indexC';
+var { Router } = require("express")
+var indexC = require("../../controllers/outsite/indexC")
 
 
 const router = Router();
@@ -9,6 +9,6 @@ router.route('/')
 
 //router.get('*', (req, res) => res.redirect("/"));
 
-//export default router;
+//module.exports = router;
 
 module.exports = router;

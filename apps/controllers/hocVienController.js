@@ -1,7 +1,7 @@
-import date from "s-date";
-import mail from "../../helpers/nodemailer"
-import dangkyService from "../services/dangkyService";
-import lopHocService from "../services/lopHocService";
+var date = require("s-date")
+var mail = require("../../helpers/nodemailer")
+var dangkyService = require("../services/dangkyService")
+var lopHocService = require("../services/lopHocService")
 
 class dangkyController {
   static async getAll(req, res) {     
@@ -97,4 +97,4 @@ class dangkyController {
   
 }
 
-export default dangkyController;
+module.exports = dangkyController;

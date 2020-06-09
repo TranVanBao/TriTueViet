@@ -1,10 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const diendan = sequelize.define('diendan', {
-    tieude: DataTypes.STRING,
+    tieude: DataTypes.TEXT,
     id_khoahoc: DataTypes.INTEGER,
     id_taikhoan: DataTypes.INTEGER,
-    noidung: DataTypes.STRING,
+    noidung: DataTypes.TEXT,
     trangthai: DataTypes.INTEGER
   }, {});
   diendan.associate = function(models) {

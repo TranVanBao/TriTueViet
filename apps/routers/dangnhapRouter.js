@@ -1,7 +1,7 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import dangnhapController from "../controllers/dangnhapController";
-import { render } from "ejs";
+var dangnhapController = require("../controllers/dangnhapController")
+var { render } = require("ejs")
 
 const router = Router();
 

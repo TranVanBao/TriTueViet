@@ -9,9 +9,9 @@
 				</button>
 			</div>
 			<div class="modal-body">
-				<form method="POST" action="/admin/chuyenmuc" >				
-					<div class="form-group">
-					
+				<form onsubmit="return addchuyenmuc()" name="addcm" method="POST" action="/admin/chuyenmuc" >				
+					<div class="form-group col-lg-12" style="color: red;" id="errorcma"></div>                                 
+					<div class="form-group">					
 						<label for="recipient-name" class="col-form-label">TÊN CHUYÊN MỤC:</label>
 						<input type="text" required name="tenchuyenmuc" class="form-control" id="recipient-name">
 					</div>									
@@ -35,3 +35,15 @@
 		</div>
 	</div>
 </div>
+
+<script>
+    function addchuyenmuc() {
+        let tieude = document.forms["addcm"]["tenchuyenmuc"].value;
+        if (tieude === '' || tieude == null || tieude.length < 2) {
+            document.getElementById("errorcma").innerHTML = " Xin điền tên chuyên mục hợp lệ!!!";
+            return false;
+        }
+     
+
+    }
+</script>

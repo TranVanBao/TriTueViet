@@ -99,12 +99,12 @@
                         <form method="POST" action="/admin/taikhoan/<%= dulieu.quyenhang%>/<%= dulieu.id %>">
                           <div class="form-group">
                             <label for="recipient-name" class="col-form-label">TÊN TÀI KHOẢN:</label>
-                            <input type="text" minlength="6" name="tentaikhoan" class="form-control" id="recipient-name"
+                            <input required type="text" minlength="6" name="tentaikhoan" class="form-control" id="recipient-name"
                               value="<%= dulieu.tentaikhoan %>">
                           </div>
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">Email:</label>
-                            <input disabled type="email" name="email" class="form-control" id="recipient-name"
+                            <input required disabled type="email" name="email" class="form-control" id="recipient-name"
                               value="<%= dulieu.email %>">
                               <input hidden  type="text" name="quyenhang" class="form-control" id="recipient-name"
                               value="<%= dulieu.quyenhang %>">
@@ -146,14 +146,8 @@
           </tbody>
         </table>
       </div>
-    </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>    
   </div>
-
-  <p class="small text-center text-muted my-5">
-    <em>More table examples coming soon...</em>
-  </p>
-
 </div>
 
 

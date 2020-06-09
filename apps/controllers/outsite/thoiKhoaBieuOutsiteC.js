@@ -1,6 +1,6 @@
-import date from "s-date";
-import lopHocService from "../../services/lopHocService";
-import baivietService from "../../services/baivietService";
+var date = require("s-date")
+var lopHocService = require("../../services/lopHocService")
+var baivietService = require("../../services/baivietService")
 class thoikhoabieuC {
   static async getAll(req, res) {
     if ((req.session.user.quyenhang = "Giảng Viên")) {
@@ -36,4 +36,4 @@ class thoikhoabieuC {
   }
 }
 
-export default thoikhoabieuC;
+module.exports = thoikhoabieuC;

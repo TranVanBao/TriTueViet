@@ -1,6 +1,6 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import dangKyController from "../controllers/dangKyController";
+var dangKyController = require("../controllers/dangKyController")
 
 const router = Router();
 
@@ -10,6 +10,6 @@ router
   .post(dangKyController.add);
 router.route("/:id").post(dangKyController.update);
 router.route("/xoadangky/:id").get(dangKyController.Delete);
-//export default router;
+//module.exports = router;
 
 module.exports = router;

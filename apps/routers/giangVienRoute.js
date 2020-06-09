@@ -1,8 +1,8 @@
-import { Router } from "express";
+var { Router } = require("express")
 
-import giangvienController from "../controllers/giangVienController";
+var giangvienController = require("../controllers/giangVienController")
 
-import upload from "../../helpers/uploadfile";
+var upload = require("../../helpers/uploadfile")
 
 const router = Router();
 var single = upload.single("hinhanh");
@@ -21,6 +21,6 @@ router
   .post(single, giangvienController.update)
   .get( giangvienController.Delete)
 
-//export default router;
+//module.exports = router;
 
 module.exports = router;

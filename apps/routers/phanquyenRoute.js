@@ -1,6 +1,6 @@
-import { Router } from "express";
+var { Router } = require("express")
 const { check } = require("express-validator");
-import phanquyenController from "../controllers/phanquyenController";
+var phanquyenController = require("../controllers/phanquyenController")
 
 const router = Router();
 

@@ -26,23 +26,6 @@ toastr.options = {
 }
 
 
-document.getElementsByClassName("Reply").onclick = function () {  
-  document.getElementsByClassName("traloicm").style.display = 'block';
-  document.getElementsByClassName("Reply").style.display = 'none';
-  document.getElementsByClassName("dong").style.display = 'block';
-};
-document.getElementsByClassName("Reply").onclick = function () {
-  document.getElementsByClassName("traloicm").style.display = 'block';
-  document.getElementsByClassName("Reply").style.display = 'none';
-  document.getElementsByClassName("dong").style.display = 'block';
-};
-
-document.getElementsByClassName("dong").onclick = function () {
-  document.getElementsByClassName("traloicm").style.display = 'none';
-  document.getElementsByClassName("Reply").style.display = 'block';
-  document.getElementsByClassName("dong").style.display = 'none';
-};
-
 //  ==== validate form  tao bai viet 
 function validateTaoBV() {
   var tieude = document.forms["taobv"]["tieude"].value;
@@ -66,13 +49,13 @@ function validateTaoBV() {
 }
 
 // ========== validate tra loi comment
-// function validateTraLoiCM() {
-//   var noidung = document.forms["traloibv"]["noidungtraloi"].value; 
-//   if(noidung == "" ){
-//      document.getElementById("noidungtl").innerHTML = " Xin điền nội dung !!!";
-//     return false;
-//   }
-// }
+function validateTraLoiCM() {
+  var noidung = document.forms["traloibv"]["noidungtraloi"].value; 
+  if(noidung == "" ){
+     document.getElementById("noidungtl").innerHTML = " Xin điền nội dung !!!";
+    return false;
+  }
+}
 
 // function validateReLy() {
 //   var noidung = document.forms["traloi"]["noidungtraloi"].value; 
@@ -92,8 +75,7 @@ function validateDKhoc() {
     document.getElementById("dk1").innerHTML = " Không được để trống , dữ liệu phải trên 5 kí tự !!!";
     return false;
   }else{
-    document.getElementById("dk1").innerHTML = "";
-    
+    document.getElementById("dk1").innerHTML = "";    
   } 
   if(sdt == "" || Number.isNaN(sdt) || sdt.length < 9 || sdt.length > 12){
     document.getElementById("dk3").innerHTML = " Xin điền số điện thoại hợp lệ của bạn !!!";

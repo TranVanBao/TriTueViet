@@ -1,5 +1,5 @@
-import { Router } from "express";
-import diendanController from "../controllers/dienDanController";
+var { Router } = require("express")
+var diendanController = require("../controllers/dienDanController")
 
 const router = Router();
 

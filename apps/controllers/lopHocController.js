@@ -1,9 +1,10 @@
-import date from "s-date";
-import lopHocService from "../services/lopHocService";
-import khoaHocService from "../services/khoaHocService";
-import giangVienService from "../services/giangVienService";
-import dangkyService from "../services/dangkyService";
-import phongHocService from "../services/phongHocService";
+var date = require("s-date")
+var lopHocService = require("../services/lopHocService")
+var khoaHocService = require("../services/khoaHocService")
+var giangVienService = require("../services/giangVienService")
+var dangkyService = require("../services/dangkyService")
+var phongHocService = require("../services/phongHocService")
+var excel = require("../../helpers/excel")
 // trang thai 0 hoàn thành , 1 sáp khai giảng , 2 đang học , 3 đang chờ
 class lophocController {
   static async getAll(req, res) {
@@ -176,6 +177,22 @@ class lophocController {
       return res.redirect("/");
     }
   }
+  static async getExportExl(req, res) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
+      try {        
+        
+        const user = req.session.user
+        const  id  = req.params.id;       
+        excel(id);       
+          res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);
+       
+      } catch (error) {
+        return error;
+      }
+    } else {
+      return res.redirect("/");
+    }
+  }
 }
 
-export default lophocController;
+module.exports = lophocController;

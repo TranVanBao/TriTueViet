@@ -1,4 +1,4 @@
-import phonghocService from "../services/phongHocService";
+var phonghocService = require("../services/phongHocService")
 
 class phonghocController {
   static async getAll(req, res) {
@@ -71,4 +71,4 @@ class phonghocController {
   }
 }
 
-export default phonghocController;
+module.exports = phonghocController;

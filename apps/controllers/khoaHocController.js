@@ -1,6 +1,6 @@
-import fs from "fs";
-import date from "s-date";
-import khoaHocService from "../services/khoaHocService";
+var fs = require("fs")
+var date = require("s-date")
+var khoaHocService = require("../services/khoaHocService")
 
 let d = new Date();
 d.getDate();
@@ -27,6 +27,44 @@ class khoaHocController {
       return res.redirect("/");
     }
   }
+  static async getadd(req, res) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
+      try { 
+        const user = req.session.user
+        const data = await khoaHocService.getAll();
+        if (data.length > 0) {
+          res.render("../views/admin/khoahoc/addkh.ejs", { data, date , user });
+        } else {
+          res.render("../views/admin/khoahoc/addkh.ejs", { data, date , user});
+        }
+        return 0;
+      } catch (error) {
+        return 0;
+      }
+    } else {
+      return res.redirect("/");
+    }
+  }
+  static async getupdate(req, res) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
+      try { 
+        const id = req.params.id
+        const user = req.session.user
+        const data = await khoaHocService.getByUpdate(id);
+        if (data.length > 0) {
+          res.render("../views/admin/khoahoc/updateBV.ejs", { data, date , user });
+        } else {
+          res.render("../views/admin/khoahoc/updateBV.ejs", { data, date , user});
+        }
+        return 0;
+      } catch (error) {
+        return 0;
+      }
+    } else {
+      return res.redirect("/");
+    }
+  }
+
 
   static async Delete(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
@@ -91,4 +129,4 @@ class khoaHocController {
   }
 }
 
-export default khoaHocController;
+module.exports = khoaHocController;

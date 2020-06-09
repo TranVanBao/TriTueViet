@@ -1,6 +1,6 @@
 
 
-import database from '../../Model/models';
+var database = require("../../Model/models")
 
 class giangvienService {
   static async getAll() {
@@ -89,4 +89,4 @@ class giangvienService {
  
 }
 
-export default giangvienService;
+module.exports = giangvienService;

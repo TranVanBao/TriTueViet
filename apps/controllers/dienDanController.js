@@ -1,6 +1,6 @@
-import { validationResult } from "express-validator";
+var { validationResult } = require("express-validator")
 
-import diendanService from "../services/dienDanService";
+var diendanService = require("../services/dienDanService")
 
 class diendanController {
   static async getAll(req, res) {
@@ -50,4 +50,4 @@ class diendanController {
 
 }
 
-export default diendanController;
+module.exports = diendanController;
