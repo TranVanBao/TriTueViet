@@ -1,9 +1,9 @@
 var { Router } = require("express")
 
 var lopHocController = require("../controllers/lopHocController")
-
+var importfile  = require ("../../helpers/upfileExcel")
 const router = Router();
-
+var single = importfile.single("fileExcel");
 router
   .route("/")
   .get(lopHocController.getAll)
@@ -17,6 +17,9 @@ router
   router
   .route("/hocvien/export/:id")
   .get(lopHocController.getExportExl)
+  router
+  .route("/hocvien/import/:id")
+  .post(single,lopHocController.getImport)
 
 router
   .route("/:id")

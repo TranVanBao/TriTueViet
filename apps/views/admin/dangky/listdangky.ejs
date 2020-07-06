@@ -28,8 +28,8 @@
                 border-color: #c1c1c1;
                 float: right;
                 padding-left: 3%;"><i class="fas fa-plus"></i> Add </a>
-              
-                <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>                    
+
+                <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null   ){ %>
                 <a href="/admin/lophoc/hocvien/export/<%- data[0].id_lophoc %> " style="color: #fff;
         float: right;
         height: 30px;
@@ -45,6 +45,50 @@
         margin-right: 1%;
         padding-left: 1%;" id="show-btn"><i class="fas fa-cloud-download-alt"></i> Export
                     excel </a>
+                <a style="color: #fff;
+                        float: right;
+                        height: 30px;
+                        font-weight: bold;
+                        font-size: 12px;
+                        text-shadow: none;
+                        min-width: 110px;
+                        border-radius: 0;
+                        line-height: 29px;
+                        background-color: #269abc;
+                        border-color: #c1c1c1;
+                        float: right;
+                        margin-right: 1%;
+                        padding-left: 1%;" id="show-btn" data-toggle="modal" data-target="#importexcel"><i
+                        class="fas fa-cloud-download-alt"></i> Import
+                    excel </a>
+
+
+
+                <!-- Modal -->
+                <div class="container">
+                    <div class="modal fade" id="importexcel" role="dialog">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">File điểm học viên</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>                                    
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/lophoc/hocvien/import/<%- data[0].id_lophoc %>" enctype="multipart/form-data"
+                                        method="post">
+                                        <div class="form-group">
+                                            <input type="file" class="form-control" multiple name="fileExcel" id="" />
+                                        </div>
+                                        <input type="submit" value="Upload" class="btn btn-primary" />
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
                 <% } %>
             </div>
 

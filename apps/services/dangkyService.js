@@ -80,7 +80,7 @@ class dangkyService {
       return await database.dangky.sequelize.query(
         `select lophocs.tenlophoc,lophocs.thoigianbatdau,lophocs.phidichvu , dangkies.* 
         from public.lophocs, public.dangkies 
-        where dangkies.id_lophoc = lophocs.id and (dangkies.thanhtoan > lophocs.phidichvu/2) 
+        where dangkies.id_lophoc = lophocs.id and (dangkies.thanhtoan >= lophocs.phidichvu/2) 
         ORDER BY id DESC  `
       );
     } catch (error) {

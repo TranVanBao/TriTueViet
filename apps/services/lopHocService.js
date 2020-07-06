@@ -42,9 +42,9 @@ class lophocService {
   static async get1lop(trangthai) {
     try {
       let lophoc = await database.khoahoc.sequelize.query(
-        `Select giangviens.hoten , lophocs.* 
-        from public.lophocs, public.giangviens 
-        where giangviens.id = lophocs.id_giangvien and lophocs.trangthai=` +
+        `Select giangviens.hoten , lophocs.* ,phonghocs.tenphonghoc
+        from public.lophocs, public.giangviens , public.phonghocs
+        where giangviens.id = lophocs.id_giangvien and phonghocs.id = lophocs.id_phonghoc and lophocs.trangthai=` +
           trangthai +
           ` ORDER BY id DESC`
       );
@@ -81,11 +81,11 @@ class lophocService {
   }
 
   static async Update(id, data) {
-    try {
+    try {  
       let tk = await database.lophoc.findOne({
         where: { id }
       });
-      if (tk) {
+      if (tk) { 
         await database.lophoc.update(data, {
           where: { id }
         });

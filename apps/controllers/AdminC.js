@@ -32,7 +32,7 @@ class AdminController {
         const tong = await dangkyService.Tongthongke()       
         var data = data1[0];     
         if (data.length > 0) {
-          res.json({ msg: "success", data ,tong });
+           res.json({ msg: "success", data ,tong });
         } else {
           res.json({msg:'error'});
         }

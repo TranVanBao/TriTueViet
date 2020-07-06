@@ -1,10 +1,14 @@
 var date = require("s-date")
+
+
 var lopHocService = require("../services/lopHocService")
 var khoaHocService = require("../services/khoaHocService")
 var giangVienService = require("../services/giangVienService")
 var dangkyService = require("../services/dangkyService")
 var phongHocService = require("../services/phongHocService")
 var excel = require("../../helpers/excel")
+var importExcel = require("../../helpers/readExcel")
+
 // trang thai 0 hoàn thành , 1 sáp khai giảng , 2 đang học , 3 đang chờ
 class lophocController {
   static async getAll(req, res) {
@@ -12,11 +16,11 @@ class lophocController {
       try {
         const user = req.session.user
         let trangthai = 1;
-        const data1 = await lopHocService.getAll(trangthai);
+        const data1 = await lopHocService.getAll(trangthai); 
         const khoahoc = await khoaHocService.getKH();
         const phonghoc = await phongHocService.getsudung();
         const giangvien = await giangVienService.getcolam();
-        const data = data1[0];
+        const data = data1[0]; 
         if (data.length > 0) {
           res.render("../views/admin/lophoc/listlophoc.ejs", {
             data,user,
@@ -130,10 +134,11 @@ class lophocController {
   }
 
   static async update(req, res) {
-    const altered = req.body;
-    const { id } = req.params;   
+    const altered = {...req.body };
+    console.log(altered);
+    const  id  = req.params.id; 
     try {      
-      const update = await lopHocService.Update(id, altered);     
+      const update = await lopHocService.Update(id, altered);    console.log(update + '123123123123213');  
       if (!update) {
         res.redirect("/admin/lophoc?kq=0&mes=Cập nhật không thành công !!!");
       } else {
@@ -185,6 +190,24 @@ class lophocController {
         const  id  = req.params.id;       
         excel(id);       
           res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);
+       
+      } catch (error) {
+        return error;
+      }
+    } else {
+      return res.redirect("/");
+    }
+  }
+
+  static async getImport(req, res) {
+    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
+      try {        
+        if(req.file){     
+        var namefile =   req.file.originalname        
+        var data = await importExcel(namefile)
+         console.log('2');console.log(data);
+
+       }
        
       } catch (error) {
         return error;

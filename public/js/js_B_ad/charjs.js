@@ -3,19 +3,51 @@ const xlabel = [];
 const dem = [];
 const xlabelThu = [];
 const demThu = [];
-char();
-charTongthu()
-async function char() {
-  await getdata();
-  var ctx = document.getElementById("myChart").getContext("2d");
+
+async function getdata() {
+  $.ajax({
+    url: "/admin/index/thongke",
+    method: "get",
+    dataType: "json",
+    success: function(response) {
+      if (response.msg == "success") {        
+        if (          
+          response.data == undefined ||
+          response.data == null ||
+          response.data == ""
+        ) {
+          alert("Data null");
+        } else {        
+          $.each(response.data, async function(index, data) {           
+            let tenlophoc = data.tenlophoc;
+            xlabel.push(tenlophoc);
+            
+            let tong = response.tong[0][0].tong;
+            let d = Number(data.dem);
+            dem.push(Math.floor((d / tong) * 100));           
+           
+          });
+        }
+      }
+    },
+    error: function(response) {
+      alert("server error");
+    }
+  });
+}
+
+
+async function char() {   
+  await getdata() 
+  var ctx =  document.getElementById("myChart").getContext("2d");
   var myChart = new Chart(ctx, {
-    type: 'polarArea',
+    type: 'bar',
     data: {
       labels: xlabel,
       datasets: [
         {
-          label: "Sinh viên đăng ký các khóa học (%)",
-          data: dem,
+          label: "Sinh viên đăng ký các khóa học(%)",
+          data:  dem,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -49,48 +81,19 @@ async function char() {
     }
   });
 }
-async function getdata() {
-  $.ajax({
-    url: "/admin/index/thongke",
-    method: "get",
-    dataType: "json",
-    success: function(response) {
-      if (response.msg == "success") {
-        if (
-          response.data == undefined ||
-          response.data == null ||
-          response.data == ""
-        ) {
-          alert("Data null");
-        } else {
-          $.each(response.data, function(index, data) {
-            let tenlophoc = data.tenlophoc;
-            xlabel.push(tenlophoc);
-            let tong = response.tong[0][0].tong;
-            let d = Number(data.dem);
-            dem.push(Math.floor((d / tong) * 100));           
-          });
-        }
-      }
-    },
-    error: function(response) {
-      alert("server error");
-    }
-  });
-}
 
 //  char tong thu 
-async function charTongthu() {
-  await getdataTongThu();
+async function charTongthu() {  
+  await getdataTongThu()  
   var ctx1 = document.getElementById("myChart1").getContext("2d");
   var myChart1 = new Chart(ctx1, {
-    type: 'pie',
+    type: 'bar',
     data: {
-      labels: xlabelThu,
+      labels:  xlabelThu,
       datasets: [
         {
-          label: "Thu tiền từ các khóa học (%)",
-          data: demThu,
+          label: "Tiền thu từ các khóa học (%)",
+          data:  demThu,
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -141,9 +144,11 @@ async function getdataTongThu() {
           $.each(response.data, function(index, data) {
             let tenlophoc = data.tenlophoc;
             xlabelThu.push(tenlophoc);
+           
             let tong = response.tong[0][0].tong;
             let d = Number(data.dem);
-            demThu.push(Math.floor((d / tong) * 100));         
+            demThu.push(Math.floor((d / tong) * 100));  
+                  
           });
         }
       }
@@ -153,3 +158,7 @@ async function getdataTongThu() {
     }
   });
 }
+
+
+char();
+charTongthu();

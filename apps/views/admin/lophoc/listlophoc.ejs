@@ -193,7 +193,7 @@
                             <input required type="text" value="<%=  d  %>" name="thoigianbatdau" class="form-control"
                               id="txtFrom">
                           </div>
-                          <div class="form-group">
+                          <div class="form-group">                           
                             <label for="message-text" class="col-form-label">PHÒNG HỌC:</label>
                             <select required name="id_phonghoc" class="form-control">
                               <option value="<%= dulieu.id_phonghoc %>"> <%= dulieu.tenphonghoc %> </option>
@@ -205,29 +205,23 @@
                           <div class="form-group">
                             <label for="message-text" class="col-form-label">TRẠNG THÁI:</label>
                             <select name="trangthai" class="form-control">
-                              <% if(dulieu.trangthai == 0) { %>
-                              <option value="0">Đã hoàn thành</option>
-                              <option value="1">Sắp khai giảng</option>
-                              <option value="2">Đang học</option>
+                              <% if(dulieu.trangthai == 3) { %>
                               <option value="3">Đang chờ</option>
+                              <option value="1">Sắp khai giảng</option>
                               <% }  %>
-                              <%  if(dulieu.trangthai == 1) { %>
-                              <option value="1">Sắp khai giảng</option>
-                              <option value="0">Đã hoàn thành</option>
-                              <option value="2">Đang học</option>
-                              <option value="3">Đang chờ</option>
-                              <% } %>
                               <%  if(dulieu.trangthai == 2) { %>
                               <option value="2">Đang học</option>
                               <option value="0">Đã hoàn thành</option>
-                              <option value="1">Sắp khai giảng</option>
-                              <option value="3">Đang chờ</option>
                               <% } %>
-                              <%  if(dulieu.trangthai == 3) { %>
-                              <option value="3">Đang chờ</option>
-                              <option value="2">Đang học</option>
-                              <option value="0">Đã hoàn thành</option>
+                              <%  if(dulieu.trangthai == 1) { %>
                               <option value="1">Sắp khai giảng</option>
+                              <option value="2">Đang học</option>
+
+                              <% } %>
+                              <%  if(dulieu.trangthai == 0) { %>
+                              <option value="0">Đã hoàn thành</option>
+                              <option value="2">Đang học</option>
+
                               <% } %>
                             </select>
                           </div>
@@ -246,7 +240,7 @@
             <%}); %>
           </tbody>
         </table>
-        
+
       </div>
     </div>
   </div>
