@@ -1,19 +1,13 @@
-var XLSX = require('xlsx')
+var XLSX = require("xlsx");
+/* Read test.xlsx from the Documents folder */
+async function readExcel(namefile) {    
+  var workbook = XLSX.readFile(`./../public/upfileExcelAmin/` + namefile);
+  console.log(workbook)
 
-async function readExcel(namefile){
-console.log(namefile + 'da vao read file excel');
-console.log(`../public/upfileExcelAmin/`+ namefile);
-     
-
-var workbook =  XLSX.readFile('./../public/upfileExcelAmin/1.xlsx');   
-console.log(workbook);
-//var sheet_name_list = await workbook.SheetNames;
-console.log(namefile);
-console.log(sheet_name_list);
-var xlData = await XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list[0]]);
-console.log(namefile);
-console.log(xlData);
-return xlData
-}
+  var sheet_name_list = workbook.SheetNames[0]
+  var xlData = XLSX.utils.sheet_to_json(workbook.Sheets[sheet_name_list])
+  console.log(xlData);
+  return xlData;
+} 
 
 module.exports = readExcel;

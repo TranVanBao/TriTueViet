@@ -3,7 +3,8 @@ const xlabel = [];
 const dem = [];
 const xlabelThu = [];
 const demThu = [];
-
+char();
+charTongthu();
 async function getdata() {
   $.ajax({
     url: "/admin/index/thongke",
@@ -24,7 +25,7 @@ async function getdata() {
             
             let tong = response.tong[0][0].tong;
             let d = Number(data.dem);
-            dem.push(Math.floor((d / tong) * 100));           
+           await dem.push(Math.floor((d / tong) * 100));           
            
           });
         }
@@ -160,5 +161,3 @@ async function getdataTongThu() {
 }
 
 
-char();
-charTongthu();
