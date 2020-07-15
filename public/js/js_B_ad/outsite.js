@@ -30,8 +30,7 @@ toastr.options = {
 function validateTaoBV() {
   var tieude = document.forms["taobv"]["tieude"].value;
   var id_khoahoc = document.forms["taobv"]["id_khoahoc"].value;
-  var noidung = document.forms["taobv"]["noidung"].value;
-  console.log(noidung+'123123');  
+ 
   if(tieude == "" || tieude.length < 5){
     document.getElementById("demo").innerHTML = " Không được để trống , dữ liệu phải trên 5 kí tự !!!";
     return false;
@@ -40,22 +39,16 @@ function validateTaoBV() {
     document.getElementById("demo1").innerHTML = " Xin chọn 1 khóa học !!!";
     return false;
   }
-  if(noidung == "" ){
-    document.getElementById("demo2").innerHTML = " Xin điền nội dung !!!";
-    return false;
-  }else{
-    document.getElementById("demo2").innerHTML = "";
-  }
 }
 
 // ========== validate tra loi comment
-function validateTraLoiCM() {
-  var noidung = document.forms["traloibv"]["noidungtraloi"].value; 
-  if(noidung == "" ){
-     document.getElementById("noidungtl").innerHTML = " Xin điền nội dung !!!";
-    return false;
-  }
-}
+// function validateTraLoiCM() {
+//   var noidung = document.forms["traloibv"]["noidungtraloi"].value; 
+//   if(noidung == "" ){
+//      document.getElementById("noidungtl").innerHTML = " Xin điền nội dung !!!";
+//     return false;
+//   }
+// }
 
 // function validateReLy() {
 //   var noidung = document.forms["traloi"]["noidungtraloi"].value; 

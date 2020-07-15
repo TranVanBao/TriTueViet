@@ -72,8 +72,9 @@ class dangkyController {
     // ============end captcha=================    
     let thanhtoan = 0;     
     let trangthai = 1;     
-    let { tenkhachhang, sdt, email, diachi,id_lophoc} =  req.body    
-    let data = await { tenkhachhang, sdt, diachi, email,id_lophoc, thanhtoan,trangthai };   
+    let { tenkhachhang, sdt, email, diachi,id_lophoc} =  {...req.body}    
+    let data = await { tenkhachhang, sdt, diachi, email,id_lophoc, thanhtoan,trangthai }; 
+    
       const created = await dangkyService.add(data);     
       if (created == null ) {
        // res.redirect("/register?kq=0&mes=Đăng ký thất bại !!!");

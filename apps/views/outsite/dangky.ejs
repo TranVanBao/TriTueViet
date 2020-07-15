@@ -28,10 +28,11 @@
                                 <h2>Follow Us:</h2>
                             </div>
                             <ul>
-                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="https://www.facebook.com/B%E1%BA%A3o-Ru%E1%BB%93i-Mu%E1%BB%97i-348451705812799/"><i class="fa fa-facebook"></i></a></li>
+                               
+                                <li><a href="mailto:tranvanbaocntt1@gmail.com"><i class="fa fa-google-plus"></i></a></li>
+                               
+                                
                             </ul>
                         </div>
                     </div>
@@ -63,7 +64,7 @@
                                 <input type="text" class="form-control" id="diachi" name="diachi" placeholder="Địa chỉ">
                             </div>
                             <div class="form-group col-lg-12">
-                                <select required id="khoahoc" name="id_lophoc" style="height: 50px" id="message"
+                                <select required id="id_lophoc" name="id_lophoc" style="height: 50px" id="message"
                                     class="form-control">
                                     <option>----Chọn khoá học bạn muốn đăng kí----</option>
                                     <% lophoc.forEach(dulieu => { %>
@@ -94,7 +95,7 @@
         const sdt = document.querySelector('#sdt').value;
         const email = document.querySelector('#email').value;
         const diachi = document.querySelector('#diachi').value;
-        const khoahoc = document.querySelector('#khoahoc').value;
+        const id_lophoc = document.querySelector('#id_lophoc').value;
         const captcha = document.querySelector('#g-recaptcha-response').value;  
         
         if (tenkhachhang == "" || tenkhachhang.length < 5) {
@@ -117,7 +118,7 @@
             document.getElementById("dk4").innerHTML = " Xin điền nội dung email !!!";
             return false;
         }
-        if (khoahoc == "" || isNaN(khoahoc)) {
+        if (id_lophoc == "" || isNaN(id_lophoc)) {
             document.getElementById("dk2").innerHTML = " Xin chọn 1 khóa học !!!";
             return false;
         } else {
@@ -127,7 +128,7 @@
         return fetch('/register', {
             method: 'POST',
             headers: { 'Content-type': 'application/json' },
-            body: JSON.stringify({ tenkhachhang, sdt, email, diachi, khoahoc, captcha })
+            body: JSON.stringify({ tenkhachhang, sdt, email, diachi, id_lophoc, captcha })
         })
             .then(res => res.json())
             .then(data => {

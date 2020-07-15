@@ -15,16 +15,21 @@
         <div class="card-header">
             <!-- <i class="fas fa-table"></i>
             Data Table Example -->
-            <div><button data-toggle="modal" data-target="#exampleModal" style="color: #fff;float: right;
+            <div>
+              <a data-toggle="modal" data-target="#exampleModal" style="    color: #fff;
+              float: right;
               height: 30px;
               font-weight: bold;
               font-size: 12px;
               text-shadow: none;
-              min-width: 100px;
-              border-radius: 50px;
-              line-height: 13px;
+              min-width: 110px;
+              border-radius: 0;
+              line-height: 29px;
               background-color: #269abc;
-              border-color: #1b6d85 ; float:right;"><i class="fas fa-plus"></i> Add </button>
+              border-color: #c1c1c1;
+              float: right;
+              padding-left: 3%;"><i class="fas fa-plus"></i> Add </a>
+
             </div>
 
         </div>
@@ -40,7 +45,8 @@
                             <th class="canhgiua">Số điện thoại</th>
                             <th class="canhgiua">Email</th>
                             <th class="canhgiua">Địa chỉ</th>
-                            <th class="canhgiua">Giới tính</th>
+                            <th class="canhgiua">Điểm</th>
+                            <th class="canhgiua">Lớp</th>
                             <th class="canhgiua">Tác vụ</th>
                         </tr>
                     </thead>
@@ -56,7 +62,8 @@
                             <td class="canhgiua"><%= String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ') %></td>
                             <td class="canhgiua"><%= dulieu.email %></td>
                             <td class="canhgiua"><%= dulieu.diachi %></td>
-                            <td class="canhgiua"><%= dulieu.gioitinh %></td>
+                            <td class="canhgiua"><%= dulieu.diem %></td>
+                            <td class="canhgiua"><%= dulieu.tenlophoc %></td>
                             <td class="canhgiua" style="text-align: center;">
                                 <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
                                     data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">

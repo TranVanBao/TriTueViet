@@ -4,6 +4,7 @@ class AdminController {
   static async get(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên" ) {
       try {
+    
         const data1 = await dangkyService.thongke();
         var data2 = data1[0];
         const user = req.session.user

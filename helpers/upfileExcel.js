@@ -7,7 +7,7 @@ const multer = require("multer");
 // luu duong dan hinh
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/upfileExcelAmin");
+    cb(null, "helpers/upfileExcel");
   },
   filename: (req, file, cb) => {
     cb(null,file.originalname);

@@ -52,13 +52,36 @@ class dangkyService {
   static async Update(id, data) {
     try {
       let tk = await database.dangky.findOne({
-        where: { id }
+        where: { id  }
       });
 
       if (tk) {
         return await database.dangky.update(data, {
           where: { id: id }
         });
+      } else {
+        return null;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // update diem hoc vien
+  static async UpdateDiem(email, data) {
+    try {
+      let tk = await database.dangky.findOne({
+        where: { email : email }
+      });
+       if (tk) {              
+        let kq = await database.dangky.sequelize.query(
+         ` UPDATE public.dangkies
+          SET  diem=`+data+`
+          WHERE email='`+email+`'`
+        );
+       if(kq){
+         return 1
+       }else return 0
       } else {
         return null;
       }

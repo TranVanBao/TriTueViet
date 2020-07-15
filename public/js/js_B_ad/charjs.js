@@ -3,14 +3,24 @@ const xlabel = [];
 const dem = [];
 const xlabelThu = [];
 const demThu = [];
-char();
-charTongthu();
+
+
+char().then((value) => {
+  console.log(value);
+  // expected output: "foo"
+});
+charTongthu().then((value) => {
+  console.log(value);
+  // expected output: "foo"
+});
+
+
 async function getdata() {
   $.ajax({
     url: "/admin/index/thongke",
     method: "get",
     dataType: "json",
-    success: function(response) {
+    success: await function(response) {
       if (response.msg == "success") {        
         if (          
           response.data == undefined ||
@@ -18,16 +28,16 @@ async function getdata() {
           response.data == ""
         ) {
           alert("Data null");
-        } else {        
-          $.each(response.data, async function(index, data) {           
-            let tenlophoc = data.tenlophoc;
-            xlabel.push(tenlophoc);
-            
-            let tong = response.tong[0][0].tong;
+        } else {      
+          $.each(response.data, async function(index, data) {    
+             
+            let tenlophoc = await data.tenlophoc;
+            xlabel.push(tenlophoc);            
+            let tong = await Number(response.tong[0][0].tong);
             let d = Number(data.dem);
-           await dem.push(Math.floor((d / tong) * 100));           
-           
+           await dem.push(Math.floor((d / tong) * 100));          
           });
+          return { dem , xlabel}
         }
       }
     },
@@ -39,10 +49,10 @@ async function getdata() {
 
 
 async function char() {   
-  await getdata() 
-  var ctx =  document.getElementById("myChart").getContext("2d");
-  var myChart = new Chart(ctx, {
-    type: 'bar',
+   await getdata() 
+  var ctx =  document.getElementById("myChartsvdk").getContext("2d");
+  var myChartsvdk = new Chart(ctx, {
+    type: 'horizontalBar',
     data: {
       labels: xlabel,
       datasets: [
@@ -85,10 +95,10 @@ async function char() {
 
 //  char tong thu 
 async function charTongthu() {  
-  await getdataTongThu()  
+ const data= await getdataTongThu()  
   var ctx1 = document.getElementById("myChart1").getContext("2d");
   var myChart1 = new Chart(ctx1, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
       labels:  xlabelThu,
       datasets: [
@@ -133,7 +143,7 @@ async function getdataTongThu() {
     url: "/admin/index/thongkeThu",
     method: "get",
     dataType: "json",
-    success: function(response) {
+    success: await function(response) {
       if (response.msg == "success") {
         if (
           response.data == undefined ||
@@ -142,15 +152,17 @@ async function getdataTongThu() {
         ) {
           alert("Data null");
         } else {
-          $.each(response.data, function(index, data) {
-            let tenlophoc = data.tenlophoc;
+          $.each(response.data,async function(index, data) {
+            let tenlophoc = await data.tenlophoc;
             xlabelThu.push(tenlophoc);
            
-            let tong = response.tong[0][0].tong;
-            let d = Number(data.dem);
+            let tong = await Number(response.tong[0][0].tong);
+            
+            let d = await Number(data.dem);
             demThu.push(Math.floor((d / tong) * 100));  
                   
           });
+          return { xlabelThu , demThu}
         }
       }
     },

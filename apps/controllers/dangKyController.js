@@ -54,6 +54,7 @@ class dangkyController {
   }
 
   static async add(req, res) {
+    
     let { thanhtoan, email , tenkhachhang} = req.body;
     if (thanhtoan == "") {
       thanhtoan = 0;
@@ -69,6 +70,7 @@ class dangkyController {
     Chúc bạn một ngày tốt lành.` 
     await mail(email,tenkhachhang, html);
     let data = await { ...req.body, thanhtoan ,trangthai};
+    
     try {
       const created = await dangkyService.add(data);
 

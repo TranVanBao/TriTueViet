@@ -9,6 +9,7 @@ var phongHocService = require("../services/phongHocService")
 var excel = require("../../helpers/excel")
 var importExcel = require("../../helpers/readExcel")
 
+
 // trang thai 0 hoàn thành , 1 sáp khai giảng , 2 đang học , 3 đang chờ
 class lophocController {
   static async getAll(req, res) {
@@ -188,8 +189,14 @@ class lophocController {
         
         const user = req.session.user
         const  id  = req.params.id;       
-        excel(id);       
-          res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);
+       var exp = await  excel(id);        
+       if(exp == 1)  {
+        res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);
+
+       }  else{
+        res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=0&mes=Thất bại !`);
+       }
+          
        
       } catch (error) {
         return error;
@@ -204,9 +211,16 @@ class lophocController {
       try {        
         if(req.file){     
         var namefile =   req.file.originalname        
-        var data = await importExcel(namefile)
-         console.log('2');console.log(data);
-
+        var data = await importExcel(namefile) 
+        const  id  = req.params.id;             
+        for (let index = 1; index < data.length; index++) {
+          const element = data[index];  
+          const email = element.__EMPTY_3
+          const diem = element.__EMPTY_5         
+          const  updateDiem = await  dangkyService.UpdateDiem(email,diem) 
+                   
+        }     
+        res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);
        }
        
       } catch (error) {
