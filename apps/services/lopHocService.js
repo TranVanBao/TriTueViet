@@ -105,7 +105,7 @@ class lophocService {
       let tk = await database.lophoc.findOne({
         where: { thoigianbatdau , tenlophoc, trangthai }
       });
-      console.log(tk);      
+        
       if (tk == null) {
          return 0;
       }else{
@@ -145,6 +145,19 @@ class lophocService {
         ORDER BY id DESC`
       );
       return id_khoahoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // đếm số lớp học
+  static async countLop() {
+    try {
+      let dem = await database.lophoc.sequelize.query(
+        `SELECT COUNT(id)  FROM public.lophocs
+        WHERE lophocs.trangthai !=3`
+      );
+      return dem;
     } catch (error) {
       throw error;
     }

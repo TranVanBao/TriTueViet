@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Trang chủ</a>
+            <a href="/admin/index">Trang chủ</a>
         </li>
         <li class="breadcrumb-item active">Bài viết</li>
     </ol>
@@ -48,10 +48,10 @@
                             <td class="canhgiua"><%= stt %></td>
                             <td class="canhgiua"><%= dulieu.tieude %></td>
                             <td class="canhgiua"><%= dulieu.tenchuyenmuc %></td>
-                            <td class="canhgiua"> <% if(dulieu.trangthai == 1) { %>
-                                Hiện
+                            <td class="canhgiua" > <% if(dulieu.trangthai == 1) { %>
+                                <span class="badge badge-pill badge-success"> Hiện </span>
                                 <% } else {%>
-                                Ẩn
+                                 <span class="badge badge-pill badge-warning"> Ẩn </span>
                                 <% } %>
                             </td>
                             <td class="canhgiua"> <a href="/baiviet/5/<%= dulieu.id_chuyenmuc %>/<%= dulieu.id %>" style="color: blueviolet;"

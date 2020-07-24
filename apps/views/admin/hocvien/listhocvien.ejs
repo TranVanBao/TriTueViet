@@ -4,7 +4,7 @@
     <!-- Breadcrumbs-->
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+            <a href="/admin/index">Trang chủ</a>
         </li>
         <li class="breadcrumb-item active">Học viên</li>
     </ol>
@@ -16,7 +16,7 @@
             <!-- <i class="fas fa-table"></i>
             Data Table Example -->
             <div>
-              <a data-toggle="modal" data-target="#exampleModal" style="    color: #fff;
+                <a data-toggle="modal" data-target="#exampleModal" style="    color: #fff;
               float: right;
               height: 30px;
               font-weight: bold;
@@ -52,8 +52,8 @@
                     </thead>
                     <tbody>
                         <% var stt = 0 %>
-                     
-                       <% data.forEach(dulieu => { %>
+
+                        <% data.forEach(dulieu => { %>
                         <% stt++ %>
                         <tr>
                             <td class="canhgiua"><%= stt %></td>
@@ -62,7 +62,12 @@
                             <td class="canhgiua"><%= String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ') %></td>
                             <td class="canhgiua"><%= dulieu.email %></td>
                             <td class="canhgiua"><%= dulieu.diachi %></td>
-                            <td class="canhgiua"><%= dulieu.diem %></td>
+                            <% if(dulieu.diem > 5) { %>
+                                <td class="canhgiua"><span class="badge badge-pill badge-success"> Được cấp bằng </span></td>
+                            <% } else { %>
+                                <td class="canhgiua"><span class="badge badge-pill badge-warning">Chưa đạt điều kiện</span></td>
+                            <% } %> 
+                            
                             <td class="canhgiua"><%= dulieu.tenlophoc %></td>
                             <td class="canhgiua" style="text-align: center;">
                                 <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
@@ -93,7 +98,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                 
+
                                 <div class="modal fade" id="updatedangky<%= dulieu.id %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -106,8 +111,9 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form  method="POST" action="/admin/dangky/<%= dulieu.id %>">
-                                                    <div class="form-group col-lg-12" style="color: red;" id="errorhvu"></div>
+                                                <form method="POST" action="/admin/dangky/<%= dulieu.id %>">
+                                                    <div class="form-group col-lg-12" style="color: red;" id="errorhvu">
+                                                    </div>
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">TÊN HỌC
                                                             VIÊN:</label>
@@ -125,14 +131,14 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">EMAIL:</label>
-                                                        <input required value="<%= dulieu.email %>" type="email" name="email"
-                                                            class="form-control" id="recipient-name">
+                                                        <input required value="<%= dulieu.email %>" type="email"
+                                                            name="email" class="form-control" id="recipient-name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">ĐIẠ
                                                             CHỈ:</label>
-                                                        <input required value="<%= dulieu.diachi %>" type="text" name="diachi"
-                                                            class="form-control" id="recipient-name">
+                                                        <input required value="<%= dulieu.diachi %>" type="text"
+                                                            name="diachi" class="form-control" id="recipient-name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="message-text" class="col-form-label">GIỚI
@@ -145,9 +151,10 @@
                                                             :</label>
                                                         <select required name="id_lophoc" class="form-control">
                                                             <option value="<%= dulieu.id_lophoc %>">
-                                                                <%= dulieu.tenlophoc %> -- <%=  date('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %>
+                                                                <%= dulieu.tenlophoc %> --
+                                                                <%=  date('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %>
                                                             </option>
-                                                          
+
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -186,14 +193,14 @@
 
 
                         <%}); %>
-                      
+
                     </tbody>
                 </table>
             </div>
         </div>
-       
+
     </div>
-   
+
 
 </div>
 

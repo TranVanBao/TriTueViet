@@ -4,7 +4,7 @@
   <!-- Breadcrumbs-->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a href="#">TRANG</a>
+      <a href="/admin/index">Trang chủ</a>
     </li>
     <li class="breadcrumb-item active">GIẢNG VIÊN</li>
   </ol>
@@ -63,10 +63,10 @@
               <td class="canhgiua"><%= dulieu.gioitinh %></td>
               <td class="canhgiua"><%= dulieu.linhvuc %></td>
               <% if(dulieu.trangthai ===0){ %>
-              <td class="canhgiua">Tạm nghĩ</td>
+              <td class="canhgiua"><span class="badge badge-pill badge-warning"> Tạm nghĩ </span></td>
               <% } %>
               <% if(dulieu.trangthai ===1){ %>
-              <td class="canhgiua">Có làm</td>
+              <td class="canhgiua"><span class="badge badge-pill badge-success"> Có làm </span></td>
               <% } %>
               <td class="canhgiua"><img style="width: 140px; height: 140px"
                   src="../../../../uploadimg/<%= dulieu.hinhanh %>" alt="">

@@ -5,7 +5,7 @@
   <!-- Breadcrumbs-->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a href="#">TRANG CHỦ</a>
+      <a href="/admin/index">Trang chủ</a>
     </li>
     <li class="breadcrumb-item active">CHUYÊN MỤC</li>
   </ol>
@@ -54,10 +54,12 @@
               <td class="canhgiua"><%= stt %></td>
               <td class="canhgiua"><%= dulieu.tenchuyenmuc  %></td>
               <% if(dulieu.trangthai == 1) { %>
-              <td class="canhgiua"> Sử dụng </td>
+              <td class="canhgiua">
+                  <span class="badge badge-pill badge-success"> Sử dụng </span>
+                </td>
               <% }  %>
               <%  if(dulieu.trangthai == 0) { %>
-              <td class="canhgiua"> Không sử dụng </td>
+              <td class="canhgiua"><span class="badge badge-pill badge-warning"> Không sử dụng  </span></td>
               <% } %>
 
               <td class="canhgiua" style="text-align: center;">
@@ -118,12 +120,10 @@
         </table>
       </div>
     </div>
-    <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+   
   </div>
 
-  <p class="small text-center text-muted my-5">
-    <em>More table examples coming soon...</em>
-  </p>
+  
 
 </div>
 <%- include ('addchuyenmuc') -%>

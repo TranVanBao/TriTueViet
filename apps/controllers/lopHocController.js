@@ -153,7 +153,7 @@ class lophocController {
   }
 
   static async getAllhocvien(req, res) {
-    if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
+    if (req.session.user && (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên")) {
       try {
         const user = req.session.user
         const { id } = req.params;
@@ -185,17 +185,12 @@ class lophocController {
   }
   static async getExportExl(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
-      try {        
+      try {    
         
-        const user = req.session.user
-        const  id  = req.params.id;       
-       var exp = await  excel(id);        
-       if(exp == 1)  {
-        res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);
-
-       }  else{
-        res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=0&mes=Thất bại !`);
-       }
+      
+        const  id  = req.params.id;
+         await excel(id,res);         
+  
           
        
       } catch (error) {
@@ -215,9 +210,9 @@ class lophocController {
         const  id  = req.params.id;             
         for (let index = 1; index < data.length; index++) {
           const element = data[index];  
-          const email = element.__EMPTY_3
-          const diem = element.__EMPTY_5         
-          const  updateDiem = await  dangkyService.UpdateDiem(email,diem) 
+          const email = element.__EMPTY_2
+          const diem = element.__EMPTY_3         
+          const  updateDiem = await  dangkyService.UpdateDiem(email,id,diem) 
                    
         }     
         res.redirect(`/admin/lophoc/hocvien/`+id+`?kq=1&mes=Thành công !`);

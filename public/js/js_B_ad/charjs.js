@@ -98,7 +98,7 @@ async function charTongthu() {
  const data= await getdataTongThu()  
   var ctx1 = document.getElementById("myChart1").getContext("2d");
   var myChart1 = new Chart(ctx1, {
-    type: 'horizontalBar',
+    type: 'line',
     data: {
       labels:  xlabelThu,
       datasets: [

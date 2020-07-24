@@ -68,17 +68,17 @@ class dangkyService {
   }
 
   // update diem hoc vien
-  static async UpdateDiem(email, data) {
+  static async UpdateDiem(email,id, data) {
     try {
       let tk = await database.dangky.findOne({
         where: { email : email }
-      });
+      }); console.log(tk);
        if (tk) {              
         let kq = await database.dangky.sequelize.query(
          ` UPDATE public.dangkies
           SET  diem=`+data+`
-          WHERE email='`+email+`'`
-        );
+          WHERE email='`+email+`' and id_lophoc =`+id+``
+        ); console.log(kq);
        if(kq){
          return 1
        }else return 0
@@ -112,11 +112,11 @@ class dangkyService {
   }
 
   // Thống kê
-  static async thongke() {
+  static async thongke(nam) {
     try {
       return await database.dangky.sequelize.query(
-        `SELECT dangkies.id_lophoc , lophocs.tenlophoc , count(id_lophoc) AS dem FROM public.dangkies, public.lophocs
-        Where lophocs.id = dangkies.id_lophoc
+        `SELECT dangkies.id_lophoc , lophocs.tenlophoc, count(id_lophoc) AS dem FROM public.dangkies, public.lophocs
+        Where lophocs.id = dangkies.id_lophoc and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')
         GROUP BY dangkies.id_lophoc, lophocs.tenlophoc ORDER BY dem DESC; `
       );
     } catch (error) {
@@ -124,13 +124,13 @@ class dangkyService {
     }
   }
 
-  static async Tongthongke() {
+  static async Tongthongke(nam) {
     try {
       return await database.dangky.sequelize.query(
         `SELECT  SUM(dem) as tong 
         FROM (SELECT COUNT(id_lophoc) AS dem
         FROM public.dangkies, public.lophocs 
-             Where lophocs.id = dangkies.id_lophoc
+             Where lophocs.id = dangkies.id_lophoc  and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')
         GROUP BY id_lophoc
         ) as A `
       );
@@ -138,21 +138,36 @@ class dangkyService {
       throw error;
     }
   }
-  static async TongthongkeThu() {
+
+  static async demsosinhvien() {
     try {
       return await database.dangky.sequelize.query(
-        `select sum(thanhtoan) as tong from dangkies`
+        `SELECT COUNT(id)  FROM public.dangkies
+        WHERE dangkies.thanhtoan > 0 `
       );
     } catch (error) {
       throw error;
     }
   }
-  static async ThongkeThu() {
+
+
+
+  static async TongthongkeThu(nam) {
+    try {
+      return await database.dangky.sequelize.query(
+        `select sum(thanhtoan) as tong from public.dangkies , public.lophocs
+        Where lophocs.id = dangkies.id_lophoc and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')`
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+  static async ThongkeThu(nam) {
     try {
       return await database.dangky.sequelize.query(
         ` SELECT lophocs.tenlophoc , SUM(thanhtoan) AS dem
         FROM public.dangkies, public.lophocs 
-             Where lophocs.id = dangkies.id_lophoc
+             Where lophocs.id = dangkies.id_lophoc  and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')
         GROUP BY id_lophoc , lophocs.tenlophoc
         `
       );

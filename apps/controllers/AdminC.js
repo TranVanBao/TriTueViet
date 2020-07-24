@@ -1,20 +1,29 @@
 var lopHocService = require("../services/lopHocService")
-var dangkyService = require("../services/dangkyService")
+var dangkyService = require("../services/dangkyService");
+const lophocService = require("../services/lopHocService");
+var d = new Date(); 
+var nam = d.getFullYear(); 
+
 class AdminController {
   static async get(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên" ) {
       try {
     
-        const data1 = await dangkyService.thongke();
-        var data2 = data1[0];
+        const data1 = await dangkyService.thongke(nam);
+        const tong = await dangkyService.Tongthongke(nam) ;
+        const datathu = await dangkyService.ThongkeThu(nam);
+        const tongThu = await dangkyService.TongthongkeThu(nam) ;
+        const demhocvien = await dangkyService.demsosinhvien() ;
+        const demlop = await lophocService.countLop() ; 
+        var data2 = data1[0]; 
         const user = req.session.user
         if (data2.length > 0) {
           res.render("../views/admin/index.ejs", {
-            data2 , user
+            data2 , user,tong,datathu,tongThu,demlop,demhocvien
           });
         } else {
           res.render("../views/admin/index.ejs", {
-            data2 ,user
+            data2 , user,tong,datathu,tongThu,demlop,demhocvien
           });
         }
       
@@ -28,9 +37,9 @@ class AdminController {
   static async getTK(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {
-        
-        const data1 = await dangkyService.thongke();
-        const tong = await dangkyService.Tongthongke()       
+       
+        const data1 = await dangkyService.thongke(nam);
+        const tong = await dangkyService.Tongthongke(nam)       
         var data = data1[0];     
         if (data.length > 0) {
            res.json({ msg: "success", data ,tong });
@@ -48,8 +57,8 @@ class AdminController {
   static async getTKThu(req, res) {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {
-        const data1 = await dangkyService.ThongkeThu();
-        const tong = await dangkyService.TongthongkeThu()       
+        const data1 = await dangkyService.ThongkeThu(nam);
+        const tong = await dangkyService.TongthongkeThu(nam)       
         var data = data1[0];      
         if (data.length > 0) {
           res.json({ msg: "success", data ,tong });

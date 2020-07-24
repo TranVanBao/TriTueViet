@@ -1,59 +1,74 @@
 const Excel = require("exceljs");
 var dangkyService = require("../apps/services/dangkyService");
 var lopHocService = require("../apps/services/lopHocService");
-async function exTest(id) {
-  let d = new Date();
-  let time = d.getDate() + `` + `` + d.getSeconds();
-  const workbook = new Excel.Workbook();
-  const worksheet = workbook.addWorksheet("My Sheet");
-  
+async function exTest(id, res) {
+  // let d = new Date();
+  // let time = d.getDate() + `` + `` + d.getSeconds();
+  // const workbook = new Excel.Workbook();
+  // const worksheet = workbook.addWorksheet("My Sheet");
 
-  worksheet.columns = [
-    { header: "Stt", key: "stt", width: 10 },
-    { header: "Tên học viên", key: "tenkhachhang", width: 32 },
-    { header: "Số điện thoại", key: "sdt", width: 15 },
-    { header: "email", key: "email", width: 32 },
-    { header: "Tên lớp học", key: "lophoc", width: 25 },
-    { header: "Điểm", key: "diem", width: 15 },
-  ];
+  // worksheet.columns = [
+  //   { header: "Stt", key: "stt", width: 10 },
+  //   { header: "Tên học viên", key: "tenkhachhang", width: 32 },
+  //   { header: "Số điện thoại", key: "sdt", width: 15 },
+  //   { header: "email", key: "email", width: 32 },
+  //   { header: "Tên lớp học", key: "lophoc", width: 25 },
+  //   { header: "Điểm", key: "diem", width: 15 },
+  // ];
 
   const data = await dangkyService.getByIDLop(id);
-  const lophoc = await lopHocService.getByID(13);
+   const lophoc = await lopHocService.getByID(id);
+  let data_return = [];
+  let stt = 1;
+  for (let item of data) {   
+   let mang = {
+     stt : stt++,
+     tenkhachhang: item.dataValues.tenkhachhang,
+     sdt: item.dataValues.sdt,
+     email: item.dataValues.email
+   }
+   
+    data_return.push(mang);
+  }
+ 
 
-  let stt = 0;
-  data.forEach((dl) => {
-    stt++;
+  let workbook = new Excel.Workbook(); //creating workbook
+  let worksheet = workbook.addWorksheet("DANH SÁCH HỌC VIÊN ");
+  let font = {
+    size: 12,
+    bold: true,
+    name: "Times New Roman",
+  };
+  worksheet.getCell(`A1`).value = `DANH SÁCH HỌC VIÊN : `+lophoc[0].tenlophoc;
+  worksheet.mergeCells("A1:E1");
+  worksheet.getCell(`A1`).font = font;
 
-    worksheet.addRow({
-      lophoc: lophoc[0].tenlophoc,
-      stt: stt,
-      tenkhachhang: dl.tenkhachhang,
-      sdt: `0` + dl.sdt,
-      email: dl.email,
-    });
-  });
 
-  // save under export.xlsx
-  await workbook.xlsx.writeFile("export.xlsx")
-  
-
-  //load a copy of export.xlsx
-  const newWorkbook = new Excel.Workbook();
-  await newWorkbook.xlsx.readFile("export.xlsx");
-
-  const newworksheet = newWorkbook.getWorksheet("My Sheet");
-  newworksheet.columns = [
-    { header: "Stt", key: "stt", width: 10 },
-    { header: "Tên học viên", key: "tenkhachhang", width: 32 },
-    { header: "Số điện thoại", key: "sdt", width: 15 },
-    { header: "email", key: "email", width: 32 },
-    { header: "Tên lớp học", key: "lophoc", width: 25 },
-    { header: "Điểm", key: "diem", width: 15 },
+  //  WorkSheet Header
+  worksheet.getRow(2).values = [
+    "STT",
+    "HỌ VÀ TÊN",   
+    "SĐT",  
+    "email", 
+    "ĐIỂM",
   ];
 
-  var kq = await newWorkbook.xlsx.writeFile(`D:\\export2` + time + `.xlsx`);
+  worksheet.columns = [
+    { key: "stt", width: 7 },
+    { key: "tenkhachhang", width: 30 },    
+    { key: "sdt", width: 15 },
+    { key: "email", width: 30 },     
+    { key: "diem", width: 20 },
+  ];
+  worksheet.getRow(2).font = {
+    size: 10,
+    bold: true,
+    name: "Times New Roman",
+  }; 
 
-  return 1;
+  worksheet.addRows(data_return);
+  res.attachment("thongke.xlsx");
+  return workbook.xlsx.write(res);
 }
 
 module.exports = exTest;

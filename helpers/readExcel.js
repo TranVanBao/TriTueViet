@@ -7,6 +7,7 @@ async function importExcel(namefile){
 var wb = XLSX.readFile(path.join(__dirname+`/upfileExcel/`+namefile))
 var sheet_name_list = wb.SheetNames;
 var xlData = XLSX.utils.sheet_to_json(wb.Sheets[sheet_name_list[0]])
+console.log(xlData);
 return xlData
 }
 module.exports = importExcel

@@ -4,7 +4,7 @@
   <!-- Breadcrumbs-->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a href="#">Dashboard</a>
+      <a href="/admin/index">Trang chủ</a>
     </li>
     <li class="breadcrumb-item active">
       <% if(trangthai == 1) { %>
@@ -92,16 +92,16 @@
               <td class="canhgiua"> <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
               <td class="canhgiua"><%= dulieu.dieukienhoc %></td>
               <% if(dulieu.trangthai == 1) { %>
-              <td class="canhgiua"> Sắp khai giảng </td>
+              <td class="canhgiua">  <span class="badge badge-pill badge-success"> Sắp khai giảng </span></td>
               <% }  %>
               <%  if(dulieu.trangthai == 0) { %>
-              <td class="canhgiua"> Đã hoàn thành </td>
+              <td class="canhgiua"> <span class="badge badge-pill badge-primary">  Đã hoàn thành </span></td>
               <% } %>
               <%  if(dulieu.trangthai == 2) { %>
-              <td class="canhgiua"> Đang học </td>
+              <td class="canhgiua">  <span class="badge badge-pill badge-info"> Đang học </span></td>
               <% } %>
               <%  if(dulieu.trangthai == 3) { %>
-              <td class="canhgiua"> Đang chờ </td>
+              <td class="canhgiua"> <span class="badge badge-pill badge-warning"> Đang chờ  </span></td>
               <% } %>
               <%  if(trangthai != 3) { %>
               <td class="canhgiua"> <a class="nav-link" href="/admin/lophoc/hocvien/<%= dulieu.id %>">
