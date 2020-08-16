@@ -74,6 +74,18 @@ class baivietService {
       throw error;
     }
   }
+  static async getNeWBV() {
+    try {
+      return await database.baiviet.findAll({
+        where: { trangthai: 1 },
+        order: [["id", "DESC"]],
+        offset : 1,
+        limit: 3
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
   static async delete(id) {
     try {
       return await database.baiviet.destroy({

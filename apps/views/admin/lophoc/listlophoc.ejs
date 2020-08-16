@@ -86,7 +86,7 @@
               <td class="canhgiua"><%= dulieu.tenlophoc %></td>
               <td class="canhgiua"><%= dulieu.hoten %></td>
               <td class="canhgiua"><%= dulieu.soluonghocvien %></td>
-              <td class="canhgiua"><%=  date('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %></td>
+              <td class="canhgiua"><%=  dates('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %></td>
               <td class="canhgiua"><%=  dulieu.thoigianhoc  %></td>
               <td class="canhgiua"><%=  dulieu.thoiluonghoc  %></td>
               <td class="canhgiua"> <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
@@ -192,9 +192,9 @@
                               cols="30"><%= dulieu.dieukienhoc %></textarea>
                           </div>
                           <div class="form-group">
-                            <% let d = date('{dd}-{mm}-{yyyy}', dulieu.thoigianbatdau)  %>
+                            <% let d = dates('{yyyy}-{mm}-{dd}', dulieu.thoigianbatdau)  %>
                             <label for="message-text" class="col-form-label">NGÀY BẮT ĐẦU:</label>
-                            <input required type="text" value="<%=  d  %>" name="thoigianbatdau" class="form-control"
+                            <input required type="date"  value="<%-  d %>" name="thoigianbatdau" class="form-control"
                               id="txtFrom">
                           </div>
                           <div class="form-group">                           

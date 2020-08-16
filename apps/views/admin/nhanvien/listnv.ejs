@@ -159,20 +159,20 @@
                           </div>
                           <div class="file-field">
                             <div class="z-depth-1-half mb-4">
-                              <img src="../../../../uploadimg/<%= dulieu.hinhanh %>" id="profile-img-tag"
-                                width="100%" height="200px" />
-                                
+                              <img src="../../../../uploadimg/<%= dulieu.hinhanh %>" id="profile-img-tag" width="100%"
+                                height="200px" />
                             </div>
                             <div class="d-flex justify-content-center">
                               <div class="btn btn-mdb-color btn-rounded float-left">
-                                <span>Choose file</span>
-                                <input value="" type="file" name="hinhanh" id="profile-img-<%=stt %>">
-                                <input value="<%= dulieu.hinhanh %>" type="text" hidden name="hinhanh"
-                                  id="profile-img">
+                                <span>Hình ảnh mới</span>
+                                <img  id="<%= dulieu.id %>" alt="your image" width="100%"
+                                height="200px"  />
+                                <input type="file" name="hinhanh"
+                                  onchange="document.getElementById('<%= dulieu.id %>').src = window.URL.createObjectURL(this.files[0])">
+                                <input value="<%= dulieu.hinhanh %>" type="text" hidden name="hinhanh" id="profile-img">
                               </div>
                             </div>
                           </div>
-                          
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>
 
@@ -191,7 +191,7 @@
 
             <%}); %>
 
-            
+
           </tbody>
         </table>
       </div>
@@ -202,6 +202,16 @@
 
 </div>
 
+
+<script>
+  var loadFile = function (event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    output.onload = function () {
+      URL.revokeObjectURL(output.src) // free memory
+    }
+  };
+</script>
 
 <%- include ('addnv') -%>
 <%- include ('../footer') -%>

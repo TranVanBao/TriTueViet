@@ -29,13 +29,11 @@
           </div>
           <div class="mr-5">
             <p> <a style="color: white !important;">THỐNG KÊ </a>            
-            </p>
-         
+            </p>         
           </div>
         </div>
       </div>
     </div>
-
   </div>
   <!-- Area Chart Example-->
   <div class="card mb-3" style="height: 100% !important; " id="tklh">
@@ -43,8 +41,14 @@
       <i class="fas fa-chart-area"></i>
       TRANG CHỦ NGƯỜI QUẢN TRỊ</div>
     <div class="card-body">
-      <p style="text-align: center;
-     font-size: 40px;">XIN CHÀO ADMIN</p>
+      <% if(user.quyenhang == "Admin")  { %>
+        <p style="text-align: center;
+        font-size: 40px;">XIN CHÀO ADMIN</p>
+        <% } else { %>          
+          <p style="text-align: center;
+          font-size: 40px;"> XIN CHÀO <%= user.tentaikhoan %></p> 
+          <% } %> 
+     
     </div>
 
   </div>

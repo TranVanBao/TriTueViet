@@ -30,7 +30,7 @@
             <div class="row">
                 <% data.forEach(dulieu => { %>
                 <div class="col-md-4 mt-100">
-                    <div class="pricing-table" style="height:680px">
+                    <div class="pricing-table" style="height:680px;margin-top: 5%;">
                         <div class="pricing-header">
                             <div class="thumb">
                                 <a href="/course/noidung/<%= dulieu.tenlophoc %>">
@@ -59,7 +59,7 @@
                                         target="_blank">  TRÍ TUỆ VIỆT</a></li>
                                 <li><strong>Hình thức học:</strong><span>  offline</span></li>
                                 <li>
-                                    <p>- <%= dulieu.dieukienhoc  %></p>
+                                    <p>- <%- dulieu.dieukienhoc  %></p>
                                 </li>
                                 <li class="text-center">
                                     <a href="/register">

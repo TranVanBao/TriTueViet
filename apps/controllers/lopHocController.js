@@ -1,4 +1,4 @@
-var date = require("s-date")
+var dates = require("s-date")
 
 
 var lopHocService = require("../services/lopHocService")
@@ -26,7 +26,7 @@ class lophocController {
           res.render("../views/admin/lophoc/listlophoc.ejs", {
             data,user,
             trangthai,
-            date,
+            dates,
             phonghoc,
             khoahoc,
             giangvien
@@ -34,7 +34,7 @@ class lophocController {
         } else {
           res.render("../views/admin/lophoc/listlophoc.ejs", {
             data,user,
-            date,
+            dates,
             trangthai,
             khoahoc,
             giangvien,
@@ -65,14 +65,14 @@ class lophocController {
             data, user,
             phonghoc,
             trangthai,
-            date,
+            dates,
             khoahoc,
             giangvien
           });
         } else {
           res.render("../views/admin/lophoc/listlophoc.ejs", {
             data, user,
-            date,
+            dates,
             phonghoc,
             trangthai,
             khoahoc,
@@ -135,11 +135,12 @@ class lophocController {
   }
 
   static async update(req, res) {
-    const altered = {...req.body };
+    const thoigianbatdau = req.body.thoigianbatdau
+    const altered = {...req.body,thoigianbatdau };
     console.log(altered);
     const  id  = req.params.id; 
     try {      
-      const update = await lopHocService.Update(id, altered);    console.log(update + '123123123123213');  
+      const update = await lopHocService.Update(id, altered);     
       if (!update) {
         res.redirect("/admin/lophoc?kq=0&mes=Cập nhật không thành công !!!");
       } else {
@@ -158,20 +159,20 @@ class lophocController {
         const user = req.session.user
         const { id } = req.params;
         const data = await dangkyService.getByIDLop(id);
-        //  console.log(data);
+         
 
-        const lophoc = await lopHocService.getByID(id);
+        const lophoc = await lopHocService.getByID(id); console.log(lophoc[0].trangthai);
         if (data.length > 0) {
           res.render("../views/admin/dangky/listdangky.ejs", {
             data, user,
-            date,
+            dates,
             lophoc
           });
         } else {
           res.render("../views/admin/dangky/listdangky.ejs", {
             data, user,
             lophoc,
-            date,
+            dates,
             message: "Khong co hoc vien nao"
           });
         }

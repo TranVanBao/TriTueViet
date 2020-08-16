@@ -56,7 +56,7 @@
 					</div>
 					<div class="form-group">
 						<% let now = new Date() %>
-						<% let d = date('{yyyy}-{mm}-{dd}', now)  %>
+						<% let d = dates('{yyyy}-{mm}-{dd}', now)  %>
 						<label for="message-text" class="col-form-label">NGÀY BẮT ĐẦU:</label>
 						<input value="<%= d %>" placeholder="<% d %> " type="date" min="<%= d %>" required
 							name="thoigianbatdau" class="form-control" id="txtFrom">

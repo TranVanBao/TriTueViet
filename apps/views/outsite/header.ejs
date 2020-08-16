@@ -87,8 +87,10 @@
                         <div style="background-color: transparent !important;" class="dropdown-menu dropdown-menu-right"
                             aria-labelledby="userDropdown">
                             <a style="line-height: 2;" class="dropdown-item" href="/taikhoan/canhan">Trang cá nhân</a>
+                            <%  var d = new Date(); %>
+                            <% var nam = d.getFullYear();  %> 
                             <% if(user.quyenhang == "Admin" || user.quyenhang == "Nhân Viên") { %>
-                            <a style="line-height: 2;" class="dropdown-item" href="/admin/index">Trang Quản Lý</a>
+                            <a style="line-height: 2;" class="dropdown-item" href="/admin/index/<%= nam  %>?nam=<%= nam %>  ">Trang Quản Lý</a>
                             <% } %>
                             <div class="dropdown-divider"></div>
                             <a style="line-height: 2;" class="dropdown-item" href="#" data-toggle="modal"

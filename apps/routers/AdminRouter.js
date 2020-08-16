@@ -3,13 +3,13 @@ var indexC = require("../controllers/AdminC")
 
 
 const router = Router();
-router.route('/')
+router.route('/:nam')
 .get(indexC.get)
 
-router.route('/thongke')
+router.route("/thongke/:nam")
 .get(indexC.getTK)
 
-router.route('/thongkeThu')
+router.route("/thongkeThu/:nam")
 .get(indexC.getTKThu)
 
 //router.get('*', (req, res) => res.redirect("/"));

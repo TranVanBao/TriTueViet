@@ -1,4 +1,4 @@
-var date = require("s-date")
+var dates = require("s-date")
 var mail = require("../../helpers/nodemailer")
 var dangkyService = require("../services/dangkyService")
 var lopHocService = require("../services/lopHocService")
@@ -15,14 +15,14 @@ class dangkyController {
         res.render("../views/admin/dangky/listdangky.ejs", {
           data, user,
           lophoc,
-          date,
+          dates,
           message: 1
         });
       } else {
         res.render("../views/admin/dangky/listdangky.ejs", {
           data, user,
           lophoc,
-          date,
+          dates,
           message: 0
         });
       }

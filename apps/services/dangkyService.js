@@ -92,7 +92,10 @@ class dangkyService {
 
   static async add(data) {
     try {
-      return await database.dangky.create(data);
+      let kq = await database.dangky.create(data);
+      if(kq){
+        return 1
+      }else return 0
     } catch (error) {
       throw error;
     }

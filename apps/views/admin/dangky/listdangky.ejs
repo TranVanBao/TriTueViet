@@ -28,7 +28,7 @@
                 border-color: #c1c1c1;
                 float: right;
                 padding-left: 3%;"><i class="fas fa-plus"></i> Add </a>
-
+                <% if(data.length > 0) {%>  
                 <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null   ){ %>
                 <a href="/admin/lophoc/hocvien/export/<%- data[0].id_lophoc %> " style="color: #fff;
         float: right;
@@ -90,8 +90,9 @@
                     </div>
                 </div>                
                 <% } %>
+                <% } %> 
             </div>
-
+            
         </div>
         <style>
             table,
@@ -140,12 +141,17 @@
                             <th class="canhgiua">Số điện thoại</th>
                             <th class="canhgiua">Email</th>
                             <th class="canhgiua">Địa chỉ</th>
+                            <% if(data.length > 0) {%>
                             <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
                             <% }else{ %>
                             <th class="canhgiua">Lớp học đăng ký</th>
                             <th class="canhgiua">Phí dịch vụ</th>
                             <% } %>
+                            <% } %> 
                             <th class="canhgiua">Thanh toán</th>
+                            <% if(lophoc[0].trangthai == 0){ %> 
+                                <th class="canhgiua">Điểm</th>
+                            <% } %> 
                             <th class="canhgiua">Tác vụ</th>
                         </tr>
                     </thead>
@@ -156,7 +162,7 @@
                         <tr>
                             <td class="canhgiua"><%= stt %></td>
                             <td class="canhgiua"><%= dulieu.tenkhachhang %></td>
-                            <td class="canhgiua"><%=  date('{dd}/{mm}/{yyyy}', dulieu.createdAt)  %></td>
+                            <td class="canhgiua"><%=  dates('{dd}/{mm}/{yyyy}', dulieu.createdAt)  %></td>
                             <td class="canhgiua">0<%=  String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ')  %></td>
                             <td class="canhgiua"><%= dulieu.email %></td>
                             <td class="canhgiua"><%= dulieu.diachi %></td>
@@ -170,6 +176,11 @@
                             <td class="canhgiua">
                                 <%= String(dulieu.thanhtoan).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> <br>
                             </td>
+                            <% if(lophoc[0].trangthai == 0){ %> 
+                                <td class="canhgiua">
+                                     <%= dulieu.diem %> 
+                                </td>
+                            <% } %> 
                             <td class="canhgiua" style="text-align: center;">
                                 <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
                                     data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">

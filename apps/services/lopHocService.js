@@ -84,7 +84,7 @@ class lophocService {
     try {  
       let tk = await database.lophoc.findOne({
         where: { id }
-      });
+      }); console.log(tk);
       if (tk) { 
         await database.lophoc.update(data, {
           where: { id }
@@ -106,7 +106,7 @@ class lophocService {
         where: { thoigianbatdau , tenlophoc, trangthai }
       });
         
-      if (tk == null) {
+      if (tk !== null) {
          return 0;
       }else{
         let up = await database.lophoc.create(data);

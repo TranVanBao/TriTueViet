@@ -139,6 +139,8 @@ class dangnhapController {
   static async getlogin(req, res) {
     const { email, matkhau } = req.body;
     try {
+      var d = new Date();
+      var nam = d.getFullYear();
       const thetk = await dangnhapService.getBylogin(email.toLowerCase());
       let user = thetk[0];
       if (thetk == 0) {
@@ -151,11 +153,11 @@ class dangnhapController {
               switch (user.quyenhang) {
                 case "Admin":
                   req.session.user = user;
-                  res.redirect("/admin/index?kq=1&mes=Đăng nhập thành công.");                 
+                  res.redirect(`/admin/index/`+nam+`?kq=1&mes=Đăng nhập thành công.`);                 
                   break;
                 case "Nhân Viên":
                   req.session.user = user;
-                  res.redirect("/admin/index?kq=1&mes=Nhân viên.");
+                  res.redirect(`/admin/index/`+nam+`?kq=1&mes=Nhân viên.`);
                   break;
                 default:
                   req.session.user = user;

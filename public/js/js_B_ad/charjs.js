@@ -5,19 +5,18 @@ const xlabelThu = [];
 const demThu = [];
 
 
-char().then((value) => {
-  console.log(value);
+char().then((value) => {  
   // expected output: "foo"
 });
-charTongthu().then((value) => {
-  console.log(value);
+charTongthu().then((value) => {  
   // expected output: "foo"
 });
 
 
-async function getdata() {
+
+async function getdata(nam) {
   $.ajax({
-    url: "/admin/index/thongke",
+    url: `/admin/index/thongke/${nam}`,
     method: "get",
     dataType: "json",
     success: await function(response) {
@@ -48,8 +47,8 @@ async function getdata() {
 }
 
 
-async function char() {   
-   await getdata() 
+async function char() {     
+   await getdata(2020) 
   var ctx =  document.getElementById("myChartsvdk").getContext("2d");
   var myChartsvdk = new Chart(ctx, {
     type: 'horizontalBar',
@@ -95,7 +94,8 @@ async function char() {
 
 //  char tong thu 
 async function charTongthu() {  
- const data= await getdataTongThu()  
+ 
+ const data= await getdataTongThu(2020)  
   var ctx1 = document.getElementById("myChart1").getContext("2d");
   var myChart1 = new Chart(ctx1, {
     type: 'line',
@@ -138,9 +138,9 @@ async function charTongthu() {
     }
   });
 }
-async function getdataTongThu() {
-  $.ajax({
-    url: "/admin/index/thongkeThu",
+async function getdataTongThu(nam) {
+    $.ajax({
+    url: `/admin/index/thongkeThu/${nam}`,
     method: "get",
     dataType: "json",
     success: await function(response) {

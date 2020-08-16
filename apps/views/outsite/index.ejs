@@ -257,24 +257,104 @@
         <div class="l_news_inner">
             <div class="row">
                 <% data.forEach(dulieu => { %>
-                <div class="col-lg-4 col-md-6">
-                    <div class="l_news_item">
-                        <div class="l_news_img"><a href="/course/noidung/<%= dulieu.tenlophoc %>"><img style="height: 248px;" class="img-fluid"
-                                    src="../../../uploadimg/<%= dulieu.hinhanh  %>" alt=""></a></div>
-                        <div class="l_news_content" style="height: 214px;">
-                            <a href="/course/noidung/<%= dulieu.tenlophoc %>">
-                                <h4>KHÓA HỌC LẬP TRÌNH <%= dulieu.tenlophoc  %></h4>
+                <div class="col-md-4 mt-100">
+                    <div class="pricing-table" style="height:680px;margin-top: 5%;">
+                        <div class="pricing-header">
+                            <div class="thumb">
+                                <a href="/course/noidung/<%= dulieu.tenlophoc %>">
+                                <% if(dulieu.hinhanh == null || dulieu.hinhanh == '' || dulieu.hinhanh == undefined) { %> 
+                                <img class="img-responsive img-fullwidth"
+                                    src="../../../images/khoahoc/macdinh.jpg" alt=""> 
+                                <% } else { %> 
+                                    <img class="img-responsive img-fullwidth"
+                                    src="../../../uploadimg/<%= dulieu.hinhanh  %>" alt="">                              
+                                <% } %> 
                             </a>
-                            <p>- <%= dulieu.dieukienhoc  %> <a class="more_btn" href="/course/noidung/<%= dulieu.tenlophoc %>">Xem thêm</a>
+                            </div>
+                        </div>
+                        <div class="pricing-title" style="text-transform: none;height:70px"><a
+                                href="/course/noidung/<%= dulieu.tenlophoc %>" target="_blank">KHÓA HỌC LẬP TRÌNH
+                                <%= dulieu.tenlophoc  %></a></div>
+                        <div class="pricing-feature">
+                            <ul>
+                                <li><strong>Khai giảng:</strong>
+                                    <%=  date('{dd}-{mm}-{yyyy}',  dulieu.thoigianbatdau )  %> </li>
+                                <li><strong>Thời gian:</strong> <%= dulieu.thoigianhoc  %></li>
+                                <li><strong>Thời lượng:</strong> <%= dulieu.thoiluonghoc  %></li>
+                                <li><strong>Học phí:</strong>
+                                    <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1, ') %></li>
+                                <li><strong>Địa điểm học:</strong> <a href="/contact"
+                                        target="_blank">  TRÍ TUỆ VIỆT</a></li>
+                                <li><strong>Hình thức học:</strong><span>  offline</span></li>
+                                <li>
+                                    <p>- <%- dulieu.dieukienhoc  %></p>
+                                </li>
+                                <li class="text-center">
+                                    <a href="/register">
+                                        <button class="btn btn-link"
+                                            style="text-transform:uppercase; font-weight:bold; width:100%">
+                                            Đăng kí học
+                                        </button>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
                 <% }) %>
+
             </div>
         </div>
     </div>
 </section>
 <!--================End Latest News Area =================-->
+<!--================Project Area =================-->
+<section class="project_area">
+    <div class="container">
+        <div class="project_inner">
+            <div class="center_title">
+                <h2>Bạn đã sẵn sàng? </h2>
+                <p>Hãy liên hệ với chúng tôi khi bạn đã sẵn sàng !!!</p>
+            </div>
+            <a class="tp_btn" href="/register">ĐĂNG KÝ</a>
+        </div>
+    </div>
+</section>
+<!--================End Project Area =================-->
+
+        <!--================Latest News Area =================-->
+        <section class="latest_news_area p_100">
+            <div class="container">
+                <div class="b_center_title">
+                    <h2>TIN TỨC MỚI NHẤT</h2>                   
+                </div>
+                <div class="l_news_inner">
+                    <div class="row">
+                        <% tintuc.forEach(dl => { %>   <% console.log(dl); %>                  
+                        <div class="col-lg-4 col-md-6">
+                            <div class="l_news_item">
+                                <div class="l_news_img"><a href="/baiviet/5/<%- dl.id_chuyenmuc  %>/<%- dl.id %>  ">    <% if(dl.hinhanh == null || dl.hinhanh == '' || dl.hinhanh == undefined) { %> 
+                                    <img class="img-responsive img-fullwidth"
+                                        src="../../../images/khoahoc/macdinh.jpg" alt=""> 
+                                    <% } else { %> 
+                                        <img class="img-responsive img-fullwidth"
+                                        src="../../../uploadimg/<%= dl.hinhanh  %>" alt="">                              
+                                    <% } %> </a></div>
+                                <div class="l_news_content" style="">
+                                    <a href="/baiviet/5/<%- dl.id_chuyenmuc  %>/<%- dl.id %>  "><h4><%- dl.tieude %> </h4></a>                                    
+                                    <a class="more_btn" href="/baiviet/5/<%- dl.id_chuyenmuc  %>/<%- dl.id %>  ">Xem thêm</a>
+                                </div>
+                            </div>
+                        </div>
+                        <%   }); %> 
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--================End Latest News Area =================-->
+
+
+
 <!--================Our Service Area =================-->
 <section class="gallery-section bg-parallax layer-overlay overlay-dark-7"
     data-bg-img="../../..//uploadimg/event/training.jpg"
@@ -357,6 +437,7 @@
 </section>
 <!--================End Our Service Area =================-->
 
+
 <!--================Testimonials Area =================-->
 <section class="testimonials_area p_100">
     <div class="container">
@@ -396,23 +477,6 @@
     </div>
 </section>
 <!--================End Testimonials Area =================-->
-
-<!--================Project Area =================-->
-<section class="project_area">
-    <div class="container">
-        <div class="project_inner">
-            <div class="center_title">
-                <h2>Bạn đã sẵn sàng? </h2>
-                <p>Hãy liên hệ với chúng tôi khi bạn đã sẵn sàng !!!</p>
-            </div>
-            <a class="tp_btn" href="/register">ĐĂNG KÝ</a>
-        </div>
-    </div>
-</section>
-<!--================End Project Area =================-->
-
-
-
 
 
 <%- include ('footer')-%>
