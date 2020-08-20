@@ -11,6 +11,9 @@ router.route("/thongke/:nam")
 
 router.route("/thongkeThu/:nam")
 .get(indexC.getTKThu)
+router.route("/demsplop/:nam")
+.get(indexC.getdkkhoahoc)
+
 
 //router.get('*', (req, res) => res.redirect("/"));
 

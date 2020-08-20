@@ -25,7 +25,8 @@ async function exTest(id, res) {
      stt : stt++,
      tenkhachhang: item.dataValues.tenkhachhang,
      sdt: item.dataValues.sdt,
-     email: item.dataValues.email
+     email: item.dataValues.email,
+     diem: item.dataValues.diem
    }
    
     data_return.push(mang);
@@ -67,7 +68,7 @@ async function exTest(id, res) {
   }; 
 
   worksheet.addRows(data_return);
-  res.attachment("thongke.xlsx");
+  res.attachment("danhsachhocvien.xlsx");
   return workbook.xlsx.write(res);
 }
 

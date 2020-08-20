@@ -84,7 +84,7 @@ class lophocService {
     try {  
       let tk = await database.lophoc.findOne({
         where: { id }
-      }); console.log(tk);
+      }); 
       if (tk) { 
         await database.lophoc.update(data, {
           where: { id }
@@ -150,7 +150,7 @@ class lophocService {
     }
   }
 
-  // đếm số lớp học
+  // đếm tổng số lớp học
   static async countLop() {
     try {
       let dem = await database.lophoc.sequelize.query(
@@ -162,7 +162,20 @@ class lophocService {
       throw error;
     }
   }
-
+  // đếm tổng của từng lớp
+  static async countTungLop() {
+    try {
+      return await  database.lophoc.sequelize.query(
+        `SELECT lophocs.tenlophoc , COUNT(id) AS dem
+        FROM  public.lophocs 
+             WHERE lophocs.trangthai !=3
+        GROUP BY  lophocs.tenlophoc`
+      );
+     
+    } catch (error) {
+      throw error;
+    }
+  }
   // =================trang ca nhan giang vien==========
   // static async getAllGV(trangthai ,id_giangvien) {
   //   try {

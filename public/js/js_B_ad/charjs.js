@@ -3,7 +3,8 @@ const xlabel = [];
 const dem = [];
 const xlabelThu = [];
 const demThu = [];
-
+const tenlop = [];
+const demlop = [];
 
 char().then((value) => {  
   // expected output: "foo"
@@ -11,7 +12,7 @@ char().then((value) => {
 charTongthu().then((value) => {  
   // expected output: "foo"
 });
-
+lopdcmo_nhieunhat();
 
 
 async function getdata(nam) {
@@ -173,3 +174,86 @@ async function getdataTongThu(nam) {
 }
 
 
+
+//   thong ke lop dc mo nhieu nhat
+//  char tong thu 
+async function lopdcmo_nhieunhat() {  
+ 
+  const data= await getdemsoLop(2020)
+  
+   var ctx1 = document.getElementById("myCharkhoahoc").getContext("2d");
+   var myCharkhoahoc = new Chart(ctx1, {
+     type: 'line',
+     data: {
+       labels:  tenlop,
+       datasets: [
+         {
+           label: "Khóa học được mở nhiều nhất (%)",
+           data:  demlop,
+           backgroundColor: [
+             'rgba(255, 99, 132, 0.2)',
+             'rgba(54, 162, 235, 0.2)',
+             'rgba(255, 206, 86, 0.2)',
+             'rgba(75, 192, 192, 0.2)',
+             'rgba(153, 102, 255, 0.2)',
+             'rgba(255, 159, 64, 0.2)'
+         ],
+         borderColor: [
+             'rgba(255, 99, 132, 1)',
+             'rgba(54, 162, 235, 1)',
+             'rgba(255, 206, 86, 1)',
+             'rgba(75, 192, 192, 1)',
+             'rgba(153, 102, 255, 1)',
+             'rgba(255, 159, 64, 1)'
+         ],
+         borderWidth: 1
+         }
+       ]
+     },
+     options: {
+       scales: {
+         yAxes: [
+           {
+             ticks: {
+               beginAtZero: true
+             }
+           }
+         ]
+       }
+     }
+   });
+ }
+
+async function getdemsoLop(nam) {
+  $.ajax({
+  url: `/admin/index/demsplop/${nam}`,
+  method: "get",
+  dataType: "json",
+  success: await function(response) {
+    if (response.msg == "success") {
+      if (
+        response.data == undefined ||
+        response.data == null ||
+        response.data == ""
+      ) {
+        alert("Data null");
+      } else { 
+        $.each(response.data,async function(index, data) {
+          let tenlophoc = await data.tenlophoc;
+          tenlop.push(tenlophoc);        
+          
+          let tong = await Number(response.demlop1[0][0].count);
+         
+          let d = await Number(data.dem);
+          demlop.push(Math.floor((d / tong) * 100));  
+              
+        });
+        return { tenlop , demlop}
+      }
+    }
+  },
+  error: function(response) {
+    alert("server error");
+  }
+});
+}
