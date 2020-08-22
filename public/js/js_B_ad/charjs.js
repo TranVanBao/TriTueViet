@@ -15,7 +15,13 @@ charTongthu().then((value) => {
 lopdcmo_nhieunhat();
 
 
-async function getdata(nam) {
+function getcube() {
+    var number = document.getElementById("nam").value;    
+   return number
+}
+
+
+async function getdata(nam) {  
   $.ajax({
     url: `/admin/index/thongke/${nam}`,
     method: "get",
@@ -48,8 +54,9 @@ async function getdata(nam) {
 }
 
 
-async function char() {     
-   await getdata(2020) 
+async function char() {    
+  let kq = await getcube()
+   await getdata(kq) 
   var ctx =  document.getElementById("myChartsvdk").getContext("2d");
   var myChartsvdk = new Chart(ctx, {
     type: 'horizontalBar',
@@ -95,8 +102,8 @@ async function char() {
 
 //  char tong thu 
 async function charTongthu() {  
- 
- const data= await getdataTongThu(2020)  
+  let kq = await getcube()
+ const data= await getdataTongThu(kq)  
   var ctx1 = document.getElementById("myChart1").getContext("2d");
   var myChart1 = new Chart(ctx1, {
     type: 'line',
@@ -178,8 +185,9 @@ async function getdataTongThu(nam) {
 //   thong ke lop dc mo nhieu nhat
 //  char tong thu 
 async function lopdcmo_nhieunhat() {  
- 
-  const data= await getdemsoLop(2020)
+  let kq = await getcube()
+  
+  const data= await getdemsoLop(kq)
   
    var ctx1 = document.getElementById("myCharkhoahoc").getContext("2d");
    var myCharkhoahoc = new Chart(ctx1, {
@@ -226,7 +234,7 @@ async function lopdcmo_nhieunhat() {
 
 async function getdemsoLop(nam) {
   $.ajax({
-  url: `/admin/index/demsplop/${nam}`,
+  url: `/admin/index/demsolop/${nam}`,
   method: "get",
   dataType: "json",
   success: await function(response) {

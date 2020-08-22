@@ -1,7 +1,11 @@
 var lopHocService = require("../services/lopHocService");
 var dangkyService = require("../services/dangkyService");
 const lophocService = require("../services/lopHocService");
-
+let d = new Date();
+d.getDate();
+d.getMonth();
+d.getFullYear();
+let n = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
 class AdminController {
   static async get(req, res) {
     if (
@@ -9,19 +13,22 @@ class AdminController {
       req.session.user.quyenhang == "Nhân Viên"
     ) {
       try {
-        var { nam } = req.params;
+        var { nam } = req.params;  
         const data1 = await dangkyService.thongke(nam);
         const tong = await dangkyService.Tongthongke(nam);
+        const sinhvien = await dangkyService.getthongKeNgay(n);
         const datathu = await dangkyService.ThongkeThu(nam);
         const tongThu = await dangkyService.TongthongkeThu(nam);
         const demhocvien = await dangkyService.demsosinhvien();
-        const demlop = await lophocService.countLop();
-        const demsolop = await lophocService.countTungLop();
+        const demlop = await lophocService.countLop(nam);
+        const demsolop = await lophocService.countTungLop(nam);
         var data2 = data1[0];
         const user = req.session.user;
         if (data2.length > 0) {
           res.render("../views/admin/index.ejs", {
-            data2,demsolop,
+            data2,nam,
+            demsolop,
+            sinhvien,
             user,
             tong,
             datathu,
@@ -31,7 +38,9 @@ class AdminController {
           });
         } else {
           res.render("../views/admin/index.ejs", {
-            data2,demsolop,
+            data2,nam,
+            demsolop,
+            sinhvien,
             user,
             tong,
             datathu,
@@ -47,6 +56,21 @@ class AdminController {
       return res.redirect("/");
     }
   }
+  static async tktheonam(req, res) {
+    if (
+      req.session.user.quyenhang == "Admin" ||
+      req.session.user.quyenhang == "Nhân Viên"
+    ) {
+      try {
+        var nam = req.body.nam;
+        res.redirect(`/admin/index/` + nam + ``);
+      } catch (error) {
+        return error;
+      }
+    } else {
+      return res.redirect("/");
+    }
+  }
   static async getTK(req, res) {
     if (
       req.session.user.quyenhang == "Admin" ||
@@ -54,8 +78,6 @@ class AdminController {
     ) {
       try {
         var { nam } = req.params;
-       
-
         const data1 = await dangkyService.thongke(nam);
         const tong = await dangkyService.Tongthongke(nam);
         var data = data1[0];
@@ -77,9 +99,7 @@ class AdminController {
       req.session.user.quyenhang == "Nhân Viên"
     ) {
       try {
-        var { nam } = req.params;
-       
-
+        var { nam } = req.params
         const data1 = await dangkyService.ThongkeThu(nam);
         const tong = await dangkyService.TongthongkeThu(nam);
         var data = data1[0];
@@ -100,11 +120,12 @@ class AdminController {
       req.session.user.quyenhang == "Admin" ||
       req.session.user.quyenhang == "Nhân Viên"
     ) {
-      try {
-        var { nam } = req.params;    
-        const demlop1 = await lophocService.countLop();
-        const demsolop = await lophocService.countTungLop();
-        var data = demsolop[0]; console.log(demlop1);
+      try { 
+       
+        var  nam  = req.params.nam
+        const demlop1 = await lophocService.countLop(nam);
+        const demsolop = await lophocService.countTungLop(nam);
+        var data = demsolop[0];       
         if (data.length > 0) {
           res.json({ msg: "success", data, demlop1 });
         } else {

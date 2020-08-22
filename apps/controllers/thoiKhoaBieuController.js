@@ -72,13 +72,13 @@ class lophocController {
   }
 
   static async update(req, res) {
-    const altered = req.body;
+    const altered = req.body; 
     const { id } = req.params;
     if (!Number(id)) {    
       res.redirect("/admin/thoikhoabieu/1?kq=1&mes=Lỗi lấy dữ liệu!!!");
     }
     try {
-      const update = await lopHocService.Update(id, altered);     
+      const update = await lopHocService.Update1(id, altered);     
       if (!update) {       
         res.redirect("/admin/thoikhoabieu/1?kq=0&mes=Lỗi cập nhật!!!");
       } else {        

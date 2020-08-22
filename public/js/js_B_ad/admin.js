@@ -8,6 +8,7 @@ toastr.options = {
     var url = new URL(url_string);
     var kq = url.searchParams.get("kq");
     var mes = url.searchParams.get("mes");  
+    var nam = url.searchParams.get("nam");
     if (kq == 0) {
       toastr.error(mes, 'ERROR')
     }

@@ -72,7 +72,7 @@ class dangkyService {
     try {
       let tk = await database.dangky.findOne({
         where: { email : email }
-      }); console.log(tk);
+      }); 
        if (tk) {              
         let kq = await database.dangky.sequelize.query(
          ` UPDATE public.dangkies
@@ -91,11 +91,18 @@ class dangkyService {
   }
 
   static async add(data) {
-    try {
-      let kq = await database.dangky.create(data);
-      if(kq){
-        return 1
-      }else return 0
+    try { 
+      let tk = await database.dangky.findOne({
+        where: { tenkhachhang : data.tenkhachhang, id_lophoc: data.id_lophoc , sdt:data.sdt  }
+      });  
+       if (tk) {  
+        return null              
+      }else { console.log('2');
+      let k =    await database.dangky.create(data);
+        if(k){
+          return 1
+        }else return 0
+      }
     } catch (error) {
       throw error;
     }
@@ -108,6 +115,20 @@ class dangkyService {
         from public.lophocs, public.dangkies 
         where dangkies.id_lophoc = lophocs.id and (dangkies.thanhtoan >= lophocs.phidichvu/2) 
         ORDER BY id DESC  `
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  // sinh vien dang ky trong ngay hom nay
+  static async getthongKeNgay(ngay) {
+    try {
+      return await database.dangky.sequelize.query(
+        `select lophocs.tenlophoc,lophocs.thoigianbatdau,lophocs.phidichvu , dangkies.* 
+        from public.lophocs, public.dangkies 
+        where dangkies.id_lophoc = lophocs.id and  dangkies.ngaydangky = '`+ngay+`'
+        ORDER BY id DESC   `
       );
     } catch (error) {
       throw error;

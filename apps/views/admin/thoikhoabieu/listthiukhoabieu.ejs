@@ -30,8 +30,7 @@
               <th class="canhgiua">Giảng viên</th>
               <th class="canhgiua">Thời gian học</th>
               <th class="canhgiua">Phòng học</th>
-              <th class="canhgiua">Trạng thái</th>
-              <th class="canhgiua">Tác vụ</th>
+              <th class="canhgiua">Trạng thái</th>             
 
             </tr>
           </thead>
@@ -54,49 +53,7 @@
               <%  if(dulieu.trangthai == 3) { %>
                 <td class="canhgiua"> Đang chờ duyệt </td>
                 <% } %>              
-              <td class="canhgiua" style="text-align: center;">
-                <a href="#" style="color: greenyellow;" class="edit" title="Edit" data-toggle="modal"
-                  data-target="#updatekh<%= dulieu.id %>">
-                  <i class="fas fa-edit"></i>&nbsp;</i></a>    
-
-
-                <div class="modal fade" id="updatekh<%= dulieu.id %>" tabindex="-1" role="dialog"
-                  aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">SỬA THỜI KHÓA BIỂU</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <form method="POST" action="/admin/thoikhoabieu/hanhdong/<%= dulieu.id %>">                         
-                          <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">TÊN LỚP HỌC:</label>
-                            <input readonly type="text" minlength="6" name="id_lop" class="form-control" id="recipient-name"
-                              value="<%= dulieu.tenlophoc %>">
-                          </div>
-                          <div class="form-group">
-                            <label for="message-text" class="col-form-label">PHÒNG HỌC:</label>
-                            <select name="id_phonghoc" class="form-control">
-                              <option aria-checked="true" value="<%= dulieu.id %>"> <%= dulieu.tenphonghoc %> </option>
-                              <% phonghoc.forEach(dl => { %>
-                              <option value="<%= dl.id %>"> <%= dl.tenphonghoc %> --  <%= dl.hientrang %></option>
-                              <%}); %>
-                            </select>
-                          </div>                         
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">THOÁT</button>                
-                            <input type="submit" class="btn btn-primary" value="SỬA THỜI KHÓA BIỂU">
-                          </div>
-                        </form>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </td>
+              
 
             </tr>
 

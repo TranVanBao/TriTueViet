@@ -43,7 +43,7 @@
                background-color: #269abc;
                border-color: #c1c1c1;
                float: right;
-               padding-left: 3%;"><i class="fas fa-plus"></i> Add </a>
+               padding-left: 3%;"><i class="fas fa-plus"></i> Thêm </a>
         <% } %>
 
 
@@ -65,6 +65,7 @@
               <th class="canhgiua">Thời lượng học</th>
               <th class="canhgiua">Phí dịch vụ</th>
               <th class="canhgiua">Điều kiện học</th>
+              <th class="canhgiua">Phòng học</th>
               <th class="canhgiua">Trạng thái</th>
               <%  if(trangthai != 3) { %>
               <th class="canhgiua">Danh sách học viên</th>
@@ -88,9 +89,10 @@
               <td class="canhgiua"><%= dulieu.soluonghocvien %></td>
               <td class="canhgiua"><%=  dates('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %></td>
               <td class="canhgiua"><%=  dulieu.thoigianhoc  %></td>
-              <td class="canhgiua"><%=  dulieu.thoiluonghoc  %></td>
+              <td class="canhgiua"><%=  dulieu.thoiluonghoc  %> Tháng</td>
               <td class="canhgiua"> <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
               <td class="canhgiua"><%= dulieu.dieukienhoc %></td>
+              <td class="canhgiua"><%= dulieu.tenphonghoc %></td>
               <% if(dulieu.trangthai == 1) { %>
               <td class="canhgiua">  <span class="badge badge-pill badge-success"> Sắp khai giảng </span></td>
               <% }  %>
@@ -165,12 +167,9 @@
                               <%}); %>
                             </select>
                           </div>
+                         
                           <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">SỐ LƯỢNG HỌC VIÊN:</label>
-                            <input required type="text" pattern="[0-9]{2,3}" value="<%= dulieu.soluonghocvien %>"
-                              required name="soluonghocvien" class="form-control" id="recipient-name">
-                          </div>
-                          <div class="form-group">
+                            
                             <label for="message-text" class="col-form-label">THỜI GIAN HỌC:</label>
                             <input required type="text" required value="<%=  dulieu.thoigianhoc  %>" name="thoigianhoc"
                               class="form-control" id="txtTo">
@@ -193,16 +192,23 @@
                           </div>
                           <div class="form-group">
                             <% let d = dates('{yyyy}-{mm}-{dd}', dulieu.thoigianbatdau)  %>
+                            <% let now = new Date() %>
+                            <% let n = dates('{yyyy}-{mm}-{dd}', now)  %>
                             <label for="message-text" class="col-form-label">NGÀY BẮT ĐẦU:</label>
-                            <input required type="date"  value="<%-  d %>" name="thoigianbatdau" class="form-control"
+                            <input min="<%= d %>" required type="date"  value="<%-  d %>" name="thoigianbatdau" class="form-control"
                               id="txtFrom">
+                          </div>
+                          <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">SỐ LƯỢNG HỌC VIÊN:</label>
+                            <input required type="text" pattern="[0-9]{2,3}" value="<%= dulieu.soluonghocvien %>"
+                              required name="soluonghocvien" class="form-control" id="recipient-name">
                           </div>
                           <div class="form-group">                           
                             <label for="message-text" class="col-form-label">PHÒNG HỌC:</label>
                             <select required name="id_phonghoc" class="form-control">
                               <option value="<%= dulieu.id_phonghoc %>"> <%= dulieu.tenphonghoc %> </option>
                               <% phonghoc.forEach(dl => { %>
-                              <option value="<%= dl.id %>"> <%= dl.tenphonghoc %> -- <%= dl.hientrang %></option>
+                              <option value="<%= dl.id %>"> <%= dl.tenphonghoc %> -- <%= dl.hientrang %> -- <%= dl.soluongnguoi %> người</option>
                               <%}); %>
                             </select>
                           </div>

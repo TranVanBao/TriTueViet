@@ -186,9 +186,15 @@
                                     data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">
                                     <i class="fas fa-edit"></i>&nbsp;</i></a>
 
-                                <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
-                                    data-toggle="modal" data-target="#delete<%= dulieu.id %>">
-                                    <i class="far fa-trash-alt"></i></a>
+                                    <% if(data.length > 0) {%>
+                                        <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
+                                        <% }else{ %>
+                                            <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
+                                            data-toggle="modal" data-target="#delete<%= dulieu.id %>">
+                                            <i class="far fa-trash-alt"></i></a>
+                                        <% } %>
+                                        <% } %> 
+                                
 
                                 <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -227,6 +233,7 @@
                                                 <form method="POST" action="/admin/dangky/<%= dulieu.id %>">
                                                     <div class="form-group col-lg-12" style="color: red;" id="errordku">
                                                     </div>
+                                                   
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">TÊN HỌC
                                                             VIÊN:</label>
@@ -234,59 +241,70 @@
                                                             name="tenkhachhang" class="form-control"
                                                             id="recipient-name">
                                                     </div>
-
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">SỐ ĐIỆN
-                                                            THOẠI:</label>
-                                                        <input required value="0<%= dulieu.sdt %>" type="text"
-                                                            pattern="[0-9]{9,11}" name="sdt" class="form-control"
-                                                            id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">EMAIL:</label>
-                                                        <input required value="<%= dulieu.email %>" type="email"
-                                                            name="email" class="form-control" id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">ĐIẠ
-                                                            CHỈ:</label>
-                                                        <input required value="<%= dulieu.diachi %>" type="text"
-                                                            name="diachi" class="form-control" id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">GIỚI
-                                                            TÍNH:</label>
-                                                        <input value="<%= dulieu.gioitinh %>" type="text"
-                                                            name="gioitinh" class="form-control" id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">KHÓA HỌC
-                                                            :</label>
-                                                        <select required name="id_lophoc" class="form-control">
-                                                            <option value="<%= dulieu.id_lophoc %>">
-                                                                <%= dulieu.tenlophoc %> -- <%= dulieu.thoigianhoc %>
-                                                            </option>
-                                                            <% lophoc.forEach(dl => { %>
-                                                            <option value="<%= dl.id %>"> <%= dl.tenlophoc %> --
-                                                                <%= dl.thoigianhoc %></option>
-                                                            <%}); %>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">THANH
-                                                            TOÁN:</label>
-                                                        <input pattern="[0-9]{0,8}" value="<%= dulieu.thanhtoan %>"
-                                                            type="text" name="thanhtoan" class="form-control"
-                                                            id="recipient-name">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="message-text" class="col-form-label">TRẠNG
-                                                            THÁI:</label>
-                                                        <select name="trangthai" class="form-control">
-                                                            <option value="1">ĐANG HỌC</option>
-                                                            <option value="0">KHÔNG</option>
-                                                        </select>
-                                                    </div>
+                                                    <% if(data.length > 0) {%>
+                                                        <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">ĐIỂM:</label>
+                                                                <input required value="<%= dulieu.diem %>" type="text"
+                                                                    pattern="[0-9]{0,2}" name="diem" class="form-control"
+                                                                    id="recipient-name">
+                                                            </div>
+                                                            <% }else{ %>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">SỐ ĐIỆN
+                                                                    THOẠI:</label>
+                                                                <input required value="0<%= dulieu.sdt %>" type="text"
+                                                                    pattern="[0-9]{9,11}" name="sdt" class="form-control"
+                                                                    id="recipient-name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">EMAIL:</label>
+                                                                <input required value="<%= dulieu.email %>" type="email"
+                                                                    name="email" class="form-control" id="recipient-name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">ĐIẠ
+                                                                    CHỈ:</label>
+                                                                <input required value="<%= dulieu.diachi %>" type="text"
+                                                                    name="diachi" class="form-control" id="recipient-name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">GIỚI
+                                                                    TÍNH:</label>
+                                                                <input value="<%= dulieu.gioitinh %>" type="text"
+                                                                    name="gioitinh" class="form-control" id="recipient-name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">KHÓA HỌC
+                                                                    :</label>
+                                                                <select required name="id_lophoc" class="form-control">
+                                                                    <option value="<%= dulieu.id_lophoc %>">
+                                                                        <%= dulieu.tenlophoc %> -- <%= dulieu.thoigianhoc %>
+                                                                    </option>
+                                                                    <% lophoc.forEach(dl => { %>
+                                                                    <option value="<%= dl.id %>"> <%= dl.tenlophoc %> --
+                                                                        <%= dl.thoigianhoc %></option>
+                                                                    <%}); %>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">THANH
+                                                                    TOÁN:</label>
+                                                                <input pattern="[0-9]{0,8}" value="<%= dulieu.thanhtoan %>"
+                                                                    type="text" name="thanhtoan" class="form-control"
+                                                                    id="recipient-name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="message-text" class="col-form-label">TRẠNG
+                                                                    THÁI:</label>
+                                                                <select name="trangthai" class="form-control">
+                                                                    <option value="1">ĐANG HỌC</option>
+                                                                    <option value="0">KHÔNG</option>
+                                                                </select>
+                                                            </div>
+                                                        <% } %>
+                                                        <% } %> 
+                                                
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"

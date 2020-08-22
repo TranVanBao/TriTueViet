@@ -2,6 +2,11 @@ var dates = require("s-date")
 var mail = require("../../helpers/nodemailer")
 var dangkyService = require("../services/dangkyService")
 var lopHocService = require("../services/lopHocService")
+let d = new Date();
+d.getDate();
+d.getMonth();
+d.getFullYear();
+let n =  d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
 
 class dangkyController {
   static async getAll(req, res) {     
@@ -59,6 +64,7 @@ class dangkyController {
     if (thanhtoan == "") {
       thanhtoan = 0;
     }
+    let ngaydangky = n;
     let trangthai = 1     
     const html = `Xin chào,
     <br/>
@@ -69,11 +75,11 @@ class dangkyController {
     <br/><br/>
     Chúc bạn một ngày tốt lành.` 
     await mail(email,tenkhachhang, html);
-    let data = await { ...req.body, thanhtoan ,trangthai};
-    
+    let data = await { ...req.body, thanhtoan ,trangthai,ngaydangky};
+    console.log(data);
     try {
       const created = await dangkyService.add(data);
-
+console.log(created );
       if (created == null) {
         res.redirect("/admin/dangky");
       } else {
@@ -87,6 +93,7 @@ class dangkyController {
   static async update(req, res) {
     let thanhtoan = req.body.thanhtoan;
     if (thanhtoan == "") {
+      
       thanhtoan = 0;
     }
     let altered = await { ...req.body, thanhtoan };

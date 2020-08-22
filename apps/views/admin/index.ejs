@@ -50,13 +50,65 @@
       <% } %>
 
     </div>
-
+    <div id="content-wrapper">
+      <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+          <div class="card-header">
+            <i class="fas fa-table"></i>
+            SỐ SINH VIÊN ĐĂNG KÝ TRONG NGÀY</div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <tr>
+                  <th class="canhgiua">STT</th>
+                  <th class="canhgiua">Tên học viên</th>               
+                  <th class="canhgiua">Số điện thoại</th>
+                  <th class="canhgiua">Email</th>
+                  <th class="canhgiua">Địa chỉ</th>
+                  <th class="canhgiua">Lớp học đăng ký</th>
+                </tr>
+                <tbody>
+                  <% let stt = 0 %> 
+                  <% sinhvien[0].forEach(dulieu => { %>
+                  <% stt++ %>
+                  <tr>
+                    <td class="canhgiua"><%= stt %></td>
+                    <td class="canhgiua"><%= dulieu.tenkhachhang %></td>                 
+                    <td class="canhgiua"><%= String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ') %></td>
+                    <td class="canhgiua"><%= dulieu.email %></td>
+                    <td class="canhgiua"><%= dulieu.diachi %></td>
+                    <td class="canhgiua"><%= dulieu.tenlophoc %></td>
+                  </tr>
+                  <%}); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+  
+      <!-- Sticky Footer -->
+  
+  
+    </div>
   </div>
+  
   <div class="card mb-3" style="display: none;height: 100% !important; " id="tkthu">
-
+  
     <div class="card-header">
       <i class="fas fa-chart-area"></i>
+      <form style="margin-left: 3%;   margin-top: -2%;   position: absolute;" action="/admin/index/2020" method="POST" >
+       Theo năm:<input type="text" id="nam" name="nam" pattern="[0-9]{4,4}" required value="2020"/>
+        <br> <input type="submit" style="float: right; position: absolute;  margin-left: 105%;  margin-bottom: 0%;
+        margin-top: -11%;" value="Chọn" onclick="getcube()" />
+      </form>
     </div>
+
+        <% if(data2.length > 0  || datathu[0].length > 0) {%> 
+       
     <div>
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-3">
@@ -120,11 +172,33 @@
             </a>
           </div>
         </div>
+      </div>     
+      <div class="card-header">
+        <i class="fas fa-table"></i>
+        Hiển thị số tiền thu được</div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên lớp học</th>               
+              <th class="canhgiua">Tiền</th>             
+            </tr>
+            <tbody>
+              <% let stt1 = 0 %> 
+              <% datathu[0].forEach(dulieu => { %>
+              <% stt1++ %>
+              <tr>
+                <td class="canhgiua"><%= stt1 %></td>
+                <td class="canhgiua"><%= dulieu.tenlophoc %></td>                 
+                <td class="canhgiua"><%= String(dulieu.dem).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> (VND)</td>               
+              </tr>
+              <%}); %>
+            </tbody>
+          </table>
+        </div>
       </div>
-      <p>Hiển thị số tiền thu được</p>
-      <% datathu[0].forEach(element => { %>
-      <p>- <%-  element.tenlophoc %>: <%= String(element.dem).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> (VND) </p>
-      <% }); %>
+     
 
     </div>
     <div class="card-body">
@@ -135,11 +209,28 @@
       Thống kê sinh viên đăng ký các khóa học (%)
     </div>
     <div>
-      <p>Hiển thị số sinh viên</p>
-      <% data2.forEach(element => { %>
-      <p>- <%-  element.tenlophoc %>: <%- element.dem %> (Sinh viên) </p>
-      <% }); %>
-
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên lớp học</th>               
+              <th class="canhgiua">Số sinh viên</th>             
+            </tr>
+            <tbody>
+              <% let stt2 = 0 %> 
+              <% data2.forEach(dulieu => { %>
+              <% stt2++ %>
+              <tr>
+                <td class="canhgiua"><%= stt2 %></td>
+                <td class="canhgiua"><%= dulieu.tenlophoc %></td>                 
+                <td class="canhgiua"><%= String(dulieu.dem).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>               
+              </tr>
+              <%}); %>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
     <div class="card-body">
       <canvas id="myChartsvdk"></canvas>
@@ -150,13 +241,29 @@
       Thống kê khóa học được mở nhiều nhất (%)
     </div>
     <div>
-      <p>Hiển thị khóa học được mở.</p>
-     
-      <% demsolop[0].forEach(element => { %>
-        
-      <p>- <%-  element.tenlophoc %>: <%- element.dem %> (Lớp) </p>
-      <%   }); %>
-
+    
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <tr>
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên lớp học</th>               
+              <th class="canhgiua">Số lớp đã mở</th>             
+            </tr>
+            <tbody>
+              <% let stt3 = 0 %> 
+              <% demsolop[0].forEach(dulieu => { %>
+              <% stt3++ %>
+              <tr>
+                <td class="canhgiua"><%= stt3 %></td>
+                <td class="canhgiua"><%= dulieu.tenlophoc %></td>                 
+                <td class="canhgiua"><%= String(dulieu.dem).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>               
+              </tr>
+              <%}); %>
+            </tbody>
+          </table>
+        </div>
+      </div
     </div>
     <div class="card-body">
       <canvas id="myCharkhoahoc"></canvas>
@@ -164,8 +271,12 @@
   </div>
   <!-- DataTables Example -->
 
-
-
+  <% } else { %> 
+    <div class="card-body">     
+      <p style="text-align: center;
+        font-size: 40px;">KHÔNG CÓ DỮ LIỆU</p>
+            </div>
+  <% } %> 
 </div>
 <!-- /.container-fluid -->
 <%- include ('footer') -%>

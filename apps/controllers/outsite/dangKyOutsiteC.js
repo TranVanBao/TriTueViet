@@ -6,6 +6,12 @@ var dangkyService = require("../../services/dangkyService")
 var lopHocService = require("../../services/lopHocService")
 var baivietService = require("../../services/baivietService")
 
+let d = new Date();
+d.getDate();
+d.getMonth();
+d.getFullYear();
+let n =  d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+console.log(n);
 class dangkyController {
   static async getAll(req, res) {   
     try {     
@@ -71,16 +77,17 @@ class dangkyController {
    // If successful   
     // ============end captcha=================    
     let thanhtoan = 0;     
+    let ngaydangky = n;
     let trangthai = 1;    
     let sdt =  Number(req.body.sdt)
     let id_lophoc =  Number(req.body.id_lophoc)
     let { tenkhachhang,  email, diachi} =  {...req.body}    
-    let data = await { tenkhachhang, sdt, diachi, email,id_lophoc, thanhtoan,trangthai }; 
+    let data = await { tenkhachhang, sdt, diachi, email,id_lophoc, thanhtoan,trangthai,ngaydangky }; 
     console.log(data);
-      const created = await dangkyService.add(data);      console.log(created);
+      const created = await dangkyService.add(data);      
       if (created == null ) {
        // res.redirect("/register?kq=0&mes=Đăng ký thất bại !!!");
-         res.json({ success: false, msg: 'Đăng ký không thành công !!' });
+         res.json({ success: false, msg: 'Bạn đã đăng ký khóa học này !!' });
       } else {        
        // res.redirect("/register?kq=1&mes=Đăng ký thành công !!!");
          res.json({ success: true, msg: 'Đăng ký thành công !!' });

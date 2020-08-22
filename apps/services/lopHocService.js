@@ -82,12 +82,15 @@ class lophocService {
 
   static async Update(id, data) {
     try {  
+      let trangthai = data.trangthai
+      let thoigianbatdau = data.thoigianbatdau   
+      let tenlophoc  = data.tenlophoc 
       let tk = await database.lophoc.findOne({
-        where: { id }
+        where: { id  , trangthai ,thoigianbatdau , tenlophoc}
       }); 
-      if (tk) { 
+      if (tk == null) { 
         await database.lophoc.update(data, {
-          where: { id }
+          where: { id}
         });
         return data;
       }
@@ -96,6 +99,8 @@ class lophocService {
       throw error;
     }
   }
+
+ 
 
   static async add(data) {
     try {
@@ -151,11 +156,11 @@ class lophocService {
   }
 
   // đếm tổng số lớp học
-  static async countLop() {
-    try {
+  static async countLop(nam) {
+    try {console.log(nam);
       let dem = await database.lophoc.sequelize.query(
         `SELECT COUNT(id)  FROM public.lophocs
-        WHERE lophocs.trangthai !=3`
+        WHERE lophocs.trangthai !=3  and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')` 
       );
       return dem;
     } catch (error) {
@@ -163,12 +168,12 @@ class lophocService {
     }
   }
   // đếm tổng của từng lớp
-  static async countTungLop() {
+  static async countTungLop(nam) {
     try {
       return await  database.lophoc.sequelize.query(
         `SELECT lophocs.tenlophoc , COUNT(id) AS dem
         FROM  public.lophocs 
-             WHERE lophocs.trangthai !=3
+             WHERE lophocs.trangthai !=3  and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')
         GROUP BY  lophocs.tenlophoc`
       );
      

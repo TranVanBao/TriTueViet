@@ -112,11 +112,16 @@ class lophocController {
     }
   }
 
-  static async add(req, res) {
-    let trangthai = 3;
-    let data = { ...req.body, trangthai };
-
+  static async add(req, res) {    
+    const trangthai = 3;
+    const id_phong = req.body.id_phonghoc
+    const soluonghocvien = req.body.soluonghocvien  
+    const phonghoc = await phongHocService.getByID(id_phong);    
     try {
+      if(phonghoc[0].soluongnguoi < soluonghocvien ){
+        res.redirect("/admin/lophoc/dem/3?kq=0&mes=Số lượng học viên vượt quá mức phòng !")        
+      }else{
+      const data = { ...req.body, trangthai,soluonghocvien,id_phong }; 
       const created = await lopHocService.add(data);     
       switch(created) {
         case 0:
@@ -128,6 +133,7 @@ class lophocController {
         default:
           res.redirect("/admin/lophoc/dem/3?kq=1&mes=Thêm thành công !")
       }
+    }
       
     } catch (error) {
       return error;
@@ -136,15 +142,13 @@ class lophocController {
 
   static async update(req, res) {
     const thoigianbatdau = req.body.thoigianbatdau
-    const altered = {...req.body,thoigianbatdau };
-    console.log(altered);
+    const altered = {...req.body,thoigianbatdau };    
     const  id  = req.params.id; 
     try {      
-      const update = await lopHocService.Update(id, altered);     
-      if (!update) {
+      const update = await lopHocService.Update(id, altered);  console.log(update);   
+      if (update == null ) {
         res.redirect("/admin/lophoc?kq=0&mes=Cập nhật không thành công !!!");
-      } else {
-       
+      } else {       
         res.redirect("/admin/lophoc?kq=1&mes=Thành công !");
       }
       return;
