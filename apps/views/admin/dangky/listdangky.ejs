@@ -27,8 +27,8 @@
                 background-color: #269abc;
                 border-color: #c1c1c1;
                 float: right;
-                padding-left: 3%;"><i class="fas fa-plus"></i> Add </a>
-                <% if(data.length > 0) {%>  
+                padding-left: 3%;"><i class="fas fa-plus"></i> Thêm </a>
+                <% if(data.length > 0) {%>
                 <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null   ){ %>
                 <a href="/admin/lophoc/hocvien/export/<%- data[0].id_lophoc %> " style="color: #fff;
         float: right;
@@ -43,7 +43,7 @@
         border-color: #c1c1c1;
         float: right;
         margin-right: 1%;
-        padding-left: 1%;" id="show-btn" download><i class="fas fa-cloud-download-alt"></i> Export
+        padding-left: 1%;" id="show-btn" download><i class="fas fa-cloud-download-alt"></i> Xuất
                     excel </a>
                 <a style="color: #fff;
                         float: right;
@@ -59,7 +59,7 @@
                         float: right;
                         margin-right: 1%;
                         padding-left: 1%;" id="show-btn" data-toggle="modal" data-target="#importexcel"><i
-                        class="fas fa-cloud-download-alt"></i> Import
+                        class="fas fa-cloud-download-alt"></i> Nhập
                     excel </a>
 
 
@@ -71,11 +71,11 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title">File điểm học viên</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>                                    
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/admin/lophoc/hocvien/import/<%- data[0].id_lophoc %>" enctype="multipart/form-data"
-                                        method="post">
+                                    <form action="/admin/lophoc/hocvien/import/<%- data[0].id_lophoc %>"
+                                        enctype="multipart/form-data" method="post">
                                         <div class="form-group">
                                             <input type="file" class="form-control" multiple name="fileExcel" id="" />
                                         </div>
@@ -88,11 +88,11 @@
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <% } %>
-                <% } %> 
+                <% } %>
             </div>
-            
+
         </div>
         <style>
             table,
@@ -145,14 +145,19 @@
                             <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
                             <% }else{ %>
                             <th class="canhgiua">Lớp học đăng ký</th>
+                           
                             <th class="canhgiua">Phí dịch vụ</th>
+                            <th class="canhgiua">Trạng thái lớp</th>
                             <% } %>
-                            <% } %> 
-                            <th class="canhgiua">Thanh toán</th>
-                            <% if(lophoc[0].trangthai == 0){ %> 
-                                <th class="canhgiua">Điểm</th>
-                            <% } %> 
-                            <th class="canhgiua">Tác vụ</th>
+                            <% } %>
+                            
+                            <% if(lophoc[0].trangthai == 0 || lophoc[0].trangthai == 2){ %>
+                                <th class="canhgiua">Thanh toán</th>
+                            <th class="canhgiua">Điểm</th>
+                            <% } %>
+                           
+                                <th class="canhgiua">Tác vụ</th>           
+                          
                         </tr>
                     </thead>
                     <tbody>
@@ -173,83 +178,108 @@
                                 <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
                             </td>
                             <% } %>
-                            <td class="canhgiua">
-                                <%= String(dulieu.thanhtoan).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> <br>
-                            </td>
-                            <% if(lophoc[0].trangthai == 0){ %> 
+                            <% if(dulieu.th == 1) { %>
+                                <td class="">  <span style="font-size: 11px;margin-left: -5%;margin-top: 92%;" class="badge badge-pill badge-success"> Sắp khai giảng </span></td>
+                                <% }  %>
+                                <%  if(dulieu.th == 0) { %>
+                                <td class=""> <span style="font-size: 12px;margin-left: -12%;margin-top: 66%;" class="badge badge-pill badge-primary">  Đã hoàn thành </span></td>
+                                <% } %>
+                                <%  if(dulieu.th == 2) { %>
+                                <td class="">  <span style="font-size: 12px;margin-left: 11%;margin-top: 66%;" class="badge badge-pill badge-info"> Đang học </span></td>
+                                <% } %>
+                            <% if(lophoc[0].trangthai == 0 || lophoc[0].trangthai == 2){ %>
                                 <td class="canhgiua">
-                                     <%= dulieu.diem %> 
+                                    <%= String(dulieu.thanhtoan).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> <br>
                                 </td>
-                            <% } %> 
-                            <td class="canhgiua" style="text-align: center;">
-                                <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
-                                    data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">
-                                    <i class="fas fa-edit"></i>&nbsp;</i></a>
-
+                            <td class="canhgiua">
+                                <%= dulieu.diem %>
+                            </td>
+                            <% } %>
+                            
+                                <td class="canhgiua" style="text-align: center;">
+                                    <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
+                                        data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">
+                                        <i class="fas fa-edit"></i>&nbsp;</i></a>
+    
                                     <% if(data.length > 0) {%>
-                                        <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
-                                        <% }else{ %>
-                                            <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
-                                            data-toggle="modal" data-target="#delete<%= dulieu.id %>">
-                                            <i class="far fa-trash-alt"></i></a>
-                                        <% } %>
-                                        <% } %> 
-                                
-
-                                <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa !!!</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <a class="btn btn-primary"
-                                                    href="/admin/dangky/xoadangky/<%= dulieu.id %>">Yes</a>
+                                    <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
+                                    <% }else{ %>
+                                    <a href="#" style="color: red;margin-left: 15%;" class="delete" title="Delete"
+                                        data-toggle="modal" data-target="#delete<%= dulieu.id %>">
+                                        <i class="far fa-trash-alt"></i></a>
+                                    <% } %>
+                                    <% } %>
+    
+    
+                                    <div class="modal  fade" id="delete<%= dulieu.id %>" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Bạn muốn xóa !!!</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <a class="btn btn-primary"
+                                                        href="/admin/dangky/xoadangky/<%= dulieu.id %>">Yes</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-
-                                <div class="modal fade" id="updatedangky<%= dulieu.id %>" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">SỬA HỌC VIÊN</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form method="POST" action="/admin/dangky/<%= dulieu.id %>">
-                                                    <div class="form-group col-lg-12" style="color: red;" id="errordku">
-                                                    </div>
-                                                   
-                                                    <div class="form-group">
-                                                        <label for="recipient-name" class="col-form-label">TÊN HỌC
-                                                            VIÊN:</label>
-                                                        <input required value="<%= dulieu.tenkhachhang %>" type="text"
-                                                            name="tenkhachhang" class="form-control"
-                                                            id="recipient-name">
-                                                    </div>
+    
+    
+                                    <div class="modal fade" id="updatedangky<%= dulieu.id %>" tabindex="-1" role="dialog"
+                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">SỬA HỌC VIÊN</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
                                                     <% if(data.length > 0) {%>
-                                                        <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
+                                                    <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
+                                                    <form method="POST" action="/admin/dangky/updateDiem/<%= dulieu.id %>">
+                                                        <div class="form-group col-lg-12" style="color: red;" id="errordku">
+                                                        </div>
+    
+                                                        <div class="form-group">
+                                                            <label for="recipient-name" class="col-form-label">TÊN HỌC
+                                                                VIÊN:</label>
+                                                            <input required value="<%= dulieu.tenkhachhang %>" type="text"
+                                                                name="tenkhachhang" class="form-control"
+                                                                id="recipient-name">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="message-text" class="col-form-label">ĐIỂM:</label>
+                                                            <input required value="<%= dulieu.diem %>" type="text"
+                                                                pattern="[0-9]{0,2}" name="diem" class="form-control"
+                                                                id="recipient-name">
+                                                                <input hidden  value="<%= dulieu.id_lophoc %>" type="text"
+                                                                name="id_lophoc" class="form-control"
+                                                               >
+                                                        </div>
+                                                        <% }else{ %>
+                                                        <form method="POST" action="/admin/dangky/<%= dulieu.id %>">
+                                                            <div class="form-group col-lg-12" style="color: red;"
+                                                                id="errordku">
+                                                            </div>
+    
                                                             <div class="form-group">
-                                                                <label for="message-text" class="col-form-label">ĐIỂM:</label>
-                                                                <input required value="<%= dulieu.diem %>" type="text"
-                                                                    pattern="[0-9]{0,2}" name="diem" class="form-control"
+                                                                <label for="recipient-name" class="col-form-label">TÊN HỌC
+                                                                    VIÊN:</label>
+                                                                <input required value="<%= dulieu.tenkhachhang %>"
+                                                                    type="text" name="tenkhachhang" class="form-control"
                                                                     id="recipient-name">
                                                             </div>
-                                                            <% }else{ %>
                                                             <div class="form-group">
                                                                 <label for="message-text" class="col-form-label">SỐ ĐIỆN
                                                                     THOẠI:</label>
@@ -258,7 +288,8 @@
                                                                     id="recipient-name">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="message-text" class="col-form-label">EMAIL:</label>
+                                                                <label for="message-text"
+                                                                    class="col-form-label">EMAIL:</label>
                                                                 <input required value="<%= dulieu.email %>" type="email"
                                                                     name="email" class="form-control" id="recipient-name">
                                                             </div>
@@ -272,7 +303,8 @@
                                                                 <label for="message-text" class="col-form-label">GIỚI
                                                                     TÍNH:</label>
                                                                 <input value="<%= dulieu.gioitinh %>" type="text"
-                                                                    name="gioitinh" class="form-control" id="recipient-name">
+                                                                    name="gioitinh" class="form-control"
+                                                                    id="recipient-name">
                                                             </div>
                                                             <div class="form-group">
                                                                 <label for="message-text" class="col-form-label">KHÓA HỌC
@@ -287,13 +319,7 @@
                                                                     <%}); %>
                                                                 </select>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label for="message-text" class="col-form-label">THANH
-                                                                    TOÁN:</label>
-                                                                <input pattern="[0-9]{0,8}" value="<%= dulieu.thanhtoan %>"
-                                                                    type="text" name="thanhtoan" class="form-control"
-                                                                    id="recipient-name">
-                                                            </div>
+                                                         
                                                             <div class="form-group">
                                                                 <label for="message-text" class="col-form-label">TRẠNG
                                                                     THÁI:</label>
@@ -302,24 +328,26 @@
                                                                     <option value="0">KHÔNG</option>
                                                                 </select>
                                                             </div>
-                                                        <% } %>
-                                                        <% } %> 
-                                                
-
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">THOÁT</button>
-
-                                                        <input type="submit" class="btn btn-primary"
-                                                            value="Sửa Học Viên">
-                                                    </div>
-                                                </form>
+                                                            <% } %>
+                                                            <% } %>
+    
+    
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">THOÁT</button>
+    
+                                                                <input type="submit" class="btn btn-primary"
+                                                                    value="Sửa Học Viên">
+                                                            </div>
+                                                        </form>
+                                                </div>
+    
                                             </div>
-
                                         </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
+                          
+                            
 
                         </tr>
 

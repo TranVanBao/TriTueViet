@@ -88,7 +88,7 @@
                             aria-labelledby="userDropdown">
                             <a style="line-height: 2;" class="dropdown-item" href="/taikhoan/canhan">Trang cá nhân</a>
                             <%  var d = new Date(); %>
-                            <% var nam = d.getFullYear();  %> 
+                            <% var nam = d.getFullYear() + "-0" + (d.getMonth() + 1) + "-" + d.getDate();  %> 
                             <% if(user.quyenhang == "Admin" || user.quyenhang == "Nhân Viên") { %>
                             <a style="line-height: 2;" class="dropdown-item" href="/admin/index/<%= nam  %>?nam=<%= nam %>  ">Trang Quản Lý</a>
                             <% } %>

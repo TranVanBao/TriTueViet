@@ -4,8 +4,9 @@ var taiKhoanController = require("../../controllers/outsite/taiKhoancanhanOutC")
 var diendanC = require("../../controllers/outsite/dienDanOutsiteC")
 var thoikhoabieu = require("../../controllers/outsite/thoiKhoaBieuOutsiteC")
 var lopHocOutC = require("../../controllers/outsite/lopHocOutC")
+var importfile  = require ("../../../helpers/upfileExcel")
 var upload = require("../../../helpers/uploadfile")
-
+var single1 = importfile.single("fileExcel");
 const router = Router();
 var single = upload.single("hinhanh");
 
@@ -34,4 +35,15 @@ router
   .route("/hocvien/:id")
   .get(lopHocOutC.getAllhocvien)
 
+  
+  router
+  .route("/hocvien/export/:id")
+  .get(lopHocOutC.getExportExl)
+  router
+  .route("/hocvien/import/:id")
+  .post(single1,lopHocOutC.getImport)
+
+  router
+  .route("/hocvien/update/:id")
+  .post(lopHocOutC.update)
 module.exports = router;

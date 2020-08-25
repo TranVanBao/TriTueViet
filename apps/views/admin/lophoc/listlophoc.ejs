@@ -64,7 +64,7 @@
               <th class="canhgiua">Thời gian học</th>
               <th class="canhgiua">Thời lượng học</th>
               <th class="canhgiua">Phí dịch vụ</th>
-              <th class="canhgiua">Điều kiện học</th>
+              <!-- <th class="canhgiua">Điều kiện học</th> -->
               <th class="canhgiua">Phòng học</th>
               <th class="canhgiua">Trạng thái</th>
               <%  if(trangthai != 3) { %>
@@ -91,7 +91,7 @@
               <td class="canhgiua"><%=  dulieu.thoigianhoc  %></td>
               <td class="canhgiua"><%=  dulieu.thoiluonghoc  %> Tháng</td>
               <td class="canhgiua"> <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
-              <td class="canhgiua"><%= dulieu.dieukienhoc %></td>
+             
               <td class="canhgiua"><%= dulieu.tenphonghoc %></td>
               <% if(dulieu.trangthai == 1) { %>
               <td class="canhgiua">  <span class="badge badge-pill badge-success"> Sắp khai giảng </span></td>
@@ -163,7 +163,7 @@
                             <label for="message-text" class="col-form-label">GIẢNG VIÊN ĐỨNG LỚP :</label>
                             <select required name="id_giangvien" class="form-control">
                               <% giangvien.forEach(dl => { %>
-                              <option value="<%= dl.id %>"> <%= dl.hoten %></option>
+                              <option value="<%= dl.id %>"> <%= dl.hoten %> -- <%= dl.linhvuc %></option>
                               <%}); %>
                             </select>
                           </div>
@@ -226,13 +226,12 @@
                               <%  if(dulieu.trangthai == 1) { %>
                               <option value="1">Sắp khai giảng</option>
                               <option value="2">Đang học</option>
-
                               <% } %>
                               <%  if(dulieu.trangthai == 0) { %>
                               <option value="0">Đã hoàn thành</option>
                               <option value="2">Đang học</option>
-
                               <% } %>
+                              <input type="text" hidden name="ttcu" value="<%= dulieu.trangthai %> ">
                             </select>
                           </div>
                           <div class="modal-footer">

@@ -17,6 +17,18 @@ class phanquyenService {
       throw error;
     }
   }
+  static async gethoatdong(quyenhang) {
+    try {
+      return await database.phanquyen.sequelize.query(
+        `SELECT id, quyenhang, trangthai, "createdAt", "updatedAt"
+        FROM public.phanquyens 
+        where trangthai= 1 and quyenhang = '`+quyenhang+`' `
+      );
+    } catch (error) {
+      throw error;
+    }
+  }
+
 
   static async delete(id) {
     try {

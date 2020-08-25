@@ -1,4 +1,4 @@
-<%- include ('./headerOut.ejs') -%>
+<%- include ('../header') -%>
 <div class="container-fluid">
 
     <!-- Breadcrumbs-->
@@ -15,10 +15,22 @@
         <div class="card-header">
             <!-- <!-- <i class="fas fa-table"></i> 
             Data Table Example -->
-            <div>
-                <% if(data.length > 0) {%>  
+            <div><a data-toggle="modal" data-target="#exampleModal" style="    color: #fff;
+                float: right;
+                height: 30px;
+                font-weight: bold;
+                font-size: 12px;
+                text-shadow: none;
+                min-width: 110px;
+                border-radius: 0;
+                line-height: 29px;
+                background-color: #269abc;
+                border-color: #c1c1c1;
+                float: right;
+                padding-left: 3%;"><i class="fas fa-plus"></i> Thêm </a>
+                <% if(data.length > 0) {%>
                 <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null   ){ %>
-                <a href="/taikhoan/hocvien/export/<%- data[0].id_lophoc %> " style="color: #fff;
+                <a href="/admin/lophoc/hocvien/export/<%- data[0].id_lophoc %> " style="color: #fff;
         float: right;
         height: 30px;
         font-weight: bold;
@@ -59,11 +71,11 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title">File điểm học viên</h4>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>                                    
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/taikhoan/hocvien/import/<%- data[0].id_lophoc %>" enctype="multipart/form-data"
-                                        method="post">
+                                    <form action="/admin/lophoc/hocvien/import/<%- data[0].id_lophoc %>"
+                                        enctype="multipart/form-data" method="post">
                                         <div class="form-group">
                                             <input type="file" class="form-control" multiple name="fileExcel" id="" />
                                         </div>
@@ -71,16 +83,16 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <% } %>
-                <% } %> 
+                <% } %>
             </div>
-            
+
         </div>
         <style>
             table,
@@ -124,23 +136,16 @@
                     <thead>
                         <tr>
                             <th class="canhgiua">STT</th>
-                            <th class="canhgiua">Tên học viên</th>
-                            <th class="canhgiua">Ngày đăng ký</th>
+                            <th class="canhgiua">Tên học viên</th>                           
                             <th class="canhgiua">Số điện thoại</th>
                             <th class="canhgiua">Email</th>
-                            <th class="canhgiua">Địa chỉ</th>
-                            <% if(data.length > 0) {%>
-                            <% if(data[0].phidichvu == undefined || data[0].phidichvu == '' || data[0].phidichvu == null){ %>
-                            <% }else{ %>
+                            <th class="canhgiua">Địa chỉ</th>                           
                             <th class="canhgiua">Lớp học đăng ký</th>
-                            <th class="canhgiua">Phí dịch vụ</th>
-                            <% } %>
-                            <% } %> 
+                            <th class="canhgiua">Ngày bắt đầu</th>                             
+                            <th class="canhgiua">Phí dịch vụ</th>                          
                             <th class="canhgiua">Thanh toán</th>
-                            <% if(lophoc[0].trangthai == 2){ %> 
-                                <th class="canhgiua">Điểm</th>                            
                             <th class="canhgiua">Tác vụ</th>
-                            <% } %> 
+
                         </tr>
                     </thead>
                     <tbody>
@@ -149,34 +154,25 @@
                         <% stt++ %>
                         <tr>
                             <td class="canhgiua"><%= stt %></td>
-                            <td class="canhgiua"><%= dulieu.tenkhachhang %></td>
-                            <td class="canhgiua"><%=  date('{dd}/{mm}/{yyyy}', dulieu.createdAt)  %></td>
+                            <td class="canhgiua"><%= dulieu.tenkhachhang %></td>                           
                             <td class="canhgiua">0<%=  String(dulieu.sdt).replace(/(.)(?=(\d{3})+$)/g,'$1 ')  %></td>
                             <td class="canhgiua"><%= dulieu.email %></td>
                             <td class="canhgiua"><%= dulieu.diachi %></td>
                             <% if(dulieu.phidichvu == undefined || dulieu.phidichvu == '' || dulieu.phidichvu == null){ %>
                             <% }else{ %>
-                            <td class="canhgiua"><%= dulieu.tenlophoc %> <br> <%= dulieu.thoigianhoc %></td>
+                            <td class="canhgiua"><%= dulieu.tenlophoc %> <br>* <%= dulieu.thoigianhoc %></td>
+                            <td class="canhgiua"><%=  dates('{dd}/{mm}/{yyyy}', dulieu.bd)  %></td>                          
                             <td class="canhgiua">
                                 <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %>
                             </td>
-                            <% } %>
                             <td class="canhgiua">
                                 <%= String(dulieu.thanhtoan).replace(/(.)(?=(\d{3})+$)/g,'$1,') %> <br>
                             </td>
-                            <% if(lophoc[0].trangthai == 2){ %> 
-                                <td class="canhgiua">
-                                     <%= dulieu.diem %> 
-                                </td>
-                            
+                            <% } %>
                             <td class="canhgiua" style="text-align: center;">
                                 <a href="#" style="color: greenyellow;margin-left: -10%;" class="edit" title="Edit"
                                     data-toggle="modal" data-target="#updatedangky<%= dulieu.id %>">
-                                    <i class="fas fa-edit"></i>&nbsp;</i></a>                                                            
-
-                              
-
-
+                                    <i class="fas fa-edit"></i>&nbsp;</i></a>
                                 <div class="modal fade" id="updatedangky<%= dulieu.id %>" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -189,30 +185,24 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form method="POST" action="/taikhoan/hocvien/update/<%= dulieu.id %>">
+                                                <form method="POST" action="/admin/thutien/<%= dulieu.id %>">
                                                     <div class="form-group col-lg-12" style="color: red;" id="errordku">
                                                     </div>
-                                                   
+
                                                     <div class="form-group">
                                                         <label for="recipient-name" class="col-form-label">TÊN HỌC
                                                             VIÊN:</label>
                                                         <input required value="<%= dulieu.tenkhachhang %>" type="text"
                                                             name="tenkhachhang" class="form-control"
                                                             id="recipient-name">
-                                                            <input hidden  value="<%= dulieu.id_lophoc %>" type="text"
-                                                            name="id_lophoc" class="form-control"
-                                                           >
                                                     </div>
-                                                   
-                                                            <div class="form-group">
-                                                                <label for="message-text" class="col-form-label">ĐIỂM:</label>
-                                                                <input required value="<%= dulieu.diem %>" type="text"
-                                                                    pattern="[0-9]{0,2}" name="diem" class="form-control"
-                                                                    id="recipient-name">
-                                                            </div>
-                                                        
-                                                
-
+                                                    <div class="form-group">
+                                                        <label for="message-text" class="col-form-label">THANH
+                                                            TOÁN:</label>
+                                                        <input pattern="[0-9]{0,8}" value="<%= dulieu.thanhtoan %>"
+                                                            type="text" name="thanhtoan" class="form-control"
+                                                            id="recipient-name">
+                                                    </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">THOÁT</button>
@@ -227,7 +217,9 @@
                                     </div>
                                 </div>
                             </td>
-                            <% } %> 
+
+
+
                         </tr>
 
 
@@ -241,5 +233,6 @@
 
     </div>
 
-    <%- include ('./footerOut.ejs') -%>
+
+    <%- include ('../footer') -%>
 </div>

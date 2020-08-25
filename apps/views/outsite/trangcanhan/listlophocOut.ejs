@@ -4,9 +4,22 @@
   <!-- Breadcrumbs-->
   <ol class="breadcrumb">
     <li class="breadcrumb-item">
-      <a href="#">Trang chủ</a>
+      <a href="/admin/index">Trang chủ</a>
     </li>
-    <li class="breadcrumb-item active">LỚP HỌC</li>
+    <li class="breadcrumb-item active">
+      <% if(trangthai == 1) { %>
+      Sắp khai giảng
+      <% }  %>
+      <%  if(trangthai == 0) { %>
+      Đã hoàn thành
+      <% } %>
+      <%  if(trangthai == 2) { %>
+      Đang học
+      <% } %>
+      <%  if(trangthai == 3) { %>
+      Đang chờ
+      <% } %>
+    </li>
   </ol>
 
 
@@ -15,7 +28,7 @@
     <div class="card-header">
       <!-- <i class="fas fa-table"></i>
             Data Table Example -->
-
+  
 
     </div>
 
@@ -24,17 +37,24 @@
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
             <tr>
-              <th>STT</th>
-              <th>Tên lớp học</th>
-              <th>Giảng viên</th>
-              <th>Số lượng học viên</th>
-              <th>Thời gian bắt đầu</th>
-              <th>Thời gian học</th>
-              <th>Thời lượng học</th>
-              <th>Phí dịch vụ</th>
-              <th>Điều kiện học</th>
-              <th>Trạng thái</th>
-              <th>Danh sách học viên</th>             
+              <th class="canhgiua">STT</th>
+              <th class="canhgiua">Tên lớp học</th>
+              <th class="canhgiua">Giảng viên</th>
+              <th class="canhgiua">Số lượng học viên</th>
+              <th class="canhgiua">Thời gian bắt đầu</th>
+              <th class="canhgiua">Thời gian học</th>
+              <th class="canhgiua">Thời lượng học</th>
+              <th class="canhgiua">Phí dịch vụ</th>
+              <th class="canhgiua">Điều kiện học</th>
+              <th class="canhgiua">Phòng học</th>
+              <th class="canhgiua">Trạng thái</th>
+              <%  if(trangthai != 3) { %>
+              <th class="canhgiua">Danh sách học viên</th>
+              <% } %>
+
+             
+
+
             </tr>
           </thead>
           <tbody>
@@ -42,35 +62,44 @@
             <% data.forEach(dulieu => { %>
             <% stt++ %>
             <tr>
-              <td><%= stt %></td>
-              <td><%= dulieu.tenlophoc %></td>
-              <td><%= dulieu.hoten %></td>
-              <td><%= dulieu.soluonghocvien %></td>
-              <td><%=  date('{mm}/{dd}/{yyyy}', dulieu.thoigianbatdau)  %></td>
-              <td><%=  dulieu.thoigianhoc  %></td>
-              <td><%=  dulieu.thoiluonghoc  %></td>
-              <td><%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
-              <td><%= dulieu.dieukienhoc %></td>
+              <td class="canhgiua"><%= stt %></td>
+              <td class="canhgiua"><%= dulieu.tenlophoc %></td>
+              <td class="canhgiua"><%= dulieu.hoten %></td>
+              <td class="canhgiua"><%= dulieu.soluonghocvien %></td>
+              <td class="canhgiua"><%=  date('{dd}/{mm}/{yyyy}', dulieu.thoigianbatdau)  %></td>
+              <td class="canhgiua"><%=  dulieu.thoigianhoc  %></td>
+              <td class="canhgiua"><%=  dulieu.thoiluonghoc  %> Tháng</td>
+              <td class="canhgiua"> <%= String(dulieu.phidichvu).replace(/(.)(?=(\d{3})+$)/g,'$1,') %></td>
+              <td class="canhgiua"><%= dulieu.dieukienhoc %></td>
+              <td class="canhgiua"><%= dulieu.tenphonghoc %></td>
               <% if(dulieu.trangthai == 1) { %>
-              <td> Sắp khai giảng </td>
+              <td class="canhgiua">  <span class="badge badge-pill badge-success"> Sắp khai giảng </span></td>
               <% }  %>
               <%  if(dulieu.trangthai == 0) { %>
-              <td> Đã hoàn thành </td>
+              <td class="canhgiua"> <span class="badge badge-pill badge-primary">  Đã hoàn thành </span></td>
               <% } %>
               <%  if(dulieu.trangthai == 2) { %>
-              <td> Đang học </td>
+              <td class="canhgiua">  <span class="badge badge-pill badge-info"> Đang học </span></td>
               <% } %>
-              <td> <a class="nav-link" href="/taikhoan/hocvien/<%= dulieu.id %>">
-                  <span>Xem học viên</span></a> </td>
-
+              <%  if(dulieu.trangthai == 3) { %>
+              <td class="canhgiua"> <span class="badge badge-pill badge-warning"> Đang chờ  </span></td>
+              <% } %>
+              <%  if(trangthai != 3) { %>
+              <td class="canhgiua"> <a class="nav-link" href="/taikhoan/hocvien/<%= dulieu.id %>">
+                  <i class="far fa-eye"></i> </a>
+              </td>
+              <% } %>
+            
             </tr>
-
             <%}); %>
-
           </tbody>
         </table>
+
       </div>
     </div>
   </div>
 </div>
+
+
+
 <%- include ('./footerOut.ejs') -%>

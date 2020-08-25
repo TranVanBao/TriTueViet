@@ -8,7 +8,7 @@ var dangkyService = require("../services/dangkyService")
 var phongHocService = require("../services/phongHocService")
 var excel = require("../../helpers/excel")
 var importExcel = require("../../helpers/readExcel")
-
+var mail = require("../../helpers/nodemailer")
 
 // trang thai 0 hoàn thành , 1 sáp khai giảng , 2 đang học , 3 đang chờ
 class lophocController {
@@ -140,22 +140,64 @@ class lophocController {
     }
   }
 
-  static async update(req, res) {
-    const thoigianbatdau = req.body.thoigianbatdau
-    const altered = {...req.body,thoigianbatdau };    
+  static async update(req, res) {     
+    const thoigianbatdau = req.body.thoigianbatdau; 
+    const soluonghocvien = req.body.soluonghocvien  ;   
+    const trangthai = req.body.trangthai  ;
+    const ttcu = req.body.ttcu  ;
     const  id  = req.params.id; 
-    try {      
-      const update = await lopHocService.Update(id, altered);  console.log(update);   
+    if(ttcu == 1 && trangthai == 2)  {
+           //  gui mail cho hoc vien dang ky
+     const lophoc = await lopHocService.getByID(id); 
+     const sinhvien = await dangkyService.getByIDLop(id);  
+     const html = `<b>Xin Thông Báo Lớp Học Bạn Đăng Ký Đã Khai Giảng </b> ,
+     <br/>
+     Trung tâm xin thông báo bạn đăng kí lớp:   <b>`+lophoc[0].tenlophoc+`</b> <br/>
+     Thời gian học: <b> `+lophoc[0].thoigianhoc+` </b><br/>
+     Phí dịch vụ:   <b>`+lophoc[0].phidichvu+`</b> <br/>
+     Thời lượng học:   <b>`+lophoc[0].thoiluonghoc+`</b> <br/>
+     Ngày bắt đầu học:   <b>`+dates('{dd}/{mm}/{yyyy}', lophoc[0].thoigianbatdau)+`</b><br/>
+     Địa điểm học: 38 Nguyễn Lâm, phường 6, quận 10, tp HCM  <br/>
+     <p class="MsoNormal" style="margin:0in 0in 8pt;line-height:13.91px"><font face="tahoma, sans-serif" size="4" color="#ff0000">*** Vì đây là khóa học ngắn hạn nên trung tâm không chấp nhận hoàn trả học phí vì bất kì lý do gì.</font></p>
+     <br/>
+     <p class="MsoNormal" style="margin:0in 0in 8pt;color:rgb(80,0,80);line-height:13.91px"><font face="tahoma, sans-serif" size="4" color="#ff0000">Chú ý:</font><font face="tahoma, sans-serif" size="4" color="#000000">&nbsp;Nay lớp đã tới thời gian học mong bạn sẽ đến trung tâm học đầy đủ để không bị mất bài ảnh hưởng đến quá trình học.</font></p> <br/>
+     Cám ơn bạn đã quan tâm các khóa học tại trung tâm <b>Trí Tuệ Việt</b> <br/>
+   Thanks & Best Regards!  <br/>
+   <font size="4" face="georgia, serif" color="#000000"><b>Trung Tâm Đào Tạo Tin Học Trí Tuệ Việt</b></font>  <br/>
+   <font size="4" color="#000000" face="arial narrow, sans-serif"><b>38 Nguyễn Lâm, phường 6, quận 10, tp HCM</b></font> <br/>
+   Website: <a href="http://localhost:3000/">http://localhost:3000/</a><br/>
+   Email:tranvanbaocntt1@gmail.com            
+     <br/><br/>
+     Chúc bạn một ngày tốt lành.` 
+     sinhvien.forEach(dl => { 
+      mail(dl.email,dl.tenkhachhang, html); 
+     });
+    
+
+ // ket thuc phan gui mai
+    }
+    const id_phong = req.body.id_phonghoc
+    const altered = {...req.body,thoigianbatdau };    
+    const phonghoc = await phongHocService.getByID(id_phong); 
+   
+    try {    
+      if(phonghoc[0].soluongnguoi < soluonghocvien ){
+        res.redirect(`/admin/lophoc/dem/`+trangthai+`?kq=0&mes=Số lượng học viên vượt quá mức phòng !`)        
+      }else {  
+      const update = await lopHocService.Update(id, altered);  
       if (update == null ) {
-        res.redirect("/admin/lophoc?kq=0&mes=Cập nhật không thành công !!!");
+        res.redirect(`/admin/lophoc/dem/`+trangthai+`?kq=0&mes=Cập nhật không thành công !!!`);
       } else {       
-        res.redirect("/admin/lophoc?kq=1&mes=Thành công !");
+        res.redirect(`/admin/lophoc/dem/`+trangthai+`?kq=1&mes=Thành công !`);
       }
-      return;
+    }      
     } catch (error) {
       return error;
     }
   }
+
+ 
+
 
   static async getAllhocvien(req, res) {
     if (req.session.user && (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên")) {
@@ -165,7 +207,7 @@ class lophocController {
         const data = await dangkyService.getByIDLop(id);
          
 
-        const lophoc = await lopHocService.getByID(id); console.log(lophoc[0].trangthai);
+        const lophoc = await lopHocService.getByID(id); 
         if (data.length > 0) {
           res.render("../views/admin/dangky/listdangky.ejs", {
             data, user,
@@ -210,13 +252,16 @@ class lophocController {
     if (req.session.user.quyenhang == "Admin" || req.session.user.quyenhang == "Nhân Viên") {
       try {        
         if(req.file){     
-        var namefile =   req.file.originalname        
+        var namefile =   req.file.originalname      
+        let diem = 0  
         var data = await importExcel(namefile) 
         const  id  = req.params.id;             
         for (let index = 1; index < data.length; index++) {
           const element = data[index];  
           const email = element.__EMPTY_2
-          const diem = element.__EMPTY_3         
+          if(element.__EMPTY_3){
+            diem = element.__EMPTY_3   
+           }          
           const  updateDiem = await  dangkyService.UpdateDiem(email,id,diem) 
                    
         }     

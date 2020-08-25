@@ -16,6 +16,26 @@ class lophocService {
       throw error;
     }
   }
+  //  lay theo giang vien out site
+  static async getGVOut(trangthai,id_tk) {
+    try {
+      let lophoc = await database.khoahoc.sequelize.query(
+        `Select giangviens.hoten , lophocs.* , phonghocs.tenphonghoc ,phonghocs.id as id_phong
+        from public.lophocs,public.phonghocs, public.giangviens , public.taikhoans
+        where giangviens.id = lophocs.id_giangvien and phonghocs.id = lophocs.id_phonghoc and taikhoans.id = giangviens.id_tk
+		 and lophocs.trangthai=` +
+     trangthai +
+     ` and giangviens.id_tk = ` +
+     id_tk +
+     `
+        ORDER BY id DESC`
+      );
+      return lophoc;
+    } catch (error) {
+      throw error;
+    }
+  }
+  //  === end lay theo giang vien
   static async getsapmo() {
     try {
       return await database.lophoc.findAll({
@@ -156,11 +176,11 @@ class lophocService {
   }
 
   // đếm tổng số lớp học
-  static async countLop(nam) {
+  static async countLop(nam,nam1) {
     try {console.log(nam);
       let dem = await database.lophoc.sequelize.query(
         `SELECT COUNT(id)  FROM public.lophocs
-        WHERE lophocs.trangthai !=3  and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')` 
+        WHERE lophocs.trangthai !=3  and (lophocs.thoigianbatdau between '`+nam+`' and '`+nam1+`')` 
       );
       return dem;
     } catch (error) {
@@ -168,12 +188,12 @@ class lophocService {
     }
   }
   // đếm tổng của từng lớp
-  static async countTungLop(nam) {
+  static async countTungLop(nam,nam1) {
     try {
       return await  database.lophoc.sequelize.query(
         `SELECT lophocs.tenlophoc , COUNT(id) AS dem
         FROM  public.lophocs 
-             WHERE lophocs.trangthai !=3  and (lophocs.thoigianbatdau between '1/1/`+nam+`' and '31/12/`+nam+`')
+             WHERE lophocs.trangthai !=3  and (lophocs.thoigianbatdau between '`+nam+`' and '`+nam1+`')
         GROUP BY  lophocs.tenlophoc`
       );
      

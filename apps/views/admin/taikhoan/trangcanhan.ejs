@@ -22,13 +22,19 @@
         <div class="form-group row">
           <label class="col-md-3 control-label" for="basic-url">
             <div class="file-field">
-              <div class="z-depth-1-half mb-4">
-                <img class="img-thumbnail" style="width: 100%;height: 300px;" id="blah"
-                  src="../../../../uploadimg/<%= data.hinhanh%>" alt="" />                
-                <div class="input-group">
-                  <input type="file" name="hinhanh" id="imgInp" style="margin:5px 20px"
-                    value="<%= data.hinhanh%>">
-                </div>
+              <div class="z-depth-1-half mb-4">                               
+               
+                <% if(data.hinhanh == null || data.hinhanh == '' || data.hinhanh == undefined) { %> 
+                  <img class="img-responsive img-fullwidth" style="width: 229px;"
+                      src="../../../../images/hinh_macdinh/avatadefault.png" alt=""> 
+                  <% } else { %> 
+                    <img class="img-thumbnail" style="width: 100%;height: 300px;" id="blah"
+                    src="../../../../uploadimg/<%= data.hinhanh%>" alt="" />                               
+                  <% } %>
+                  <div class="input-group">
+                    <input type="file" name="hinhanh" id="imgInp" style="margin:5px 20px"
+                      value="<%= data.hinhanh%>">
+                  </div>
               </div>
             </div>
           </label>

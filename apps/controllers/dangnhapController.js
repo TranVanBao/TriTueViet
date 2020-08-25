@@ -3,6 +3,7 @@ var fetch = require("node-fetch")
 var randomstring = require("randomstring")
 
 var dangnhapService = require("../services/dangnhapService")
+var phanquyenService = require("../services/phanquyenService")
 var mail = require("../../helpers/nodemailer")
 
 class dangnhapController {
@@ -140,38 +141,44 @@ class dangnhapController {
     const { email, matkhau } = req.body;
     try {
       var d = new Date();
-      var nam = d.getFullYear();
-      const thetk = await dangnhapService.getBylogin(email.toLowerCase());
+      var nam = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); console.log(nam);
+      const thetk = await dangnhapService.getBylogin(email.toLowerCase());       
       let user = thetk[0];
       if (thetk == 0) {
         res.redirect("/?kq=0&mes=Email không hợp lệ hoặc chưa được kích hoạt !!!");
       } else {
-        switch (thetk[0].trangthai) {
-          case 1:
-            if (bcrypt.compareSync(matkhau, thetk[0].matkhau)) {
-              req.session.user = user;
-              switch (user.quyenhang) {
-                case "Admin":
-                  req.session.user = user;
-                  res.redirect(`/admin/index/`+nam+`?kq=1&mes=Đăng nhập thành công.`);                 
-                  break;
-                case "Nhân Viên":
-                  req.session.user = user;
-                  res.redirect(`/admin/index/`+nam+`?kq=1&mes=Nhân viên.`);
-                  break;
-                default:
-                  req.session.user = user;
-                  res.redirect("/?kq=1&mes=Đăng nhập thành công.");
+        const qhang = await phanquyenService.gethoatdong(thetk[0].quyenhang);
+      if(qhang[0].length <= 0){        
+        res.redirect("/?kq=0&mes=Hệ thống đang bảo trì !!!");
+      }else{      
+          switch (thetk[0].trangthai) {
+            case 1:
+              if (bcrypt.compareSync(matkhau, thetk[0].matkhau)) {
+                req.session.user = user;
+                switch (user.quyenhang) {
+                  case "Admin":
+                    req.session.user = user;
+                    res.redirect(`/admin/index/`+nam+`?kq=1&mes=Đăng nhập thành công.`);                 
+                    break;
+                  case "Nhân Viên":
+                    req.session.user = user;
+                    res.redirect(`/admin/index/`+nam+`?kq=1&mes=Nhân viên.`);
+                    break;
+                  default:
+                    req.session.user = user;
+                    res.redirect("/?kq=1&mes=Đăng nhập thành công.");
+                }
+              }else{
+                res.redirect("/?kq=0&mes=Mật khẩu không đúng !");
               }
-            }else{
-              res.redirect("/?kq=0&mes=Mật khẩu không đúng !");
-            }
-            break;
-          default:
-            res.redirect("/?kq=0&mes=Tài khoản của bạn đã bị vô hiệu hóa!!!");
+              break;
+            default:
+              res.redirect("/?kq=0&mes=Tài khoản của bạn đã bị vô hiệu hóa!!!");
+          }
         }
+        return error;
       }
-      return error;
+
     } catch (error) {
       return error;
     }
